@@ -13,7 +13,7 @@ window.PAGE = { id: 'scorecard', title: 'Scorecard', hood: [
   { what: 'Calls → exams → shows → starts', how: 'Counts per office per day, pulled nightly from Cloud 9 and OrthoAI by the night shift job. Counts only. No patient record exists in TW Ops.', svc: ['job','ext','db'] },
   { what: '% to benchmark, scaled to office size', how: 'Each office is compared to its own yearly average, scaled by chairs or team size, so Selma is not judged against Montgomery. The formula lives in one place and every screen uses it.', svc: ['db'] },
   { what: 'Who sees what', how: 'Owners and Savannah see every office in detail. An office lead sees their own office in detail and every office\'s progress to benchmark. The database returns only what the role allows.', svc: ['auth','db'] },
-  { what: 'Where TC conversion comes from later', how: 'When the clinical tools are on the foundation (Plan A: month 1; Plan B: after the upgrade), conversion rates by treatment coordinator arrive here as numbers from the same database, with no export.', svc: ['db'] }
+  { what: 'Where TC conversion comes from later', how: 'When the clinical tools are on the foundation (month 1 in either plan), conversion rates by treatment coordinator arrive here as numbers from the same database, with no export.', svc: ['db'] }
 ]};
 </script>
 <div class="wrap">
