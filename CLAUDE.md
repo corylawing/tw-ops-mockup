@@ -26,7 +26,8 @@ the first patient-data app needs it).
 Google Workspace sign-in (2-step) → apps (TW Ops, Clinical Tools, future) → one foundation:
 Postgres database with row-level security for the 5 roles, file vault (Drive + private storage),
 night shift scheduled jobs (Cloud 9, OrthoAI, ADP, Dentira nightly; escalation), mailroom (Gmail 6:30 AM
-briefs, Slack nudges), AI desk (Claude API server-side), key safe, audit log + backups, GitHub.
+briefs, Slack nudges), AI desk (Claude API server-side), key safe, audit log + backups, test copy (staging),
+watchdog (monitoring), GitHub. Plan A = "true HIPAA compliance path"; Plan B = same protection, standard tiers.
 Vendors named in the plans: Vercel (app host) + Supabase (database/files), both sign BAAs on self-serve
 plans; Google Cloud is the acknowledged alternative.
 
