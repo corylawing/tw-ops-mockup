@@ -41,10 +41,10 @@
   // 1. Mockup banner
   var banner = document.createElement('div');
   banner.className = 'mock';
-  banner.innerHTML = '<div class="in"><b>MOCKUP</b><span>Sample data. Every name and number is invented.</span>' +
-    '<span>The look and feel is a placeholder and is <strong>fully adjustable</strong>. What we are deciding is the foundation underneath.</span>' +
-    '<a href="how-it-works.html">How the infrastructure works →</a>' +
-    '<a href="' + PLANS_URL + '" target="_blank" rel="noopener">Plan A / Plan B (Cory recommends B) →</a></div>';
+  banner.innerHTML = '<div class="in"><b>MOCKUP</b><span>Sample data, invented names.</span><span class="sep">·</span>' +
+    '<span>Look and feel is a placeholder. The foundation underneath is the decision.</span><span class="sep">·</span>' +
+    '<a href="how-it-works.html">How it works →</a><span class="sep">·</span>' +
+    '<a href="' + PLANS_URL + '" target="_blank" rel="noopener">Plan A / Plan B →</a></div>';
   document.body.insertBefore(banner, document.body.firstChild);
 
   // 2. App shell: sidebar with hubs + "View as", main holds the page
@@ -61,7 +61,7 @@
   side.innerHTML = '<a class="brand" href="index.html"><span class="mark">TW</span><span><b>TW Ops</b><small>TW Orthodontics</small></span></a>' +
     '<nav class="hubs" aria-label="Hubs">' + navHtml + '</nav>' +
     '<div class="who"><span class="g" title="In the real build this is a Google Workspace sign-in. Only @twortho.com accounts can get in."><i></i>' + me.email + '</span>' +
-    '<label>View as <select id="roleSel">' + opts + '</select></label></div>';
+    '<label>Try another role <select id="roleSel">' + opts + '</select></label></div>';
   var shell = document.createElement('div'); shell.className = 'shell';
   var main = document.createElement('main');
   var wrapEl = document.querySelector('.wrap');
@@ -87,7 +87,7 @@
   var back = document.createElement('div'); back.className = 'backdrop';
   var dr = document.createElement('aside'); dr.className = 'drawer'; dr.setAttribute('aria-label', 'How this screen works underneath');
   dr.innerHTML = '<header><h2>Under the hood · ' + (page.title || '') + '</h2><button class="x" id="uthClose">Close</button></header>' +
-    '<div class="note">This screen is a mockup. Each numbered circle on the page points to one line below: which part of the foundation does the work, and what happens in the real build. See <a href="how-it-works.html">How it works</a> for the full picture.</div>' +
+    '<div class="note">Each numbered circle on the screen matches a line below: what the foundation does there in the real build. Full picture: <a href="how-it-works.html">How it works</a>.</div>' +
     hood.map(function (h, i) {
       return '<div class="hood" id="hood' + i + '"><div class="what"><span class="num">' + (i + 1) + '</span>' + h.what + '</div><div class="how">' + h.how + '</div>' +
         '<div class="svc">' + (h.svc || []).map(function (s) { return '<span class="' + s + '">' + SVC[s] + '</span>'; }).join('') + '</div></div>';
@@ -110,6 +110,18 @@
     b.title = 'How this works underneath';
     b.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); open(i); });
   });
+
+  // 3b. Inert controls explain themselves instead of doing nothing
+  var toast = document.createElement('div'); toast.className = 'toast'; document.body.appendChild(toast); var tt;
+  function say(msg) { toast.textContent = msg; toast.classList.add('show'); clearTimeout(tt); tt = setTimeout(function () { toast.classList.remove('show'); }, 2600); }
+  Array.prototype.forEach.call(document.querySelectorAll('a[href="#"]'), function (a) {
+    a.addEventListener('click', function (e) {
+      e.preventDefault();
+      var label = a.textContent.replace(/\s*\d+\s*$/, '').replace('▾', '').trim();
+      say('Mockup: "' + label + '" would open here in the real build.');
+    });
+  });
+  window.TWsay = say;
 
   // 4. Footer
   var ft = document.createElement('footer'); ft.className = 'ft';
