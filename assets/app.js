@@ -50,7 +50,7 @@
   top.innerHTML = '<a class="brand" href="index.html"><span class="mark">TW</span>TW Ops <small>TW Orthodontics</small></a>' +
     '<div class="search" role="search">' + I.search + '<span>Search people, tasks, offices…</span><kbd>/</kbd></div>' +
     '<div class="right"><span class="mockpill" title="Sample data. Invented names and numbers. Look and feel is a placeholder."><i></i>Mockup · sample data</span>' +
-    '<button class="explain" id="explainBtn" type="button" title="Show how each part works in the real build"><span class="sw"></span><span class="t">Explain the build</span></button>' +
+    '<button class="explain-btn" id="explainBtn" type="button" title="Show how each part works in the real build"><span class="sw"></span><span class="t">Explain the build</span></button>' +
     '<button class="ibtn" type="button" title="Notifications">' + I.bell + '<span class="dot"></span></button>' +
     '<div class="me"><select id="roleSel" title="Viewing as">' + opts + '</select><span class="avatar" title="' + me.email + '">' + me.ini + '</span></div></div>';
   document.body.insertBefore(top, document.body.firstChild);
