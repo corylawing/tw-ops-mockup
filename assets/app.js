@@ -47,21 +47,27 @@
     '<a href="' + PLANS_URL + '" target="_blank" rel="noopener">Plan A / Plan B (Cory recommends B) →</a></div>';
   document.body.insertBefore(banner, document.body.firstChild);
 
-  // 2. Header with hubs + "View as"
-  var head = document.createElement('header');
-  head.className = 'top';
-  var navHtml = NAV.map(function (n) {
+  // 2. App shell: sidebar with hubs + "View as", main holds the page
+  var ICON = { command:'CC', huddle:'OD', people:'PE', compliance:'CO', scorecard:'SC', operations:'OP', owners:'OW', calendar:'CA', brief:'AM', how:'?' };
+  var navHtml = '<div class="sec">Hubs</div>' + NAV.map(function (n) {
     var a = n.access[role];
-    var cls = (n.id === page.id ? 'on' : '') + (a ? '' : ' locked');
+    var cls = (n.id === page.id ? 'on' : '') + (a ? '' : ' locked') + (n.id === 'how' ? ' how' : '');
     var title = a ? (a === 'own' ? 'Own office only' : a === 'view' ? 'View only' : a === 'self' ? 'Own items only' : 'Full access') : 'Hidden for this role';
-    return '<a class="' + cls + '" href="' + n.href + '" title="' + title + '">' + n.label + '</a>';
+    var pre = n.id === 'calendar' ? '<div class="sec">Shared</div>' : '';
+    return pre + '<a class="' + cls + '" href="' + n.href + '" title="' + title + '"><i>' + ICON[n.id] + '</i>' + n.label.replace(' \u2699','') + '</a>';
   }).join('');
   var opts = Object.keys(ROLES).map(function (k) { return '<option value="' + k + '"' + (k === role ? ' selected' : '') + '>' + ROLES[k].name + '</option>'; }).join('');
-  head.innerHTML = '<div class="in"><a class="brand" href="index.html">TW Ops<small>TW Orthodontics</small></a>' +
+  var side = document.createElement('aside'); side.className = 'side';
+  side.innerHTML = '<a class="brand" href="index.html"><span class="mark">TW</span><span><b>TW Ops</b><small>TW Orthodontics</small></span></a>' +
     '<nav class="hubs" aria-label="Hubs">' + navHtml + '</nav>' +
-    '<div class="who"><span class="g" title="In the real build this is a Google Workspace sign-in. Only @twortho.com accounts can get in.">G · ' + me.email + '</span>' +
-    '<label>View as <select id="roleSel">' + opts + '</select></label></div></div>';
-  document.body.insertBefore(head, banner.nextSibling);
+    '<div class="who"><span class="g" title="In the real build this is a Google Workspace sign-in. Only @twortho.com accounts can get in."><i></i>' + me.email + '</span>' +
+    '<label>View as <select id="roleSel">' + opts + '</select></label></div>';
+  var shell = document.createElement('div'); shell.className = 'shell';
+  var main = document.createElement('main');
+  var wrapEl = document.querySelector('.wrap');
+  shell.appendChild(side); shell.appendChild(main);
+  document.body.insertBefore(shell, banner.nextSibling);
+  if (wrapEl) main.appendChild(wrapEl);
   document.getElementById('roleSel').addEventListener('change', function (e) { setRole(e.target.value); });
 
   // Pages the role may not open show a locked notice instead of content.
@@ -109,7 +115,7 @@
   var ft = document.createElement('footer'); ft.className = 'ft';
   ft.innerHTML = 'TW Ops mockup · built October 2026 by Cory Lawing from the TW Ops Hub map · sample data · ' +
     '<a href="how-it-works.html">How it works</a> · <a href="' + PLANS_URL + '" target="_blank" rel="noopener">Foundation plans</a>';
-  document.body.appendChild(ft);
+  main.appendChild(ft);
 
   // Checkbox demo: ticking shows who signed and when (what the real build writes to the database).
   Array.prototype.forEach.call(document.querySelectorAll('.chk input[type=checkbox]'), function (c) {
