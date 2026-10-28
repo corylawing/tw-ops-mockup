@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TW Ops · How it works underneath (mockup)</title>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<style>.hiw h2{margin-top:34px;padding-top:16px;border-top:2px solid var(--fg);font-size:22px}.plans{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}@media(max-width:700px){.plans{grid-template-columns:1fr}}.plan{background:#fff;border:1px solid var(--line);border-radius:10px;padding:16px}.plan.a{border-top:6px solid var(--teal)}.plan.b{border-top:6px solid var(--amber)}.big{font-size:26px;font-weight:800}.traffic{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}@media(max-width:700px){.traffic{grid-template-columns:1fr}}.traffic div{border-radius:8px;padding:12px 14px;font-size:14px}.traffic b{display:block;font-size:16px;margin-bottom:4px}</style>
+</head>
+<body>
+<script>
+window.PAGE = { id: 'how', title: 'How it works', hood: [
+  { what: 'This page', how: 'Everything on this page is the same in Plan A and Plan B. The plans differ only in vendor tiers, signed agreements and whether patient information may enter. The screens in this mockup are drawings of what the foundation will show; every colour, font, label and layout is adjustable.', svc: ['auth','db','vault','job','mail','ai'] }
+]};
+</script>
+<div class="wrap hiw">
+  <div class="pagehead"><div><div class="lbl">How it works underneath</div><h1>The screens are a drawing. The foundation is the decision.</h1></div></div>
+  <div class="card" style="border-left:5px solid #e6c84a;background:#fffbe8">
+    <p style="margin:0"><b>About this mockup.</b> The pages you clicked through are a picture of what TW Ops will show, built from the TW Ops Hub map. The colours, fonts, wording, hub names and layouts are placeholders and will be changed with Savannah and the office leads. The sample numbers and names are invented. What this page explains is the part that is not a placeholder: how the real system will work under those screens, and why that matters for every app TW builds after this one.</p>
+  </div>
+
+  <h2>One foundation, every app on top</h2>
+  <p class="prose">Today each tool is its own building: BambooHR, Basecamp, Slack, the clinical tools on Render, the huddle library on Netlify. The plan is one foundation that holds everything every app needs and nobody wants to build twice. TW Ops is the first app on it. Dr. Turner's clinical tools are the second. The treatment-coordinator coaching, chair-time and call-review ideas are the third, fourth and fifth.</p>
+  <figure>
+<svg viewBox="0 0 1000 700" role="img" aria-label="Five roles sign in through one Google Workspace front door, land in TW Ops Hub, Clinical Tools or a future app, and all apps use one foundation of eight shared services, which pulls counts from Cloud 9, OrthoAI, ADP and Dentira and sends briefs through Gmail and Slack." xmlns="http://www.w3.org/2000/svg" font-family="Public Sans, Segoe UI, Helvetica, Arial, sans-serif" font-size="13" fill="#17212b" color="#17212b">
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#17212b"/></marker></defs>
+<text x="12" y="22" font-size="11" letter-spacing="1.5" opacity=".7">PEOPLE · 5 ROLES</text>
+<g stroke="#17212b" stroke-width="1.2" fill="none"><rect x="12" y="32" width="184" height="56" rx="4"/><rect x="210" y="32" width="184" height="56" rx="4"/><rect x="408" y="32" width="184" height="56" rx="4"/><rect x="606" y="32" width="184" height="56" rx="4"/><rect x="804" y="32" width="184" height="56" rx="4"/></g>
+<g font-weight="700" font-size="14"><text x="24" y="54">Owners</text><text x="222" y="54">Director of Ops</text><text x="420" y="54">Office leads</text><text x="618" y="54">Inventory coord.</text><text x="816" y="54">Team members</text></g>
+<g font-size="12" opacity=".75"><text x="24" y="74">Dr. Wood · Dr. Turner</text><text x="222" y="74">Savannah</text><text x="420" y="74">One per office</text><text x="618" y="74">Dentira, budgets</text><text x="816" y="74">Everyone else</text></g>
+<line x1="500" y1="88" x2="500" y2="118" stroke="#17212b" stroke-width="1.4" marker-end="url(#ar)"/>
+<text x="512" y="108" font-size="12" opacity=".8">sign in with their TW Google account · 2-step verification</text>
+<rect x="12" y="120" width="976" height="44" rx="22" fill="none" stroke="#17212b" stroke-width="1.6"/>
+<text x="500" y="147" text-anchor="middle" font-weight="700" font-size="14">FRONT DOOR · ops.twortho.com · Sign in with Google Workspace · nobody outside the Workspace can get in · home screen changes by role</text>
+<line x1="500" y1="164" x2="500" y2="194" stroke="#17212b" stroke-width="1.4" marker-end="url(#ar)"/>
+<text x="12" y="190" font-size="11" letter-spacing="1.5" opacity=".7">APPS · ROOMS ON THE FOUNDATION</text>
+<g stroke="#17212b" stroke-width="1.4" fill="none"><rect x="12" y="198" width="440" height="96" rx="4"/><rect x="470" y="198" width="250" height="96" rx="4"/><rect x="738" y="198" width="250" height="96" rx="4" stroke-dasharray="6 5"/></g>
+<text x="24" y="222" font-weight="700" font-size="15">TW Ops Hub  ·  app #1  (this mockup)</text>
+<text x="24" y="244" font-size="12.5">Command Center · People · Compliance</text><text x="24" y="262" font-size="12.5">Scorecard · Operations · Owner's Desk</text>
+<text x="24" y="282" font-size="12" opacity=".75">Counts only, no patient names. Replaces BambooHR and Basecamp.</text>
+<text x="482" y="222" font-weight="700" font-size="15">Clinical Tools  ·  app #2</text>
+<text x="482" y="244" font-size="12.5">Dr. Turner's build, today on Render</text><text x="482" y="262" font-size="12.5">New-patient flow, TC follow-up</text>
+<text x="482" y="282" font-size="12" opacity=".75">Holds patient information.</text>
+<text x="750" y="222" font-weight="700" font-size="15">Next app  ·  #3, #4, #5…</text>
+<text x="750" y="244" font-size="12.5">TC coaching · chair-time per patient</text><text x="750" y="262" font-size="12.5">call review · inventory bot</text>
+<text x="750" y="282" font-size="12" opacity=".75">A new folder, not a new building.</text>
+<g stroke="#17212b" stroke-width="1.4" marker-end="url(#ar)"><line x1="232" y1="294" x2="232" y2="330"/><line x1="595" y1="294" x2="595" y2="330"/><line x1="863" y1="294" x2="863" y2="330"/></g>
+<text x="500" y="318" text-anchor="middle" font-size="12" opacity=".8">every app reads and writes through the same services, with the role check applied every time</text>
+<rect x="12" y="334" width="976" height="246" rx="8" fill="none" stroke="#17212b" stroke-width="2.2"/>
+<text x="24" y="356" font-size="11" letter-spacing="1.5" font-weight="700">THE FOUNDATION · BUILT ONCE · SHARED BY EVERY APP</text>
+<g stroke="#17212b" stroke-width="1" fill="none"><rect x="24" y="368" width="228" height="92" rx="4"/><rect x="264" y="368" width="228" height="92" rx="4"/><rect x="504" y="368" width="228" height="92" rx="4"/><rect x="744" y="368" width="232" height="92" rx="4"/><rect x="24" y="472" width="228" height="92" rx="4"/><rect x="264" y="472" width="228" height="92" rx="4"/><rect x="504" y="472" width="228" height="92" rx="4"/><rect x="744" y="472" width="232" height="92" rx="4"/></g>
+<g font-weight="700" font-size="14"><text x="34" y="388">Database</text><text x="274" y="388">File vault</text><text x="514" y="388">Night shift</text><text x="754" y="388">Mailroom</text><text x="34" y="492">AI desk</text><text x="274" y="492">Key safe</text><text x="514" y="492">Black box</text><text x="754" y="492">Blueprints</text></g>
+<g font-size="12">
+<text x="34" y="407">One Postgres database.</text><text x="34" y="423">The "who sees what" table is</text><text x="34" y="439">enforced here, not in each app.</text>
+<text x="274" y="407">Google Drive for documents.</text><text x="274" y="423">Private storage for app files,</text><text x="274" y="439">encrypted, role-checked.</text>
+<text x="514" y="407">Scheduled jobs. Pull Cloud 9,</text><text x="514" y="423">OrthoAI, ADP, Dentira nightly.</text><text x="514" y="439">Escalate overdue items.</text>
+<text x="754" y="407">Sends 6:30 AM briefs by Gmail.</text><text x="754" y="423">Nudges by Slack. Alerts when</text><text x="754" y="439">something is critical.</text>
+<text x="34" y="511">Claude, called by the server,</text><text x="34" y="527">writes the briefs. Never</text><text x="34" y="543">called from a chat window.</text>
+<text x="274" y="511">API keys and passwords live</text><text x="274" y="527">here, never in code.</text>
+<text x="514" y="511">Audit log: who changed what,</text><text x="514" y="527">when. Automatic backups.</text>
+<text x="754" y="511">All code in GitHub, owned by TW,</text><text x="754" y="527">with written house rules that</text><text x="754" y="543">Claude Code follows for app #3.</text>
+</g>
+<text x="12" y="610" font-size="11" letter-spacing="1.5" opacity=".7">OUTSIDE SYSTEMS · LINKED, NEVER REBUILT</text>
+<g stroke="#17212b" stroke-width="1.2" fill="none"><rect x="12" y="620" width="150" height="56" rx="4"/><rect x="174" y="620" width="150" height="56" rx="4"/><rect x="336" y="620" width="150" height="56" rx="4"/><rect x="498" y="620" width="150" height="56" rx="4"/><rect x="660" y="620" width="170" height="56" rx="4"/><rect x="842" y="620" width="146" height="56" rx="4"/></g>
+<g font-weight="700" font-size="14"><text x="24" y="642">Cloud 9</text><text x="186" y="642">OrthoAI</text><text x="348" y="642">ADP</text><text x="510" y="642">Dentira</text><text x="672" y="642">Google Workspace</text><text x="854" y="642">Slack</text></g>
+<g font-size="12" opacity=".75"><text x="24" y="662">daily counts</text><text x="186" y="662">KPIs</text><text x="348" y="662">roster, hire dates</text><text x="510" y="662">inventory, budgets</text><text x="672" y="662">sign-in · Gmail · Drive</text><text x="854" y="662">nudges</text></g>
+<g stroke="#17212b" stroke-width="1.2" fill="none" marker-end="url(#ar)"><path d="M87 620 V596 H618 V582"/><path d="M249 620 V596"/><path d="M411 620 V596"/><path d="M573 620 V596"/></g>
+<text x="300" y="592" font-size="11.5" opacity=".8">pulled in every night · counts, rosters, inventory</text>
+<g stroke="#17212b" stroke-width="1.2" fill="none" marker-end="url(#ar)"><path d="M860 582 V600 H757 V618"/><path d="M860 600 H915 V618"/></g>
+<text x="988" y="596" text-anchor="end" font-size="11.5" opacity=".8">6:30 AM briefs · nudges</text>
+</svg>
+<figcaption>Everything inside the thick border is built once. Adding Wetumpka is one office record. Adding the next app is one new room that reuses the door, the database, the vault and the mailroom.</figcaption>
+  </figure>
+
+  <h2>What happens when someone ticks a checklist box</h2>
+  <p class="prose">The simplest thing in the mockup, followed all the way through. Every other action (approving PTO, logging a spore test, swapping a station) takes the same path.</p>
+  <figure>
+<svg viewBox="0 0 1000 250" role="img" aria-label="A tick on the Selma touch screen goes through the Google front door, which confirms the account and role; the app sends the write to the database, which applies the row rule and stores the sign-off and an audit entry; the night shift job later reads it to update the Command Center, escalate if missed, and feed the 6:30 AM brief and Slack nudge." xmlns="http://www.w3.org/2000/svg" font-family="Public Sans, Segoe UI, Helvetica, Arial, sans-serif" font-size="12.5" fill="#17212b">
+<defs><marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#17212b"/></marker></defs>
+<g stroke="#17212b" stroke-width="1.3" fill="none"><rect x="12" y="60" width="160" height="80" rx="6"/><rect x="222" y="60" width="160" height="80" rx="6"/><rect x="432" y="60" width="160" height="80" rx="6"/><rect x="642" y="60" width="160" height="80" rx="6"/><rect x="852" y="30" width="136" height="60" rx="6"/><rect x="852" y="110" width="136" height="60" rx="6"/></g>
+<g font-weight="700" font-size="14"><text x="24" y="82">Selma touch screen</text><text x="234" y="82">Front door</text><text x="444" y="82">Database</text><text x="654" y="82">Night shift</text><text x="862" y="52">Command Center</text><text x="862" y="132">Brief + Slack</text></g>
+<g font-size="12"><text x="24" y="102">"Sterilizer cycle log"</text><text x="24" y="118">ticked by [NAME]</text>
+<text x="234" y="102">Google account ok?</text><text x="234" y="118">Role: Selma station</text>
+<text x="444" y="102">Row rule: Selma only</text><text x="444" y="118">Saves sign-off + audit</text>
+<text x="654" y="102">Reads at 15-min ticks</text><text x="654" y="118">and at 6:30 AM</text>
+<text x="862" y="72">12 / 12 · On track</text><text x="862" y="152">or escalation if missed</text></g>
+<g stroke="#17212b" stroke-width="1.4" marker-end="url(#ar2)"><line x1="172" y1="100" x2="220" y2="100"/><line x1="382" y1="100" x2="430" y2="100"/><line x1="592" y1="100" x2="640" y2="100"/><path d="M802 90 H827 V60 H850"/><path d="M802 110 H827 V140 H850"/></g>
+<g font-size="11" opacity=".8"><text x="196" y="92" text-anchor="middle">tick</text><text x="406" y="92" text-anchor="middle">write</text><text x="616" y="92" text-anchor="middle">read</text></g>
+<text x="12" y="200" font-size="12">Encrypted on every hop (TLS) and at rest in the database. An Enterprise account trying the same write for a Selma item gets nothing: the database refuses it, not the screen.</text>
+<text x="12" y="222" font-size="12">Every step is the same in Plan A and Plan B. Only the vendor tiers and signed agreements differ.</text>
+</svg>
+<figcaption>Checklists, PTO, logs, swaps and incident reports all travel this path. The role check happens in the database, so no app can skip it.</figcaption>
+  </figure>
+
+  <h2>Which parts of the foundation each hub uses</h2>
+  <div class="scroll"><table>
+    <tr><th>Hub</th><th>Database</th><th>File vault</th><th>Night shift</th><th>Mailroom</th><th>AI desk</th><th>Outside systems</th></tr>
+    <tr><td><b>Command Center</b></td><td>checklists, tasks, offices</td><td>—</td><td>overdue + escalation every 15 min</td><td>nudges</td><td>—</td><td>Cloud 9 / OrthoAI counts</td></tr>
+    <tr><td><b>People</b></td><td>records, PTO, training</td><td>employee documents</td><td>ADP roster nightly, expirations</td><td>approvals</td><td>—</td><td>ADP (pay stays there)</td></tr>
+    <tr><td><b>Compliance</b></td><td>logs, incidents, BAAs</td><td>certificates, proof</td><td>renewal reminders</td><td>incident alert</td><td>—</td><td>—</td></tr>
+    <tr><td><b>Scorecard</b></td><td>daily counts per office</td><td>—</td><td>Cloud 9 / OrthoAI nightly</td><td>—</td><td>—</td><td>Cloud 9, OrthoAI</td></tr>
+    <tr><td><b>Operations</b></td><td>equipment, vendors, issues</td><td>service records</td><td>Dentira nightly</td><td>issue alerts</td><td>—</td><td>Dentira</td></tr>
+    <tr><td><b>Owner's Desk</b></td><td>P&amp;L, contracts, launches</td><td>leases, contracts</td><td>launch task dates</td><td>owner brief</td><td>—</td><td>accounting (to decide)</td></tr>
+    <tr><td><b>Practice Calendar</b></td><td>events, checklists</td><td>proof uploads</td><td>60/30/7 reminders</td><td>reminders</td><td>—</td><td>—</td></tr>
+    <tr><td><b>6:30 AM brief</b></td><td>reads everything above</td><td>—</td><td>runs at 6:30</td><td>Gmail</td><td>"Needs you today" sentences</td><td>—</td></tr>
+  </table></div>
+
+  <h2>What is kept out, on purpose</h2>
+  <div class="traffic">
+    <div style="background:var(--green-soft)"><b>Green · operational</b>Counts, checklists, tasks, schedules, calendar, inventory, budgets. Lives on the foundation. May go to Slack and email. May be summarized by the AI desk.</div>
+    <div style="background:var(--amber-soft)"><b>Yellow · confidential staff data</b>Employee files, I-9s, certifications, reviews, incident reports, contracts, P&amp;L. On the foundation, encrypted, role-restricted, logged. Never in Slack. Pay stays in ADP.</div>
+    <div style="background:var(--red-soft)"><b>Red · patient information</b>Anything identifying a patient. Not in TW Ops at all. Plan A: allowed on the foundation for the clinical tools, under signed agreements. Plan B: stays in Cloud 9 and the clinical tools until the upgrade. Never in Slack, never in a claude.ai chat.</div>
+  </div>
+
+  <h2>Plan A or Plan B</h2>
+  <p class="prose">Same foundation, same code, same encryption. The difference is vendor tiers and signed agreements. Full detail, costs, sources and the questions your own Claude is likely to raise are on the <a href="https://claude.ai/artifact/VLj8XUKVRok4G7auMnYBA9" target="_blank" rel="noopener">Foundation Plans page</a>.</p>
+  <div class="plans">
+    <div class="plan a"><div class="lbl" style="color:var(--teal)">Plan A · clinic-grade from day one</div><div class="big">≈ $1,450 / month</div><p>Every vendor under a signed Business Associate Agreement. Patient data allowed. Clinical tools move in month 1. Point-in-time restore.</p></div>
+    <div class="plan b"><div class="lbl" style="color:var(--amber)">Plan B · same house, lighter build · <b>Cory's recommendation</b></div><div class="big">≈ $60–90 / month</div><p>Same foundation, same encryption, same code. No patient data, enforced in code. Agreements and settings added the month the first patient-data app needs them. Nothing rebuilt.</p></div>
+  </div>
+
+  <h2>Why this matters for app #2, #3 and beyond</h2>
+  <ul class="prose">
+    <li><b>Login built once.</b> Dr. Turner's next app uses the same Google front door on day one.</li>
+    <li><b>Roles built once.</b> "Office leads see their own office" is a database rule every app inherits.</li>
+    <li><b>Data crosses apps.</b> TC conversion from the clinical tools reaches the Scorecard without an export.</li>
+    <li><b>Security once.</b> Encryption, backups, audit log and (in Plan A) agreements cover the foundation; a new app inherits them.</li>
+    <li><b>Claude builds the next app the right way.</b> One GitHub repository with written house rules. Claude Code reads them and follows the existing patterns.</li>
+    <li><b>You own it.</b> Every account is in TW's name. Cory is a removable collaborator.</li>
+  </ul>
+
+  <h2>Rollout</h2>
+  <ol class="steps">
+    <li><div><b>Foundation · weeks 1–3</b>Sign-in, database with the five roles, vault, key safe, audit log, backups, GitHub with house rules, first nightly Cloud 9 count import, Gmail and Slack senders.</div></li>
+    <li><div><b>Command Center + Tasks + Calendar · weeks 3–7</b>Office grid, checklists on the touch screens, escalation, the 6:30 AM briefs.</div></li>
+    <li><div><b>People + Compliance · weeks 7–11</b>BambooHR turned off.</div></li>
+    <li><div><b>Scorecard + Operations + Owner's Desk · weeks 11–16</b>Basecamp turned off. Owner brief live.</div></li>
+    <li><div><b>Clinical tools onto the foundation</b>Plan A: alongside step 2. Plan B: after the upgrade.</div></li>
+  </ol>
+</div>
+<script src="assets/app.js"></script>
+</body>
+</html>

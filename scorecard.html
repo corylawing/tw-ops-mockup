@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<title>TW Ops · Scorecard (mockup)</title>
+</head>
+<body>
+<script>
+window.PAGE = { id: 'scorecard', title: 'Scorecard', hood: [
+  { what: 'Calls → exams → shows → starts', how: 'Counts per office per day, pulled nightly from Cloud 9 and OrthoAI by the night shift job. Counts only. No patient record exists in TW Ops.', svc: ['job','ext','db'] },
+  { what: '% to benchmark, scaled to office size', how: 'Each office is compared to its own yearly average, scaled by chairs or team size, so Selma is not judged against Montgomery. The formula lives in one place and every screen uses it.', svc: ['db'] },
+  { what: 'Who sees what', how: 'Owners and Savannah see every office in detail. An office lead sees their own office in detail and every office\'s progress to benchmark. The database returns only what the role allows.', svc: ['auth','db'] },
+  { what: 'Where TC conversion comes from later', how: 'When the clinical tools are on the foundation (Plan A: month 1; Plan B: after the upgrade), conversion rates by treatment coordinator arrive here as numbers from the same database, with no export.', svc: ['db'] }
+]};
+</script>
+<div class="wrap">
+  <div class="pagehead"><div><div class="lbl">Scorecard · weekly</div><h1>Progress to benchmark · all offices <button class="uth" data-h="2"></button></h1><div class="sub">Owners · Savannah · all leads · sample data · this month</div></div></div>
+  <div class="card"><div class="scroll"><table>
+    <tr><th>Office</th><th>New-patient exams <button class="uth" data-h="0"></button></th><th>Show rate</th><th>Case starts</th><th>Observation recalls</th><th>AR aging</th><th>vs. own yearly avg <button class="uth" data-h="1"></button></th></tr>
+    <tr><td><b>Selma</b></td><td>92%</td><td>88%</td><td style="color:var(--amber)">71%</td><td style="color:var(--red)">64%</td><td>ok</td><td><span class="pill warn">Below</span></td></tr>
+    <tr><td><b>Montgomery</b></td><td>104%</td><td>91%</td><td>97%</td><td>88%</td><td>ok</td><td><span class="pill ok">On</span></td></tr>
+    <tr><td><b>Andalusia</b></td><td>98%</td><td>95%</td><td>102%</td><td>90%</td><td style="color:var(--amber)">watch</td><td><span class="pill ok">On</span></td></tr>
+    <tr><td><b>Enterprise</b></td><td style="color:var(--amber)">81%</td><td>86%</td><td style="color:var(--red)">66%</td><td>79%</td><td>ok</td><td><span class="pill bad">Below</span></td></tr>
+  </table></div><p class="small muted">Calls, exams, shows and starts from Cloud 9 / OrthoAI nightly. Observation, Phase I→II and AR aging from Cloud 9. Marketing and referral doctors tracked below. Treatment-coordinator conversion arrives once the clinical tools join the foundation <button class="uth" data-h="3"></button>.</p></div>
+</div>
+<script src="assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<title>TW Ops · Owner's Desk (mockup)</title>
+</head>
+<body>
+<script>
+window.PAGE = { id: 'owners', title: "Owner's Desk", hood: [
+  { what: 'Owners only', how: 'This hub is hidden for every other role. Switch "View as" to Savannah and the menu item disappears. In the real build that is a database rule: a non-owner account asking for these rows gets nothing back, even if someone typed the address.', svc: ['auth','db'] },
+  { what: 'P&amp;L vs. budget', how: 'Figures entered monthly or pulled from your accounting system by a nightly job (to be decided with your accountant). Supply spend comes from Dentira. Only the owner brief includes these flags.', svc: ['job','ext','db'] },
+  { what: 'New-office launch playbook', how: 'The 64-item launch checklist is a template. Launching Troy creates 64 tasks with owners and due dates from the target open date. Savannah runs launches; office leads and the inventory coordinator see only the tasks assigned to them.', svc: ['db','job','auth'] }
+]};
+</script>
+<div class="wrap">
+  <div class="pagehead"><div><div class="lbl">Owner's Desk · monthly · owners only <button class="uth" data-h="0"></button></div><h1>Owner's Desk</h1><div class="sub">Dr. Wood · Dr. Turner · sample data</div></div></div>
+  <div class="grid g3">
+    <div class="card"><h2>P&amp;L vs. budget · September <button class="uth" data-h="1"></button></h2>
+      <div class="row"><span>Selma</span><b>+[n]%</b></div><div class="row"><span>Montgomery</span><b>+[n]%</b></div><div class="row"><span>Andalusia</span><b>−[n]%</b></div><div class="row"><span>Enterprise</span><b style="color:var(--amber)">−[n]%</b></div></div>
+    <div class="card"><h2>Associate tracking</h2>
+      <div class="row"><span>Dr. [NAME] · starts this month</span><b>[n]</b></div><div class="row"><span>Chair time vs. plan</span><b class="muted">After clinical tools join the foundation</b></div><div class="row"><span>Contracts &amp; leases</span><b>3 renewals in 2027</b></div></div>
+    <div class="card"><h2>Launch playbook <button class="uth" data-h="2"></button></h2>
+      <div class="row"><span>Wetumpka</span><b>38 / 64</b></div><div class="row"><span>Dothan</span><b>12 / 64</b></div><div class="row"><span>Troy</span><b>5 / 64</b></div><p class="small muted">One template, 64 tasks per launch, dated from the target open.</p></div>
+  </div>
+</div>
+<script src="assets/app.js"></script>
+</body>
+</html>

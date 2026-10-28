@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<title>TW Ops · Operations (mockup)</title>
+</head>
+<body>
+<script>
+window.PAGE = { id: 'operations', title: 'Operations', hood: [
+  { what: 'Inventory and budgets from Dentira', how: 'Spend and budget per office are pulled from Dentira nightly. The inventory coordinator has full access, leads see their own office, owners and Savannah see the dashboard.', svc: ['job','ext','auth'] },
+  { what: 'Equipment service log', how: 'One row per machine per office with service dates. A service call creates a task with an owner and a due date, so follow-ups cannot be forgotten; the Command Center shows them when overdue.', svc: ['db','job'] },
+  { what: 'Report an issue', how: 'Any team member can report an IT, device or facility issue for their office. It becomes a task assigned to the office lead and shows in Savannah\'s brief if still open after the delay you set.', svc: ['db','mail','auth'] }
+]};
+</script>
+<div class="wrap">
+  <div class="pagehead"><div><div class="lbl">Operations · weekly</div><h1>Operations</h1><div class="sub">Inventory coordinator · leads · Savannah · sample data</div></div><div><a class="btn" href="#">Report an issue <button class="uth" data-h="2" style="margin-left:6px"></button></a></div></div>
+  <div class="grid g3">
+    <div class="card"><h2>Supply spend vs. budget · Q4 <button class="uth" data-h="0"></button></h2>
+      <div class="row"><span>Selma</span><b>$[n] · 61% of budget</b></div><div class="row"><span>Montgomery</span><b>$[n] · 74%</b></div><div class="row"><span>Andalusia</span><b>$[n] · 58%</b></div><div class="row"><span>Enterprise</span><b style="color:var(--amber)">$[n] · 89%</b></div><p class="small muted">From Dentira nightly. Q4 supply order due Oct 15.</p></div>
+    <div class="card"><h2>Equipment service <button class="uth" data-h="1"></button></h2>
+      <div class="row"><span>Sterilizer · Montgomery</span><b>Serviced Aug</b></div><div class="row"><span>Pan/ceph · Enterprise</span><b style="color:var(--red)">Follow-up 4 days overdue</b></div><div class="row"><span>Compressor · Selma</span><b>Due Nov</b></div></div>
+    <div class="card"><h2>Open issues</h2>
+      <div class="row"><span>Enterprise · front desk PC slow</span><span class="pill warn">3 days</span></div><div class="row"><span>Selma · op 3 light flickers</span><span class="pill gray">New</span></div><div class="row"><span>Andalusia · door closer</span><span class="pill ok">Vendor booked</span></div></div>
+  </div>
+</div>
+<script src="assets/app.js"></script>
+</body>
+</html>

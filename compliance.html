@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<title>TW Ops · Compliance (mockup)</title>
+</head>
+<body>
+<script>
+window.PAGE = { id: 'compliance', title: 'Compliance', hood: [
+  { what: 'Logs signed from the station', how: 'The sterilizer cycle log and spore test are checklist items on the Sterilization station. Whoever holds the station signs them on the office day screen; the row lands here with their name and the time. No separate logbook.', svc: ['db','auth'] },
+  { what: 'Yearly items with proof', how: 'OSHA training, the HIPAA risk assessment per office, X-ray registrations and vendor agreement renewals are Practice Calendar events. Proof (a certificate, a signed form) is uploaded once to the file vault and linked here.', svc: ['vault','db','job'] },
+  { what: 'Incident reports', how: 'Anyone can submit one for their own office. Savannah and owners see all. Submission notifies Savannah by Slack immediately, not at 6:30.', svc: ['db','mail','auth'] },
+  { what: 'Vendor BAAs and renewals', how: 'Every vendor that touches patient information is listed with its agreement date and renewal date, including the foundation vendors themselves. The calendar reminds 60 days out.', svc: ['db','job'] }
+]};
+</script>
+<div class="wrap">
+  <div class="pagehead"><div><div class="lbl">Compliance · monthly / yearly</div><h1>Compliance</h1><div class="sub">Compliance lead · Savannah · sample data</div></div><div><a class="btn" href="#">Submit incident report <button class="uth" data-h="2" style="margin-left:6px"></button></a></div></div>
+  <div class="grid g3">
+    <div class="card"><h2>Sterilization logs · this week <button class="uth" data-h="0"></button></h2>
+      <div class="row"><span>Selma</span><span class="pill ok">Spore test due Fri</span></div><div class="row"><span>Montgomery</span><span class="pill bad">Spore test 2 days late</span></div><div class="row"><span>Andalusia</span><span class="pill ok">Done Tue</span></div><div class="row"><span>Enterprise</span><span class="pill ok">Done Mon</span></div></div>
+    <div class="card"><h2>Yearly · with proof <button class="uth" data-h="1"></button></h2>
+      <div class="row"><span>OSHA annual training</span><b>Sep · 4/4 offices</b></div><div class="row"><span>HIPAA risk assessment</span><b>Mar · 4/4 offices</b></div><div class="row"><span>X-ray registrations</span><b style="color:var(--amber)">Montgomery renews in 60 days</b></div><div class="row"><span>Wetumpka X-ray registration</span><b>Filed · awaiting</b></div></div>
+    <div class="card"><h2>Vendor agreements (BAAs) <button class="uth" data-h="3"></button></h2>
+      <div class="row"><span>Cloud 9 (Planet DDS)</span><b>On file</b></div><div class="row"><span>OrthoAI</span><b>On file</b></div><div class="row"><span>Foundation vendors</span><b class="muted">Plan A: 4 signed · Plan B: Google only</b></div><div class="row"><span>Shredding vendor</span><b style="color:var(--amber)">Renews Jan</b></div></div>
+  </div>
+</div>
+<script src="assets/app.js"></script>
+</body>
+</html>

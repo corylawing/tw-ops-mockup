@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TW Ops · Selma office day (mockup)</title>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<script>
+window.PAGE = { id: 'huddle', title: 'Office day · Selma', hood: [
+  { what: 'Morning huddle content', how: 'Core value, PSA, icebreaker and celebrations come from a huddle content library table (moved in from Netlify) plus two live lookups: calendar reminders due this week and birthdays or anniversaries pulled from People. Same huddle on every office screen at 7:45.', svc: ['db','vault'] },
+  { what: 'Who\'s here today', how: 'The staff schedule is one table: person, office, date, AM/PM. "Visiting from Montgomery" and "PTO" are rows in that table, which is why the Command Center, this screen and the brief agree.', svc: ['db'] },
+  { what: 'Station rotation', how: 'Stations rotate weekly from a rule: only people cross-trained for a station are offered. A "Swap" writes a new assignment row and the audit log keeps the old one. Each station opens its own checklist; the sterilization log feeds Compliance automatically, signed by whoever held the station.', svc: ['db','auth'] },
+  { what: 'Opening checklist', how: 'Try ticking one. In the real build each tick is a database row with the signed-in person\'s name and the time, written through the role check (a Selma account cannot sign an Enterprise item). If the closing checklist is not complete by the cut-off, the night shift job escalates it.', svc: ['db','auth','job'] },
+  { what: 'Selma vs. benchmark', how: 'Exams, show rate, starts and recalls are counts from Cloud 9 and OrthoAI, pulled nightly, scaled to office size and compared to each office\'s own yearly average. An office lead sees their own office in detail and every office\'s progress to benchmark; owners and Savannah see all.', svc: ['job','ext','db','auth'] },
+  { what: 'Present full screen', how: 'The same page in a kiosk layout for the office touch screen. Signed in once with an office account that can only sign checklists and view the huddle.', svc: ['auth'] }
+]};
+</script>
+<div class="wrap">
+  <div class="pagehead">
+    <div><div class="lbl">Selma office · Thursday, October 15 · sample data</div><h1>Good morning, [LEAD NAME]</h1></div>
+    <div><span class="pill info">Opening checklist · 3 of 12</span> <a class="btn" href="calendar.html">Calendar</a> <a class="btn" href="#">Present full screen <button class="uth" data-h="5" style="margin-left:6px"></button></a></div>
+  </div>
+
+  <div class="card" style="background:var(--navy);color:#fff;border:0">
+    <div class="lbl" style="color:#9fc3cf;display:flex;align-items:center;gap:8px">Morning huddle · 7:45 AM · same huddle, all offices today <button class="uth" data-h="0"></button></div>
+    <h2 style="margin:4px 0 12px;font-size:22px">Start the day together</h2>
+    <div class="grid g4">
+      <div><div class="lbl" style="color:#9fc3cf">Core value</div><b>[VALUE OF THE DAY]</b><div class="small" style="opacity:.8">From the huddle library</div></div>
+      <div><div class="lbl" style="color:#9fc3cf">PSA</div><b>[TODAY'S ANNOUNCEMENT]</b><div class="small" style="opacity:.8">Plus any calendar reminder due this week</div></div>
+      <div><div class="lbl" style="color:#9fc3cf">Icebreaker</div><b>[QUESTION OF THE DAY]</b><div class="small" style="opacity:.8">Rotates through the library</div></div>
+      <div><div class="lbl" style="color:#9fc3cf">Celebrate</div><b>Birthdays &amp; work anniversaries this week</b><div class="small" style="opacity:.8">Pulled from People</div></div>
+    </div>
+  </div>
+
+  <div class="grid g2" style="margin-top:14px">
+    <div class="card">
+      <h2>Who's here today <span class="muted small" style="font-weight:400">· from the staff schedule</span> <button class="uth" data-h="1"></button></h2>
+      <div class="row"><span><b>[NAME]</b> <span class="muted small">Clinical assistant</span></span><span class="pill ok">Here</span></div>
+      <div class="row"><span><b>[NAME]</b> <span class="muted small">Clinical assistant</span></span><span class="pill ok">Here</span></div>
+      <div class="row"><span><b>[NAME]</b> <span class="muted small">Treatment coordinator</span></span><span class="pill info">Visiting from Montgomery</span></div>
+      <div class="row"><span><b>[NAME]</b> <span class="muted small">Front desk</span></span><span class="pill ok">Here</span></div>
+      <div class="row"><span><b>[NAME]</b> <span class="muted small">Lab tech · floats</span></span><span class="pill info">Here AM · Andalusia PM</span></div>
+      <div class="row"><span><b>[NAME]</b> <span class="muted small">Clinical assistant</span></span><span class="pill gray">PTO</span></div>
+      <div class="row"><span><b>Savannah</b> <span class="muted small">Director of Operations</span></span><span class="pill ok">Here 10–2</span></div>
+      <p class="small muted">Doctors: Dr. Wood (AM) · Dr. Turner at Montgomery today</p>
+    </div>
+    <div class="card">
+      <h2>Today's stations <span class="muted small" style="font-weight:400">· rotates weekly</span> <button class="uth" data-h="2"></button></h2>
+      <div class="grid g2" style="gap:10px">
+        <div class="card" style="padding:10px"><div class="lbl">Sterilization</div><b>[NAME]</b><div class="small muted">Week of Oct 12 · spore test due Fri</div><a class="btn sm" href="#">Swap</a></div>
+        <div class="card" style="padding:10px"><div class="lbl">Records</div><b>[NAME]</b><div class="small muted">Week of Oct 12</div><a class="btn sm" href="#">Swap</a></div>
+        <div class="card" style="padding:10px"><div class="lbl">Phones</div><b>[NAME]</b><div class="small muted">Week of Oct 12</div><a class="btn sm" href="#">Swap</a></div>
+        <div class="card" style="padding:10px"><div class="lbl">Lab</div><b>[NAME]</b><div class="small muted">AM only · covering from Andalusia PM</div><a class="btn sm" href="#">Swap</a></div>
+        <div class="card" style="padding:10px"><div class="lbl">Front desk</div><b>[NAME]</b><div class="small muted">Fixed role · no rotation</div></div>
+        <div class="card" style="padding:10px;border-style:dashed"><div class="lbl">Open</div><b>Unassigned</b><div class="small muted">PTO coverage needed</div><a class="btn sm" href="#">Assign</a></div>
+      </div>
+      <p class="small muted">Each station opens its own checklist. Sterilization's spore test and logs feed Compliance automatically, signed by whoever held the station.</p>
+    </div>
+  </div>
+
+  <div class="grid g2" style="margin-top:14px">
+    <div class="card">
+      <h2>Opening checklist · try it <button class="uth" data-h="3"></button></h2>
+      <ul class="chk">
+        <li><input type="checkbox" id="c1" checked><label for="c1">Unlock, lights, alarm off</label><span class="by">Signed · [NAME] · 7:31</span></li>
+        <li><input type="checkbox" id="c2" checked><label for="c2">Sterilizer cycle log</label><span class="by">Signed · [NAME] · 7:40</span></li>
+        <li><input type="checkbox" id="c3" checked><label for="c3">Operatory setup, all chairs</label><span class="by">Signed · [NAME] · 7:44</span></li>
+        <li><input type="checkbox" id="c4"><label for="c4">Confirm Q4 supply order quantities</label><span class="by">Not done</span></li>
+        <li><input type="checkbox" id="c5"><label for="c5">Fire extinguisher monthly check</label><span class="by">Not done</span></li>
+        <li><input type="checkbox" id="c6"><label for="c6">Eyewash station weekly flush</label><span class="by">Not done</span></li>
+      </ul>
+      <p class="small muted">6 more items. Anything unsigned at closing time escalates to Savannah the next morning.</p>
+    </div>
+    <div class="card">
+      <h2>Selma vs. benchmark · this month <button class="uth" data-h="4"></button></h2>
+      <div class="row"><span>New-patient exams</span><b style="color:var(--green)">92% of benchmark</b></div>
+      <div class="row"><span>Show rate</span><b style="color:var(--green)">88% of benchmark</b></div>
+      <div class="row"><span>Case starts</span><b style="color:var(--amber)">71% of benchmark</b></div>
+      <div class="row"><span>Observation recalls</span><b style="color:var(--red)">64% of benchmark</b></div>
+      <p><a href="scorecard.html">See all offices' progress to benchmark →</a></p>
+    </div>
+  </div>
+</div>
+<script src="assets/app.js"></script>
+</body>
+</html>

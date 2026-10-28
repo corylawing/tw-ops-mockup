@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<title>TW Ops · People (mockup)</title>
+</head>
+<body>
+<script>
+window.PAGE = { id: 'people', title: 'People', hood: [
+  { what: 'Employee records and documents', how: 'One person record per employee, linked to an office and a role. Documents (I-9, license, CPR card, signed handbook) are files in the private file vault, encrypted, and only visible to the roles in the "who sees what" table: Savannah and owners see all, an office lead sees their own office, a team member sees their own file. Every open and download is logged.', svc: ['db','vault','auth'] },
+  { what: 'Replaces BambooHR', how: 'Records, documents, org chart, onboarding and offboarding, PTO and coverage, reviews, training and the SOP library all live here. Pay rates and payroll stay in ADP; the roster and hire dates are pulled from ADP nightly so nothing is typed twice.', svc: ['db','job','ext'] },
+  { what: 'Certification expirations', how: 'Each card has an expiry date. A nightly job feeds the 60-day count on the Command Center, the Practice Calendar reminders and the morning brief from this one field.', svc: ['job','mail'] },
+  { what: 'PTO requests', how: 'A request is a row with a status. The office lead approves their own office; Savannah can approve anywhere. Approval updates the staff schedule, so "PTO" shows on the office day screen automatically.', svc: ['db','auth'] }
+]};
+</script>
+<div class="wrap">
+  <div class="pagehead"><div><div class="lbl">People · weekly · replaces BambooHR <button class="uth" data-h="1"></button></div><h1>People</h1><div class="sub">Savannah · office leads · sample data</div></div><div><a class="btn pri" href="#">+ New hire</a></div></div>
+  <div class="grid g4">
+    <div class="card"><div class="lbl">Team members</div><div class="kpi">47 <small>across 4 offices</small></div></div>
+    <div class="card"><div class="lbl" style="display:flex;align-items:center">Certifications expiring · 60 days <button class="uth" data-h="2"></button></div><div class="kpi">3</div></div>
+    <div class="card"><div class="lbl" style="display:flex;align-items:center">PTO requests waiting <button class="uth" data-h="3"></button></div><div class="kpi">2</div></div>
+    <div class="card"><div class="lbl">Onboarding in progress</div><div class="kpi">2 <small>Wetumpka hires</small></div></div>
+  </div>
+  <div class="grid g2" style="margin-top:14px">
+    <div class="card"><h2>Employee file · [NAME], Clinical assistant, Selma <button class="uth" data-h="0"></button></h2>
+      <div class="row"><span>Hire date</span><b>[DATE] · from ADP</b></div>
+      <div class="row"><span>CPR card</span><b style="color:var(--amber)">Expires Feb 2027</b></div>
+      <div class="row"><span>Radiology certificate</span><b>Current</b></div>
+      <div class="row"><span>I-9, handbook, confidentiality</span><b>Signed · on file</b></div>
+      <div class="row"><span>Last review</span><b>Apr 2026</b></div>
+      <div class="row"><span>Pay rate</span><b class="muted">In ADP · not shown here</b></div>
+      <p class="small muted">Documents open from the file vault. Who opened what is logged.</p></div>
+    <div class="card"><h2>Expiring soon · all offices</h2>
+      <div class="scroll"><table><tr><th>Person</th><th>Office</th><th>Card</th><th>Expires</th></tr>
+      <tr><td>[NAME]</td><td>Andalusia</td><td>CPR</td><td>Dec 2</td></tr><tr><td>[NAME]</td><td>Selma</td><td>CPR</td><td>Dec 9</td></tr><tr><td>[NAME]</td><td>Montgomery</td><td>Radiology</td><td>Dec 14</td></tr></table></div>
+      <p class="small muted">Same three people appear on the Command Center and in the morning brief. One field, three places.</p></div>
+  </div>
+</div>
+<script src="assets/app.js"></script>
+</body>
+</html>
