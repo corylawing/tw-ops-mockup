@@ -11,7 +11,7 @@ by trade; keep answers short) from the "TW Ops Hub Map" PDF the doctors sent.
 **It is a mockup.** Every page carries the yellow MOCKUP banner. Look and feel is a placeholder.
 The deliverable that matters is the foundation design: `how-it-works.html` here and the Foundation
 Plans page at https://claude.ai/artifact/VLj8XUKVRok4G7auMnYBA9 (Plan A clinic-grade ≈ $1,450/mo,
-Plan B lighter build ≈ $60–90/mo; **Cory recommends Plan B**, with formal HIPAA readiness added when
+Plan B lighter build ≈ $45–80/mo; **Cory recommends Plan B**, with formal HIPAA readiness added when
 the first patient-data app needs it).
 
 ## Rules that must survive any edit
