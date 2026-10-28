@@ -25,36 +25,36 @@ window.PAGE = { id: 'command', title: 'Command Center', hood: [
     <div><a class="btn" href="#">Office ▾</a> <a class="btn pri" href="#">+ New task</a></div>
   </div>
 
-  <div class="tip" id="tip"><b>Start here</b><span class="k"><i>1</i> Numbered circles explain what happens underneath</span><span class="k">▸ Tap an office to open its day</span><span class="k">▸ Try another role in the sidebar</span><button class="x" onclick="document.getElementById('tip').hidden=true">Got it</button></div>
+  <div class="tabs"><a class="on" href="index.html">Overview</a><a href="#">Checklists</a><a href="#">Escalations</a><a href="#">Launches</a></div>
   <div class="grid g4">
-    <div class="card"><div class="lbl" style="display:flex;align-items:center">Today's checklists <button class="uth" data-h="0"></button></div><div class="kpi">41 <small>of 56 done</small></div></div>
-    <div class="card"><div class="lbl" style="display:flex;align-items:center">Overdue <button class="uth" data-h="1"></button></div><div class="kpi" style="color:var(--red)">6 <small>tasks</small></div></div>
-    <div class="card"><div class="lbl">Due this week</div><div class="kpi">14</div></div>
-    <div class="card"><div class="lbl" style="display:flex;align-items:center">Certifications expiring · 60 days <button class="uth" data-h="2"></button></div><div class="kpi">3</div></div>
+    <div class="card"><div class="lbl" style="display:flex;align-items:center">Today's checklists <button class="uth" data-h="0"></button></div><div class="kpi">41 <small>of 56 done</small></div><div class="delta up">▲ 4 vs. yesterday</div><svg class="spark" viewBox="0 0 84 28" aria-hidden="true"><polygon points="0,28 0,20 12,18 24,21 36,14 48,16 60,10 72,9 84,6 84,28"/><polyline points="0,20 12,18 24,21 36,14 48,16 60,10 72,9 84,6"/></svg></div>
+    <div class="card"><div class="lbl" style="display:flex;align-items:center">Overdue <button class="uth" data-h="1"></button></div><div class="kpi" style="color:var(--red)">6 <small>tasks</small></div><div class="delta down">▲ 2 since Monday</div><svg class="spark" viewBox="0 0 84 28" aria-hidden="true"><polygon points="0,28 0,22 12,20 24,21 36,18 48,19 60,14 72,12 84,8 84,28"/><polyline points="0,22 12,20 24,21 36,18 48,19 60,14 72,12 84,8"/></svg></div>
+    <div class="card"><div class="lbl">Due this week</div><div class="kpi">14</div><div class="delta flat">3 due today</div><svg class="spark" viewBox="0 0 84 28" aria-hidden="true"><polyline points="0,14 12,16 24,12 36,15 48,13 60,16 72,12 84,14"/></svg></div>
+    <div class="card"><div class="lbl" style="display:flex;align-items:center">Certifications expiring · 60 days <button class="uth" data-h="2"></button></div><div class="kpi">3</div><div class="delta flat">next: Dec 2 · Andalusia</div></div>
   </div>
 
   <h2 style="margin:22px 0 10px;display:flex;align-items:center;gap:8px">Offices <span class="muted small" style="font-weight:400">· tap an office to open its day</span> <button class="uth" data-h="3"></button></h2>
   <div class="grid g4">
-    <a class="card office" href="huddle.html"><h3>Selma <span class="pill ok">On track</span></h3><div class="small muted">Lead: Kara Whitfield</div>
-      <div class="row"><span>Opening checklist</span><b>12 / 12</b></div><div class="row"><span>Yesterday closing</span><b>Done</b></div><div class="row"><span>Overdue tasks</span><b>0</b></div>
+    <a class="card office" href="huddle.html"><h3>Selma <span class="pill ok">On track</span></h3><div class="lead"><span class="av">KW</span>Kara Whitfield · Lead</div>
+      <div class="row"><span>Opening checklist</span><b>12 / 12</b></div><div class="bar "><i style="width:100%"></i></div><div class="row"><span>Yesterday closing</span><b>Done</b></div><div class="row"><span>Overdue tasks</span><b>0</b></div>
       <p class="small muted">Next: Fire extinguisher check · Oct 19</p></a>
-    <a class="card office" href="huddle.html"><h3>Montgomery <span class="pill warn">Needs attention</span></h3><div class="small muted">Lead: Devon Ashby</div>
-      <div class="row"><span>Opening checklist</span><b>9 / 12</b></div><div class="row"><span>Yesterday closing</span><b>Done</b></div><div class="row"><span>Overdue tasks</span><b style="color:var(--amber)">2</b></div>
+    <a class="card office" href="huddle.html"><h3>Montgomery <span class="pill warn">Needs attention</span></h3><div class="lead"><span class="av">DA</span>Devon Ashby · Lead</div>
+      <div class="row"><span>Opening checklist</span><b>9 / 12</b></div><div class="bar warn"><i style="width:75%"></i></div><div class="row"><span>Yesterday closing</span><b>Done</b></div><div class="row"><span>Overdue tasks</span><b style="color:var(--amber)">2</b></div>
       <p class="small muted">Next: Sterilizer spore test · Oct 16</p></a>
-    <a class="card office" href="huddle.html"><h3>Andalusia <span class="pill ok">On track</span></h3><div class="small muted">Lead: Renee Calloway</div>
-      <div class="row"><span>Opening checklist</span><b>11 / 12</b></div><div class="row"><span>Yesterday closing</span><b>Done</b></div><div class="row"><span>Overdue tasks</span><b>0</b></div>
+    <a class="card office" href="huddle.html"><h3>Andalusia <span class="pill ok">On track</span></h3><div class="lead"><span class="av">RC</span>Renee Calloway · Lead</div>
+      <div class="row"><span>Opening checklist</span><b>11 / 12</b></div><div class="bar "><i style="width:92%"></i></div><div class="row"><span>Yesterday closing</span><b>Done</b></div><div class="row"><span>Overdue tasks</span><b>0</b></div>
       <p class="small muted">Next: CPR cohort B · Oct 22</p></a>
-    <a class="card office" href="huddle.html"><h3>Enterprise <span class="pill bad">Behind</span></h3><div class="small muted">OM: Marcus Pell</div>
-      <div class="row"><span>Opening checklist</span><b>6 / 12</b></div><div class="row"><span>Yesterday closing</span><b style="color:var(--red)">Missed</b></div><div class="row"><span>Overdue tasks</span><b style="color:var(--red)">4</b></div>
+    <a class="card office" href="huddle.html"><h3>Enterprise <span class="pill bad">Behind</span></h3><div class="lead"><span class="av">MP</span>Marcus Pell · OM</div>
+      <div class="row"><span>Opening checklist</span><b>6 / 12</b></div><div class="bar bad"><i style="width:50%"></i></div><div class="row"><span>Yesterday closing</span><b style="color:var(--red)">Missed</b></div><div class="row"><span>Overdue tasks</span><b style="color:var(--red)">4</b></div>
       <p class="small muted">Next: Q4 supply order · Oct 15</p></a>
-    <a class="card office" href="huddle.html"><h3>Wetumpka <span class="pill launch">Launching</span></h3><div class="small muted">Launch lead: Savannah</div>
-      <div class="row"><span>Launch checklist</span><b>38 / 64</b></div><div class="row"><span>Hires onboarded</span><b>2 / 5</b></div><div class="row"><span>Target open</span><b>Jan 12</b></div>
+    <a class="card office" href="huddle.html"><h3>Wetumpka <span class="pill launch">Launching</span></h3><div class="lead"><span class="av">SV</span>Savannah · Launch lead</div>
+      <div class="row"><span>Launch checklist</span><b>38 / 64</b></div><div class="bar launch"><i style="width:59%"></i></div><div class="row"><span>Hires onboarded</span><b>2 / 5</b></div><div class="row"><span>Target open</span><b>Jan 12</b></div>
       <p class="small muted">Next: X-ray registration filed</p></a>
-    <a class="card office" href="huddle.html"><h3>Dothan <span class="pill launch">Launching</span></h3><div class="small muted">Launch lead: Savannah</div>
-      <div class="row"><span>Launch checklist</span><b>12 / 64</b></div><div class="row"><span>Hires onboarded</span><b>0 / 5</b></div><div class="row"><span>Target open</span><b>Mar 2</b></div>
+    <a class="card office" href="huddle.html"><h3>Dothan <span class="pill launch">Launching</span></h3><div class="lead"><span class="av">SV</span>Savannah · Launch lead</div>
+      <div class="row"><span>Launch checklist</span><b>12 / 64</b></div><div class="bar launch"><i style="width:19%"></i></div><div class="row"><span>Hires onboarded</span><b>0 / 5</b></div><div class="row"><span>Target open</span><b>Mar 2</b></div>
       <p class="small muted">Next: Lease signed</p></a>
-    <a class="card office" href="huddle.html"><h3>Troy <span class="pill launch">Launching</span></h3><div class="small muted">Launch lead: Savannah</div>
-      <div class="row"><span>Launch checklist</span><b>5 / 64</b></div><div class="row"><span>Hires onboarded</span><b>0 / 5</b></div><div class="row"><span>Target open</span><b>May 4</b></div>
+    <a class="card office" href="huddle.html"><h3>Troy <span class="pill launch">Launching</span></h3><div class="lead"><span class="av">SV</span>Savannah · Launch lead</div>
+      <div class="row"><span>Launch checklist</span><b>5 / 64</b></div><div class="bar launch"><i style="width:8%"></i></div><div class="row"><span>Hires onboarded</span><b>0 / 5</b></div><div class="row"><span>Target open</span><b>May 4</b></div>
       <p class="small muted">Next: JV docs with attorney</p></a>
     <div class="card" style="border-style:dashed;color:var(--muted)"><h3>Yesterday · all offices <button class="uth" data-h="6"></button></h3>
       <div class="row"><span>New-patient exams</span><b>23</b></div><div class="row"><span>Shows</span><b>19</b></div><div class="row"><span>Starts</span><b>11</b></div>
