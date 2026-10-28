@@ -15,7 +15,7 @@ Plan B ≈ $45–90/mo; **Cory recommends Plan B**, with formal HIPAA readiness 
 the first patient-data app needs it).
 
 ## Rules that must survive any edit
-- No real data. Names are `[NAME]`, dates `[DATE]`, counts `[n]` unless they came from the map's sample screens.
+- No real data. Staff names (Kara Whitfield, Amber Nix, etc.) and all numbers are invented; keep them obviously fictional.
 - **No patient information anywhere**, not even invented. TW Ops is counts only.
 - Every page keeps: the MOCKUP banner, the View-as role switch, and `window.PAGE.hood` entries so the
   "Under the hood" drawer explains the infrastructure for that screen. Numbered markers are

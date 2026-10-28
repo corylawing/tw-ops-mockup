@@ -5,9 +5,9 @@
   var ROLES = {
     owners: { name: 'Dr. Wood (Owner)', email: 'bwood@twortho.com', home: 'owners.html' },
     ops:    { name: 'Savannah (Director of Ops)', email: 'savannah@twortho.com', home: 'index.html' },
-    lead:   { name: '[Office lead] · Selma', email: 'selma.lead@twortho.com', home: 'huddle.html' },
-    inv:    { name: '[Inventory coordinator]', email: 'inventory@twortho.com', home: 'operations.html' },
-    team:   { name: '[Team member] · Selma', email: 'team@twortho.com', home: 'huddle.html' }
+    lead:   { name: 'Kara Whitfield (Office lead · Selma)', email: 'kara@twortho.com', home: 'huddle.html' },
+    inv:    { name: 'Tasha Greer (Inventory coord.)', email: 'tasha@twortho.com', home: 'operations.html' },
+    team:   { name: 'Jordan Lee (Team member · Selma)', email: 'jordan@twortho.com', home: 'huddle.html' }
   };
   // What each role can open. 'full' = everything, 'own' = own office only, 'view' = read-only, 'self' = own items, false = hidden.
   var NAV = [
@@ -41,7 +41,7 @@
   // 1. Mockup banner
   var banner = document.createElement('div');
   banner.className = 'mock';
-  banner.innerHTML = '<div class="in"><b>MOCKUP</b><span>Sample data only, nothing here is real.</span>' +
+  banner.innerHTML = '<div class="in"><b>MOCKUP</b><span>Sample data. Every name and number is invented.</span>' +
     '<span>The look and feel is a placeholder and is <strong>fully adjustable</strong>. What we are deciding is the foundation underneath.</span>' +
     '<a href="how-it-works.html">How the infrastructure works →</a>' +
     '<a href="' + PLANS_URL + '" target="_blank" rel="noopener">Plan A / Plan B (Cory recommends B) →</a></div>';

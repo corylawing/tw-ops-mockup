@@ -3,7 +3,7 @@
 A clickable mockup of **TW Ops**, the operations hub for TW Orthodontics (Dr. Wood, Dr. Turner, Savannah),
 built from the TW Ops Hub map.
 
-> **This is a mockup.** Sample data only, nothing real. The look and feel (colours, fonts, wording,
+> **This is a mockup.** Sample data only. Every staff name and number is invented. The look and feel (colours, fonts, wording,
 > layout, hub names) is a placeholder and is fully adjustable. What matters, and what is not a
 > placeholder, is the **foundation underneath**: see [How it works](how-it-works.html) in the mockup
 > and the Foundation Plans page (Plan A / Plan B, Plan B recommended).
