@@ -59,6 +59,36 @@
 .hd-l{font-size:14.5px;font-weight:600;color:var(--brand)}
 .hd-m{grid-column:1/-1;font-family:var(--title);font-weight:700;font-size:18px;line-height:1.25;margin:12px 0 0;text-wrap:balance}
 .hd-s{grid-column:1/-1;font-size:13.5px;color:var(--muted);margin-top:8px}
+.hero .ring.done .val{stroke:#fff}
+.hero .ring.done b{font-size:0}
+.hero .ring.done b::after{content:"";width:34px;height:34px;background:no-repeat center/contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.500l4.500 4.500L19 7.500'/%3E%3C/svg%3E")}
+.pres{position:fixed;inset:0;z-index:100;background:linear-gradient(135deg,var(--brand-deep,#244e63) 0%,var(--brand) 50%,var(--brand-mid) 100%);color:#fff;display:none;flex-direction:column;padding:clamp(16px,3vw,36px)}
+.pres.open{display:flex}
+.pres-top{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:clamp(14px,1.6vw,20px);font-weight:600}
+.pres-top img{height:clamp(34px,5vw,56px);width:auto;background:#fff;border-radius:999px;padding:4px 14px 4px 4px}
+.pres-x{font:inherit;font-weight:600;font-size:16px;background:rgba(255,255,255,.16);color:#fff;border:0;border-radius:999px;min-height:48px;padding:0 20px}
+.pres-main{flex:1;display:grid;place-items:center;text-align:center;min-height:0;overflow:auto;padding:12px 0}
+.pres-slide{max-width:min(1100px,100%)}
+.pres-ic{width:clamp(64px,9vw,112px);height:clamp(64px,9vw,112px);border-radius:50%;background:rgba(255,255,255,.16);display:grid;place-items:center;margin:0 auto clamp(12px,2vw,24px)}
+.pres-ic svg{width:52%;height:52%;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.pres-l{font-size:clamp(18px,2.4vw,30px);font-weight:600;opacity:.92}
+.pres-m{font-family:var(--title);font-weight:700;font-size:clamp(34px,7vw,92px);line-height:1.08;letter-spacing:-.02em;margin:8px 0 0;text-wrap:balance}
+.pres-s{font-size:clamp(16px,2vw,26px);margin-top:clamp(10px,2vw,22px);opacity:.92}
+.pres-cols{display:grid;grid-template-columns:1fr 1fr;gap:clamp(12px,2.5vw,32px);text-align:left;margin-top:clamp(12px,2vw,24px)}
+@media (max-width:760px){.pres-cols{grid-template-columns:1fr}}
+.pres-cols h3{font-size:clamp(16px,2vw,24px);margin:0 0 8px;opacity:.92}
+.pres-cols ul{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.pres-cols li{background:rgba(255,255,255,.14);border-radius:14px;padding:10px 14px;font-size:clamp(15px,1.9vw,24px);display:flex;justify-content:space-between;gap:12px}
+.pres-cols li span{opacity:.9}
+.pres-nav{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.pres-nav button{font:inherit;font-weight:700;font-size:clamp(16px,1.8vw,22px);border:0;border-radius:999px;min-height:clamp(52px,6vw,68px);padding:0 clamp(20px,3vw,36px);background:rgba(255,255,255,.16);color:#fff}
+.pres-nav button.go{background:#fff;color:var(--brand)}
+.pres-nav button:disabled{opacity:.35}
+.pres-dots{display:flex;gap:8px}
+.pres-dots i{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.35)}
+.pres-dots i.on{background:#fff}
+.pres .streak{background:rgba(255,255,255,.18);color:#fff;font-size:clamp(15px,1.8vw,22px);padding:6px 16px 6px 12px}
+.pres .streak svg{width:1.1em;height:1.1em}
 .bm .vrow{grid-template-columns:150px minmax(0,1fr) auto}
 .bm .vbar{position:relative;overflow:visible}
 .bm .vbar em{position:absolute;left:83.33%;top:-4px;bottom:-4px;width:3px;margin-left:-1.5px;border-radius:2px;background:var(--ink)}
@@ -75,24 +105,26 @@ window.PAGE = { id: 'huddle', title: 'Office day · Selma', hood: [
   { what: 'Station rotation', how: 'Stations rotate weekly from a rule: only people cross-trained for a station are offered. A "Swap" writes a new assignment row and the audit log keeps the old one. Each station opens its own checklist; the sterilization log feeds Compliance automatically, signed by whoever held the station.', svc: ['db','auth'] },
   { what: 'Opening checklist', how: 'Try ticking one. In the real build each tick is a database row with the signed-in person\'s name and the time, written through the role check (a Selma account cannot sign an Enterprise item). If the closing checklist is not complete by the cut-off, the night shift job escalates it.', svc: ['db','auth','job'] },
   { what: 'Selma vs. benchmark', how: 'Exams, show rate, starts and recalls are counts from Cloud 9 and OrthoAI, pulled nightly, scaled to office size and compared to each office\'s own yearly average. An office lead sees their own office in detail and every office\'s progress to benchmark; owners and Savannah see all.', svc: ['job','ext','db','auth'] },
-  { what: 'Present full screen', how: 'The same page in a kiosk layout for the office touch screen. Signed in once with an office account that can only sign checklists and view the huddle.', svc: ['auth'] }
+  { what: 'Present full screen', how: 'The same page in a kiosk layout for the office touch screen. Signed in once with an office account that can only sign checklists and view the huddle.', svc: ['auth'] },
+  { what: 'Streaks', how: 'A streak counts the days in a row on which an office signed off every opening and closing checklist. The night shift job works it out from the sign-off rows, so nobody keeps score by hand.', svc: ['job','db'] }
 ]};
 </script>
 <div class="wrap">
   <div class="pagehead hero">
     <div><div class="lbl">Selma office · Thursday, October 15</div>
       <h1 data-for="lead">Good morning, Kara</h1><h1 data-for="team">Good morning, Jordan</h1><h1 data-for="owners ops inv">Selma office day</h1>
-      <p class="lede" id="odLede" aria-live="polite"><b>9 checklist items left before opening.</b> One station has nobody on it.</p></div>
-    <div class="ringbox"><div class="ring"><svg viewBox="0 0 84 84" aria-hidden="true"><circle class="trk" cx="42" cy="42" r="36"/><circle class="val" id="odRing" cx="42" cy="42" r="36" stroke-dasharray="57 227"/></svg><b id="odNum">3/12</b></div>
-      <div class="acts"><a class="btn sm" href="#">Present full screen</a> <a class="btn sm" href="calendar.html">Calendar</a></div> <button class="uth" data-h="5"></button></div>
+      <p class="lede" id="odLede" aria-live="polite"><b>3 checklist items left before opening.</b> One station has nobody on it.</p>
+      <p style="margin:10px 0 0"><span class="streak" id="odStreak"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c1 3.500 5 5.500 5 10a5 5 0 0 1-10 0c0-1.800.800-3 1.800-4 .200 1.600 1 2.500 2 2.800C10 9 10.500 5.500 12 3z"/></svg><span>14 days in a row</span></span> <button class="uth" data-h="6"></button></p></div>
+    <div class="ringbox"><div class="ring"><svg viewBox="0 0 84 84" aria-hidden="true"><circle class="trk" cx="42" cy="42" r="36"/><circle class="val" id="odRing" cx="42" cy="42" r="36" stroke-dasharray="170 227"/></svg><b id="odNum">9/12</b></div>
+      <div class="acts"><button class="btn sm" type="button" id="presentBtn">Present full screen</button> <a class="btn sm" href="calendar.html">Calendar</a></div> <button class="uth" data-h="5"></button></div>
   </div>
 
   <div class="od">
     <div class="card">
       <h2>Opening checklist <span class="hint">· what is left comes first</span> <button class="uth" data-h="3"></button></h2>
       <ul class="ck" id="ck"><li><label for="c4"><input type="checkbox" id="c4"><span class="box"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg></span><span class="tx"><b>Confirm Q4 supply order quantities</b><small class="by">Not done</small></span><span class="ckw">Lead</span></label></li><li><label for="c5"><input type="checkbox" id="c5"><span class="box"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg></span><span class="tx"><b>Fire extinguisher monthly check</b><small class="by">Not done</small></span><span class="ckw">Lead</span></label></li><li><label for="c6"><input type="checkbox" id="c6"><span class="box"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg></span><span class="tx"><b>Eyewash station weekly flush</b><small class="by">Not done</small></span><span class="ckw">Sterilization</span></label></li><li><label for="c1"><input type="checkbox" id="c1" checked><span class="box"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg></span><span class="tx"><b>Unlock, lights, alarm off</b><small class="by">Signed · Amber Nix · 7:31</small></span><span class="ckw">Lead</span></label></li><li><label for="c2"><input type="checkbox" id="c2" checked><span class="box"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg></span><span class="tx"><b>Sterilizer cycle log</b><small class="by">Signed · Chloe Dunn · 7:40</small></span><span class="ckw">Sterilization</span></label></li><li><label for="c3"><input type="checkbox" id="c3" checked><span class="box"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg></span><span class="tx"><b>Operatory setup, all chairs</b><small class="by">Signed · Grace Holt · 7:44</small></span><span class="ckw">Lead</span></label></li></ul>
-      <p class="small muted" style="margin:10px 4px 0" data-for="owners ops lead">6 more items. Tap one to sign it off. Anything unsigned at closing time escalates to Savannah the next morning.</p>
-      <p class="small muted" style="margin:10px 4px 0" data-for="team inv">6 more items. Your lead and the station holders sign these off.</p>
+      <p class="small muted" style="margin:10px 4px 0" data-for="owners ops lead">6 more were signed earlier. Tap an item to sign it off. Anything unsigned at closing time escalates to Savannah the next morning.</p>
+      <p class="small muted" style="margin:10px 4px 0" data-for="team inv">6 more were signed earlier. Your lead and the station holders sign these off.</p>
     </div>
     <div class="card">
       <h2>Today's stations <span class="hint">· rotates weekly</span> <button class="uth" data-h="2"></button></h2>
@@ -139,13 +171,73 @@ window.PAGE = { id: 'huddle', title: 'Office day · Selma', hood: [
   var boxes = Array.prototype.slice.call(list.querySelectorAll('input'));
   var ring = document.getElementById('odRing'), num = document.getElementById('odNum'), lede = document.getElementById('odLede');
   if (!canSign) boxes.forEach(function (b) { b.disabled = true; });
+  var streak = document.getElementById('odStreak').querySelector('span'), ringBox = ring.closest('.ring'), wasDone = false;
+  function count() { var done = 6; boxes.forEach(function (b) { if (b.checked) done++; }); return done; }   // 6 earlier items are already signed
   function draw() {
-    var done = 0; boxes.forEach(function (b) { if (b.checked) done++; });
-    var left = 12 - done;
+    var done = count(), left = 12 - done, all = left === 0;
     ring.setAttribute('stroke-dasharray', Math.round(226.2 * done / 12) + ' 227'); num.textContent = done + '/12';
-    lede.innerHTML = '<b>' + left + ' checklist ' + (left === 1 ? 'item' : 'items') + ' left before opening.</b> One station has nobody on it.';
+    ringBox.classList.toggle('done', all);
+    lede.innerHTML = all ? '<b>All 12 signed. Selma is ready to open.</b> That makes 15 days in a row.' : '<b>' + left + ' checklist ' + (left === 1 ? 'item' : 'items') + ' left before opening.</b> One station has nobody on it.';
+    streak.textContent = all ? '15 days in a row' : '14 days in a row';
+    if (all && !wasDone) window.TW.celebrate(ringBox);
+    wasDone = all;
   }
   list.addEventListener('change', draw);
+
+  // ---- Present full screen: the 7:45 huddle on the office screen ----
+  var IC = { sun: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.900 4.900l1.400 1.400M17.700 17.700l1.400 1.400M4.900 19.100l1.400-1.400M17.700 6.300l1.400-1.400"/></svg>',
+    heart: '<svg viewBox="0 0 24 24"><path d="M12 20s-7-4.400-7-10a4 4 0 0 1 7-2.600A4 4 0 0 1 19 10c0 5.600-7 10-7 10z"/></svg>',
+    horn: '<svg viewBox="0 0 24 24"><path d="M4 10v4h3l6 4V6l-6 4H4z"/><path d="M17 9a4 4 0 0 1 0 6"/></svg>',
+    chat: '<svg viewBox="0 0 24 24"><path d="M5 5h14a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-7l-4 3.500V16H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/></svg>',
+    cake: '<svg viewBox="0 0 24 24"><path d="M5 20h14v-7H5zM5 16c2.300 0 2.300-1.500 4.700-1.500S12 16 14.300 16s2.300-1.500 4.700-1.500M12 13V9M12 6.200v.100"/></svg>',
+    team: '<svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.500"/><path d="M2.500 20a6.500 6.500 0 0 1 13 0M16 4.500a3.500 3.500 0 0 1 0 7M18 14.500a6 6 0 0 1 3.500 5.500"/></svg>' };
+  function slide(ic, label, main, sub) { return '<div class="pres-slide"><div class="pres-ic" aria-hidden="true">' + IC[ic] + '</div><div class="pres-l">' + label + '</div><p class="pres-m">' + main + '</p>' + (sub ? '<div class="pres-s">' + sub + '</div>' : '') + '</div>'; }
+  var FL = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c1 3.500 5 5.500 5 10a5 5 0 0 1-10 0c0-1.800.800-3 1.800-4 .200 1.600 1 2.500 2 2.800C10 9 10.500 5.500 12 3z"/></svg>';
+  function slides() {
+    return [
+      slide('sun', 'Selma · Thursday, October 15 · 7:45 AM', 'Good morning, Selma', '<span class="streak">' + FL + '<span>' + streak.textContent + ' of complete checklists</span></span>'),
+      slide('heart', 'Core value', 'Own it'),
+      slide('horn', 'PSA', 'Q4 supply counts due tomorrow'),
+      slide('chat', 'Icebreaker', 'Best concert you have been to?'),
+      slide('cake', 'Celebrate', 'Birthdays & work anniversaries this week'),
+      '<div class="pres-slide"><div class="pres-l">Today at Selma · opening checklist ' + count() + ' of 12</div><div class="pres-cols"><div><h3>Stations</h3><ul><li>Sterilization <span>Amber Nix</span></li><li>Records <span>Chloe Dunn</span></li><li>Phones <span>Erin Vance</span></li><li>Lab <span>Isaac Marsh · AM</span></li><li>Front desk <span>Grace Holt</span></li><li>Open station <span>needs cover</span></li></ul></div>' +
+        '<div><h3>Who is here</h3><ul><li>Erin Vance <span>visiting from Montgomery</span></li><li>Isaac Marsh <span>Andalusia PM</span></li><li>Savannah <span>here 10–2</span></li><li>Kelsey Ray <span>PTO</span></li><li>Dr. Wood <span>AM</span></li></ul></div></div></div>'
+    ];
+  }
+  var pres = document.createElement('div'); pres.className = 'pres'; pres.setAttribute('role', 'dialog'); pres.setAttribute('aria-modal', 'true'); pres.setAttribute('aria-label', 'Morning huddle, full screen');
+  pres.innerHTML = '<div class="pres-top"><img src="assets/tw-logo.svg" alt="TW Orthodontics"><button type="button" class="pres-x" id="presClose">Close</button></div>' +
+    '<div class="pres-main" id="presMain" aria-live="polite"></div>' +
+    '<div class="pres-nav"><button type="button" id="presBack">Back</button><div class="pres-dots" id="presDots" aria-hidden="true"></div><button type="button" class="go" id="presNext">Next</button></div>';
+  document.body.appendChild(pres);
+  var pi = 0, S = [], btn = document.getElementById('presentBtn'), touchX = null;
+  function pdraw() {
+    document.getElementById('presMain').innerHTML = S[pi];
+    document.getElementById('presDots').innerHTML = S.map(function (_, k) { return '<i class="' + (k === pi ? 'on' : '') + '"></i>'; }).join('');
+    document.getElementById('presBack').disabled = pi === 0;
+    document.getElementById('presNext').textContent = pi === S.length - 1 ? 'Done' : 'Next';
+  }
+  function popen() {
+    S = slides(); pi = 0; pres.classList.add('open'); document.body.style.overflow = 'hidden'; pdraw();
+    if (pres.requestFullscreen) { try { var p = pres.requestFullscreen(); if (p && p.catch) p.catch(function () {}); } catch (e) {} }
+    document.getElementById('presNext').focus();
+  }
+  function pclose() {
+    pres.classList.remove('open'); document.body.style.overflow = '';
+    if (document.fullscreenElement && document.exitFullscreen) { try { document.exitFullscreen(); } catch (e) {} }
+    btn.focus();
+  }
+  function step(d) { if (d > 0 && pi === S.length - 1) return pclose(); pi = Math.max(0, Math.min(S.length - 1, pi + d)); pdraw(); }
+  btn.addEventListener('click', popen);
+  document.getElementById('presClose').addEventListener('click', pclose);
+  document.getElementById('presNext').addEventListener('click', function () { step(1); });
+  document.getElementById('presBack').addEventListener('click', function () { step(-1); });
+  document.addEventListener('keydown', function (e) {
+    if (!pres.classList.contains('open')) return;
+    if (e.key === 'Escape') pclose(); else if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); step(1); } else if (e.key === 'ArrowLeft') step(-1);
+  });
+  document.addEventListener('fullscreenchange', function () { if (!document.fullscreenElement && pres.classList.contains('open')) { pres.classList.remove('open'); document.body.style.overflow = ''; } });
+  pres.addEventListener('touchstart', function (e) { touchX = e.touches[0].clientX; }, { passive: true });
+  pres.addEventListener('touchend', function (e) { if (touchX === null) return; var dx = e.changedTouches[0].clientX - touchX; touchX = null; if (Math.abs(dx) > 60) step(dx < 0 ? 1 : -1); }, { passive: true });
 })();
 </script>
 </body>

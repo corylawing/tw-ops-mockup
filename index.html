@@ -56,12 +56,12 @@ window.PAGE = { id: 'command', title: 'Command Center', hood: [
 
   <h2 class="sec">Your offices <span class="hint">· the one that needs you comes first · tap to open its day</span> <button class="uth" data-h="2"></button></h2>
   <div class="offs">
-    <a class="off" href="huddle.html"><div class="ring r-bad"><svg viewBox="0 0 84 84" aria-hidden="true"><circle class="trk" cx="42" cy="42" r="36"/><circle class="val" cx="42" cy="42" r="36" stroke-dasharray="113 227"/></svg><b>6/12</b></div><h3>Enterprise</h3><small>Marcus Pell · Office manager</small><span class="pill bad">Behind · 4 overdue</span></a>
-    <a class="off" href="huddle.html"><div class="ring r-warn"><svg viewBox="0 0 84 84" aria-hidden="true"><circle class="trk" cx="42" cy="42" r="36"/><circle class="val" cx="42" cy="42" r="36" stroke-dasharray="170 227"/></svg><b>9/12</b></div><h3>Montgomery</h3><small>Devon Ashby · Lead</small><span class="pill warn">Needs attention · 2 overdue</span></a>
-    <a class="off" href="huddle.html"><div class="ring"><svg viewBox="0 0 84 84" aria-hidden="true"><circle class="trk" cx="42" cy="42" r="36"/><circle class="val" cx="42" cy="42" r="36" stroke-dasharray="207 227"/></svg><b>11/12</b></div><h3>Andalusia</h3><small>Renee Calloway · Lead</small><span class="pill ok">On track</span></a>
-    <a class="off" href="huddle.html"><div class="ring"><svg viewBox="0 0 84 84" aria-hidden="true"><circle class="trk" cx="42" cy="42" r="36"/><circle class="val" cx="42" cy="42" r="36" stroke-dasharray="227 227"/></svg><b>12/12</b></div><h3>Selma</h3><small>Kara Whitfield · Lead</small><span class="pill ok">On track</span></a>
+    <a class="off" href="huddle.html"><div class="ring r-bad"><svg viewBox="0 0 84 84" aria-hidden="true"><circle class="trk" cx="42" cy="42" r="36"/><circle class="val" cx="42" cy="42" r="36" stroke-dasharray="113 227"/></svg><b>6/12</b></div><h3>Enterprise</h3><small>Marcus Pell · Office manager</small><span class="pill bad">Behind · 4 overdue</span><div class="sk"><span class="streak none">Streak ended yesterday</span></div></a>
+    <a class="off" href="huddle.html"><div class="ring r-warn"><svg viewBox="0 0 84 84" aria-hidden="true"><circle class="trk" cx="42" cy="42" r="36"/><circle class="val" cx="42" cy="42" r="36" stroke-dasharray="170 227"/></svg><b>9/12</b></div><h3>Montgomery</h3><small>Devon Ashby · Lead</small><span class="pill warn">Needs attention · 2 overdue</span><div class="sk"><span class="streak"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c1 3.500 5 5.500 5 10a5 5 0 0 1-10 0c0-1.800.800-3 1.800-4 .200 1.600 1 2.500 2 2.800C10 9 10.500 5.500 12 3z"/></svg><span>3-day streak</span></span></div></a>
+    <a class="off" href="huddle.html"><div class="ring"><svg viewBox="0 0 84 84" aria-hidden="true"><circle class="trk" cx="42" cy="42" r="36"/><circle class="val" cx="42" cy="42" r="36" stroke-dasharray="207 227"/></svg><b>11/12</b></div><h3>Andalusia</h3><small>Renee Calloway · Lead</small><span class="pill ok">On track</span><div class="sk"><span class="streak"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c1 3.500 5 5.500 5 10a5 5 0 0 1-10 0c0-1.800.800-3 1.800-4 .200 1.600 1 2.500 2 2.800C10 9 10.500 5.500 12 3z"/></svg><span>6-day streak</span></span></div></a>
+    <a class="off" href="huddle.html"><div class="ring"><svg viewBox="0 0 84 84" aria-hidden="true"><circle class="trk" cx="42" cy="42" r="36"/><circle class="val" cx="42" cy="42" r="36" stroke-dasharray="227 227"/></svg><b>12/12</b></div><h3>Selma</h3><small>Kara Whitfield · Lead</small><span class="pill ok">On track</span><div class="sk"><span class="streak"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c1 3.500 5 5.500 5 10a5 5 0 0 1-10 0c0-1.800.800-3 1.800-4 .200 1.600 1 2.500 2 2.800C10 9 10.500 5.500 12 3z"/></svg><span>14-day streak</span></span></div></a>
   </div>
-  <p class="small muted" style="margin:8px 4px 0">The ring is today's opening checklist.</p>
+  <p class="small muted" style="margin:8px 4px 0">The ring is today's opening checklist. A streak counts the days in a row an office signed off every checklist.</p>
 
   <h2 class="sec">Launches <span class="hint">· soonest first</span></h2>
   <div class="offs three">
@@ -97,7 +97,7 @@ window.PAGE = { id: 'command', title: 'Command Center', hood: [
   Array.prototype.forEach.call(list.querySelectorAll('[data-nudge]'), function (b) {
     b.addEventListener('click', function () {
       var li = b.closest('li'); if (li.classList.contains('done')) return;
-      li.classList.add('done'); b.classList.remove('pri'); b.textContent = 'Nudged'; b.disabled = true;
+      li.classList.add('done'); b.classList.remove('pri'); b.textContent = 'Nudged'; b.disabled = true; window.TW.celebrate(b);
       window.TW.say('Nudge sent to ' + b.getAttribute('data-nudge') + '. In the real build it goes out on Slack and is logged.');
       count();
     });

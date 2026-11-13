@@ -44,7 +44,12 @@
   var hood = page.hood || [];
   if (ls('tw_explain') === '1') document.body.classList.add('explain');
 
-  // 1. Shell: sidebar + main. No top bar: the product chrome stays clean.
+  var photo = ls('tw_photo_' + role);
+  function avatar(cls) { return '<span class="' + cls + (photo ? ' has-photo' : '') + '" aria-hidden="true">' + (photo ? '<img src="' + photo + '" alt="">' : me.ini) + '</span>'; }
+  var MENU = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>';
+  var CLOSE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+
+  // 1. Shell: sidebar + main. No top bar on a computer; on a phone the sidebar becomes a menu that slides in.
   var navHtml = NAV.map(function (n) {
     var a = n.access[role];
     var cls = (n.id === page.id ? 'on' : '') + (a ? '' : ' locked');
@@ -53,23 +58,40 @@
     return pre + '<a class="' + cls + '" href="' + n.href + '" title="' + title + '"' + (n.id === page.id ? ' aria-current="page"' : '') + (a ? '' : ' aria-disabled="true" tabindex="-1"') + '>' + I[n.id] + '<span>' + n.label + '</span>' + (n.cnt && a ? '<span class="cnt">' + n.cnt + '</span>' : '') + '</a>';
   }).join('');
   var side = document.createElement('aside'); side.className = 'side';
-  side.innerHTML = '<a class="logo" href="index.html" aria-label="TW Ops home"><img src="assets/tw-logo.svg" alt="TW Orthodontics"></a>' +
+  side.id = 'sideMenu';
+  side.innerHTML = '<button class="mclose" id="menuClose" type="button" aria-label="Close menu">' + CLOSE + '</button>' +
+    '<a class="logo" href="index.html" aria-label="TW Ops home"><img src="assets/tw-logo.svg" alt="TW Orthodontics"></a>' +
     '<nav class="hubs" aria-label="Hubs">' + navHtml + '</nav>' +
     '<div class="sidefoot"><a href="how-it-works.html">' + I.how + 'How it works</a><a href="' + PLANS_URL + '" target="_blank" rel="noopener">' + I.owners + 'Foundation plans</a></div>' +
-    '<a class="who' + (page.id === 'profile' ? ' on' : '') + '" href="profile.html" title="My profile and colors"><span class="avatar" aria-hidden="true">' + me.ini + '</span><span><b>' + me.name + '</b>My profile</span><span class="go" aria-hidden="true">›</span></a>';
+    '<a class="who' + (page.id === 'profile' ? ' on' : '') + '" href="profile.html" title="My profile and colors">' + avatar('avatar') + '<span><b>' + me.name + '</b>My profile</span><span class="go" aria-hidden="true">›</span></a>';
   var shell = document.createElement('div'); shell.className = 'shell';
   var main = document.createElement('main');
   var wrapEl = document.querySelector('.wrap');
   shell.appendChild(side); shell.appendChild(main);
   document.body.insertBefore(shell, document.body.firstChild);
   if (wrapEl) main.appendChild(wrapEl);
+  var mtop = document.createElement('header'); mtop.className = 'mtop';
+  mtop.innerHTML = '<button class="mbtn" id="menuBtn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="sideMenu">' + MENU + '</button>' +
+    '<a class="mlogo" href="index.html" aria-label="TW Ops home"><img src="assets/tw-mark.svg" alt=""></a><span class="mtitle">' + (page.title || 'TW Ops') + '</span>' +
+    '<a class="mme" href="profile.html" aria-label="My profile">' + avatar('avatar') + '</a>';
+  document.body.insertBefore(mtop, shell);
+  var mback = document.createElement('div'); mback.className = 'mback'; document.body.appendChild(mback);
+  function menu(on) {
+    document.body.classList.toggle('menu-open', on); document.getElementById('menuBtn').setAttribute('aria-expanded', String(on));
+    if (on) document.getElementById('menuClose').focus(); else document.getElementById('menuBtn').focus();
+  }
+  document.getElementById('menuBtn').addEventListener('click', function () { menu(true); });
+  document.getElementById('menuClose').addEventListener('click', function () { menu(false); });
+  mback.addEventListener('click', function () { menu(false); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && document.body.classList.contains('menu-open')) menu(false); });
 
   // 2. Demo controls live in one floating bar, outside the product chrome
   var opts = Object.keys(ROLES).map(function (k) { return '<option value="' + k + '"' + (k === role ? ' selected' : '') + '>' + ROLES[k].name + ' · ' + ROLES[k].role + '</option>'; }).join('');
   var demo = document.createElement('div'); demo.className = 'demobar'; demo.setAttribute('role', 'region'); demo.setAttribute('aria-label', 'Mockup controls');
   demo.innerHTML = '<span class="mock" title="Sample data. Invented names and numbers. Layout and wording are adjustable."><i></i>Mockup<span class="x"> · sample data</span></span>' +
     '<label><span class="x">View as</span><select id="roleSel" aria-label="View as">' + opts + '</select></label>' +
-    '<button class="explain-btn" id="explainBtn" type="button" title="Show how each part works in the real build"><span class="sw"></span><span class="t">Explain<span class="x"> the build</span></span></button>';
+    '<button class="explain-btn" id="explainBtn" type="button" title="Show how each part works in the real build"><span class="sw"></span><span class="t">Explain<span class="x"> the build</span></span></button>' +
+    '<button class="tour-btn" id="tourBtn" type="button" title="A one-minute walk through the morning">Tour</button>';
   document.body.appendChild(demo);
   document.getElementById('roleSel').addEventListener('change', function (e) { ls('tw_role', e.target.value); try { sessionStorage.setItem('tw_skip_splash', '1'); } catch (x) {} location.reload(); });
 
@@ -136,5 +158,86 @@
       if (by) by.textContent = c.checked ? 'Signed · ' + me.name + ' · ' + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'Not done';
     });
   });
-  window.TW = { role: role, me: me, open: open, say: say };
+
+  // 7. A small burst for the good moments (a finished checklist, a cleared list). Skipped when motion is reduced.
+  var reduce = false; try { reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+  function celebrate(el) {
+    if (reduce || !el) return;
+    var r = el.getBoundingClientRect(), box = document.createElement('div'); box.className = 'burst'; box.setAttribute('aria-hidden', 'true');
+    box.style.left = (r.left + r.width / 2) + 'px'; box.style.top = (r.top + r.height / 2) + 'px';
+    var cols = ['var(--brand-bright)', 'var(--orange)', 'var(--green)', '#fff', 'var(--brand)'], h = '';
+    for (var k = 0; k < 16; k++) { var a = (k / 16) * Math.PI * 2 + Math.random() * 0.5, dist = 70 + Math.random() * 80; h += '<i class="' + (k % 3 === 0 ? 'st' : '') + '" style="--dx:' + (Math.cos(a) * dist).toFixed(0) + 'px;--dy:' + (Math.sin(a) * dist).toFixed(0) + 'px;background:' + cols[k % cols.length] + ';animation-delay:' + (k % 4) * 30 + 'ms"></i>'; }
+    box.innerHTML = h; document.body.appendChild(box); setTimeout(function () { if (box.parentNode) box.parentNode.removeChild(box); }, 1300);
+  }
+
+  // 8. The one-minute tour: the morning across five screens. A mockup aid, not part of the product.
+  var TOUR = [
+    { p: 'index.html', s: '.pagehead.hero', t: 'One sentence for the whole day', d: 'Savannah opens TW Ops and reads one line: how many things need her, and that everything else is on track.' },
+    { p: 'index.html', s: '#todo', t: 'What needs you, most urgent first', d: 'Each item has one button. Try “Nudge Marcus”: the item is handled and the count drops.' },
+    { p: 'index.html', s: '.offs', t: 'Every office at a glance', d: 'The office that needs help comes first. The ring is today’s opening checklist. The streak counts the days in a row it was complete.' },
+    { p: 'huddle.html', s: '#ck', up: '.card', t: 'Each office’s morning', d: 'This is what an office lead works from. Tick the last three items and watch the ring close.' },
+    { p: 'huddle.html', s: '#presentBtn', t: 'The huddle, on the office screen', d: 'One tap puts the 7:45 huddle on the big screen. Try it when the tour is over.' },
+    { p: 'people.html', s: '#pto', t: 'Approvals in one tap', d: 'PTO requests wait here with a coverage flag. Approve or decline without opening anything.' },
+    { p: 'brief.html', s: '.mail', t: 'The same picture, by email at 6:30', d: 'Nobody writes this. It is built overnight from what the offices signed off.' },
+    { p: 'profile.html', s: '.pv', t: 'Make it yours', d: 'Each person picks their own colours and photo. The choice follows them to any computer.' }
+  ];
+  function ss(k, v) { try { if (v === undefined) return sessionStorage.getItem(k); if (v === null) sessionStorage.removeItem(k); else sessionStorage.setItem(k, v); } catch (e) { return null; } }
+  var here = location.pathname.split('/').pop() || 'index.html', hole, card, tourOn = false, target = null;
+  function place() {
+    if (!tourOn || !target) return;
+    var r = target.getBoundingClientRect(), pad = 8;
+    hole.style.left = (r.left - pad) + 'px'; hole.style.top = (r.top - pad) + 'px'; hole.style.width = (r.width + pad * 2) + 'px'; hole.style.height = (r.height + pad * 2) + 'px';
+    if (window.innerWidth <= 700) { card.style.left = card.style.top = ''; return; }         // on a phone the card is a sheet at the bottom
+    var cw = card.offsetWidth, ch = card.offsetHeight, top = r.bottom + pad + 14, left = Math.min(Math.max(12, r.left), window.innerWidth - cw - 12);
+    if (top + ch > window.innerHeight - 12) top = r.top - pad - 14 - ch;
+    if (top < 12) top = Math.max(12, window.innerHeight - ch - 12);
+    card.style.left = left + 'px'; card.style.top = top + 'px';
+  }
+  function tourEnd(msg) {
+    ss('tw_tour', null); tourOn = false; document.body.classList.remove('touring');
+    if (hole && hole.parentNode) hole.parentNode.removeChild(hole); if (card && card.parentNode) card.parentNode.removeChild(card);
+    window.removeEventListener('scroll', place, true); window.removeEventListener('resize', place);
+    if (msg) say(msg);
+  }
+  function tourShow(i) {
+    var st = TOUR[i]; if (!st) return tourEnd();
+    if (st.p !== here) { ss('tw_tour', String(i)); location.href = st.p; return; }
+    target = document.querySelector(st.s); if (target && st.up) target = target.closest(st.up) || target;
+    if (!target) return tourEnd();
+    ss('tw_tour', String(i));
+    if (!tourOn) {
+      tourOn = true; document.body.classList.add('touring');
+      hole = document.createElement('div'); hole.className = 'tour-hole'; hole.setAttribute('aria-hidden', 'true');
+      card = document.createElement('div'); card.className = 'tour-card'; card.setAttribute('role', 'dialog'); card.setAttribute('aria-label', 'Tour'); card.tabIndex = -1;
+      document.body.appendChild(hole); document.body.appendChild(card);
+      window.addEventListener('scroll', place, true); window.addEventListener('resize', place);
+      card.addEventListener('click', function (e) {
+        var b = e.target.closest('[data-tour]'); if (!b) return;
+        var cur = parseInt(ss('tw_tour'), 10) || 0, what = b.getAttribute('data-tour');
+        if (what === 'end') tourEnd(); else if (what === 'back') tourShow(cur - 1); else if (cur + 1 >= TOUR.length) tourEnd('That was the tour. Have a look around.'); else tourShow(cur + 1);
+      });
+    }
+    card.innerHTML = '<div class="tc-n">Tour · ' + (i + 1) + ' of ' + TOUR.length + '</div><h3>' + st.t + '</h3><p>' + st.d + '</p>' +
+      '<div class="tc-b"><button type="button" class="tc-end" data-tour="end">End tour</button><span>' + (i ? '<button type="button" class="btn sm" data-tour="back">Back</button> ' : '') + '<button type="button" class="btn sm pri" data-tour="next">' + (i + 1 >= TOUR.length ? 'Finish' : 'Next') + '</button></span></div>';
+    var r = target.getBoundingClientRect(), phone = window.innerWidth <= 700;
+    if (r.top < 70 || r.bottom > window.innerHeight - (phone ? 250 : 40)) window.scrollTo(0, Math.max(0, r.top + window.scrollY - (phone ? 80 : 120)));
+    place(); card.focus({ preventScroll: true });
+  }
+  function tourStart() {
+    ss('tw_tour', '0');
+    if (role !== 'ops') { ls('tw_role', 'ops'); ss('tw_skip_splash', '1'); location.href = TOUR[0].p; return; }
+    tourShow(0);
+  }
+  document.getElementById('tourBtn').addEventListener('click', tourStart);
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && tourOn) tourEnd(); });
+  window.addEventListener('load', function () {
+    var i = ss('tw_tour'); if (i === null || i === undefined) return;
+    i = parseInt(i, 10); if (isNaN(i) || !TOUR[i] || TOUR[i].p !== here || role !== 'ops') { ss('tw_tour', null); return; }
+    setTimeout(function () { tourShow(i); }, 60);
+  });
+
+  window.TW = { role: role, me: me, open: open, say: say, celebrate: celebrate, tour: tourStart, setPhoto: function (data) {
+    photo = data || null;
+    Array.prototype.forEach.call(document.querySelectorAll('.who .avatar, .mme .avatar'), function (a) { a.classList.toggle('has-photo', !!photo); a.innerHTML = photo ? '<img src="' + photo + '" alt="">' : me.ini; });
+  } };
 })();

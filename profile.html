@@ -14,6 +14,7 @@
 .pf-id .pf-av{width:84px;height:84px;font-size:28px}
 .pf-id .who2{flex:1 1 220px;min-width:0}
 .pf-id h1{font-size:26px;margin:0}
+.pf-acts{display:flex;flex-wrap:wrap;gap:8px}
 .pf-id .role{color:var(--muted);font-size:17px}
 .pf-facts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
 @media (max-width:640px){.pf-facts{grid-template-columns:1fr}}
@@ -54,7 +55,7 @@ window.PAGE = { id: 'profile', title: 'My profile', hood: [
   <div class="pf-id">
     <span class="pf-av" id="pfAv" aria-hidden="true"></span>
     <div class="who2"><div class="lbl">My profile <button class="uth" data-h="0"></button></div><h1 id="pfName">My profile</h1><div class="role" id="pfRole"></div></div>
-    <a class="btn" href="signin.html">Sign out</a>
+    <div class="pf-acts"><input type="file" id="pfFile" accept="image/*" hidden><button class="btn" type="button" id="pfPhoto">Change photo</button><button class="btn" type="button" id="pfPhotoOff" hidden>Remove photo</button><a class="btn" href="signin.html">Sign out</a></div>
   </div>
   <div class="pf-facts">
     <div class="pf-fact"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-5h6v5M9 10h.010M15 10h.010"/></svg></span><span><small>Office</small><b id="pfOffice"></b></span></div>
@@ -62,7 +63,7 @@ window.PAGE = { id: 'profile', title: 'My profile', hood: [
     <div class="pf-fact"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg></span><span><small>Your home screen</small><b id="pfHome"></b></span></div>
     <div class="pf-fact"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span><span><small>Signs in with</small><b>Google Workspace</b></span></div>
   </div>
-  <p class="small muted" style="margin:10px 4px 0">These come from your Google account and the TW directory. To change one, ask Savannah.</p>
+  <p class="small muted" style="margin:10px 4px 0">These come from your Google account and the TW directory. To change one, ask Savannah. In this mockup your photo stays on this device; in the real build it is saved with your profile.</p>
 
   <h2 class="sec">Colors for TW Ops <button class="uth" data-h="1"></button></h2>
   <div class="card">
@@ -81,7 +82,33 @@ window.PAGE = { id: 'profile', title: 'My profile', hood: [
   var me = window.TW.me, T = window.TWTheme, role = window.TW.role;
   // Where each role lands, in the Hub Map's own words
   var HOME = { owners: "Owner's Desk + all-office summary", ops: 'Command Center office grid', lead: "Morning huddle + today's checklist", inv: 'Inventory & budgets', team: 'My tasks, training, my HR file' };
-  document.getElementById('pfAv').textContent = me.ini;
+  var av = document.getElementById('pfAv'), file = document.getElementById('pfFile'), offBtn = document.getElementById('pfPhotoOff'), KEY = 'tw_photo_' + role;
+  function showPhoto(data) {
+    av.classList.toggle('has-photo', !!data); av.innerHTML = data ? '<img src="' + data + '" alt="">' : ''; if (!data) av.textContent = me.ini;
+    offBtn.hidden = !data; window.TW.setPhoto(data);
+  }
+  var saved = null; try { saved = localStorage.getItem(KEY); } catch (e) {}
+  showPhoto(saved);
+  document.getElementById('pfPhoto').addEventListener('click', function () { file.click(); });
+  file.addEventListener('change', function () {
+    var f = file.files && file.files[0]; if (!f) return;
+    if (!/^image\//.test(f.type)) { window.TW.say('Please choose a picture.'); return; }
+    var rd = new FileReader();
+    rd.onload = function () {
+      var img = new Image();
+      img.onload = function () {                                   // crop to a square and shrink, so the saved photo is small
+        var s = Math.min(img.width, img.height), c = document.createElement('canvas'); c.width = c.height = 256;
+        c.getContext('2d').drawImage(img, (img.width - s) / 2, (img.height - s) / 2, s, s, 0, 0, 256, 256);
+        var data = c.toDataURL('image/jpeg', 0.85);
+        try { localStorage.setItem(KEY, data); } catch (e) { window.TW.say('That picture could not be saved on this device.'); return; }
+        showPhoto(data); window.TW.say('Photo updated.');
+      };
+      img.onerror = function () { window.TW.say('That file could not be read as a picture.'); };
+      img.src = rd.result;
+    };
+    rd.readAsDataURL(f); file.value = '';
+  });
+  offBtn.addEventListener('click', function () { try { localStorage.removeItem(KEY); } catch (e) {} showPhoto(null); window.TW.say('Photo removed.'); });
   document.getElementById('pfName').textContent = me.name;
   document.getElementById('pfRole').textContent = me.role;
   document.getElementById('pfOffice').textContent = me.office;

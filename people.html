@@ -152,10 +152,12 @@ window.PAGE = { id: 'people', title: 'People', hood: [
     '<p class="small muted" style="margin:14px 4px 0">Also in this hub and not drawn in this mockup: org chart, onboarding and offboarding, reviews, training and the SOP library. Pay and payroll stay in ADP.</p>';
 
   var $pto = document.getElementById('pto'), $list = document.getElementById('plist'), $file = document.getElementById('file'), $fl = document.getElementById('fl');
+  var ptoCleared = false;
   function ptoCount() {
     var n = $pto.querySelectorAll('li:not(.done)').length;
     document.getElementById('ptoHint').textContent = n ? '· ' + n + ' PTO ' + (n === 1 ? 'request' : 'requests') + ' waiting on approval' : '';
     document.getElementById('ptoClear').hidden = n !== 0;
+    if (n === 0 && pto.length && ptoCleared === false) { ptoCleared = true; window.TW.celebrate(document.getElementById('ptoClear')); }
   }
   $pto.addEventListener('click', function (ev) {
     var b = ev.target.closest('[data-pto]'); if (!b) return;
