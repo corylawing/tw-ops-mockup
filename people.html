@@ -8,40 +8,182 @@
 <link rel="stylesheet" href="assets/styles.css">
 <script src="assets/theme.js"></script>
 <title>TW Ops · People (mockup)</title>
+<style>
+.stats{display:flex;flex-wrap:wrap;gap:8px}
+.stat{background:#fff;border-radius:16px;padding:8px 14px;box-shadow:var(--shadow);font-size:14px;color:var(--muted)}
+.stat b{font-family:var(--title);font-size:18px;color:var(--ink);margin-right:6px;font-variant-numeric:tabular-nums}
+.pp-av{width:44px;height:44px;border-radius:50%;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;font-family:var(--title);font-weight:700;font-size:15px;flex:none}
+.exp{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:12px;width:100%;font:inherit;text-align:left;background:transparent;border:0;border-top:1px solid var(--line2);padding:10px 4px;min-height:60px;color:var(--ink);cursor:pointer;border-radius:0}
+.exp:first-of-type{border-top:0}
+.exp:hover{background:var(--bg);border-radius:14px}
+.exp small{display:block;color:var(--muted);font-size:14px}
+.exp .when{font-weight:600;color:var(--amber);white-space:nowrap;text-align:right}
+.exp .when small{font-weight:400}
+.fl{display:flex;flex-wrap:wrap;gap:8px;margin:0 4px 12px}
+.fchip{font:inherit;font-size:14.5px;font-weight:600;border-radius:999px;min-height:40px;padding:0 16px;border:2px solid var(--line);background:transparent;color:var(--muted);cursor:pointer}
+.fchip[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:#fff}
+.pgrid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:14px;align-items:start}
+@media (max-width:960px){.pgrid{grid-template-columns:1fr}}
+.plist{background:#fff;border-radius:20px;box-shadow:var(--shadow);padding:6px}
+.prow{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:12px;width:100%;font:inherit;text-align:left;background:transparent;border:0;padding:8px 10px;min-height:62px;border-radius:14px;color:var(--ink);cursor:pointer}
+.prow:hover{background:var(--bg)}
+.prow[aria-pressed="true"]{background:var(--brand-soft)}
+.prow b{display:block;font-weight:600}
+.prow small{color:var(--muted);font-size:14px}
+.prow .flag{font-size:13.5px;font-weight:600;border-radius:999px;padding:3px 10px;white-space:nowrap}
+.pmore{color:var(--muted);font-size:14px;padding:10px 12px 8px;margin:0}
+.file{position:sticky;top:16px}
+@media (max-width:960px){.file{position:static}}
+.file .top{display:flex;align-items:center;gap:14px;margin-bottom:8px}
+.file .top .pp-av{width:60px;height:60px;font-size:20px;background:var(--brand-bright);color:#fff}
+.file .top b{display:block;font-family:var(--title);font-size:19px}
+</style>
 </head>
 <body>
 <script>
 window.PAGE = { id: 'people', title: 'People', hood: [
   { what: 'Employee records and documents', how: 'One person record per employee, linked to an office and a role. Documents (I-9, license, CPR card, signed handbook) are files in the private file vault, encrypted, and only visible to the roles in the "who sees what" table: Savannah and owners see all, an office lead sees their own office, a team member sees their own file. Every open and download is logged.', svc: ['db','vault','auth'] },
-  { what: 'Replaces BambooHR', how: 'Records, documents, org chart, onboarding and offboarding, PTO and coverage, reviews, training and the SOP library all live here. Pay rates and payroll stay in ADP; the roster and hire dates are pulled from ADP nightly so nothing is typed twice.', svc: ['db','job','ext'] },
+  { what: 'Replaces BambooHR', how: 'Records, documents, org chart, onboarding and offboarding, PTO and coverage, reviews, training and the SOP library all live here. Pay rates and payroll stay in ADP; the roster and hire dates come from ADP so nothing is typed twice.', svc: ['db','job','ext'] },
   { what: 'Certification expirations', how: 'Each card has an expiry date. A nightly job feeds the 60-day count on the Command Center, the Practice Calendar reminders and the morning brief from this one field.', svc: ['job','mail'] },
   { what: 'PTO requests', how: 'A request is a row with a status. The office lead approves their own office; Savannah can approve anywhere. Approval updates the staff schedule, so "PTO" shows on the office day screen automatically.', svc: ['db','auth'] }
 ]};
 </script>
-<div class="wrap">
-  <div class="pagehead"><div><div class="lbl">People · weekly · replaces BambooHR <button class="uth" data-h="1"></button></div><h1>People</h1><div class="sub">Savannah · office leads</div></div><div><a class="btn pri" href="#">+ New hire</a></div></div>
-  <div class="attn "><span class="tag">Waiting on you</span><span class="msg"><b>2 PTO requests are waiting on approval.</b> <span>Three cards expire within 60 days; the first is Dec 2.</span></span><a class="btn sm" href="#">Review requests</a></div>
-  <div class="grid g4">
-    <div class="card"><div class="lbl">Team members</div><div class="kpi">47 <small>across 4 offices</small></div></div>
-    <div class="card"><div class="lbl" style="display:flex;align-items:center">Certifications expiring · 60 days <button class="uth" data-h="2"></button></div><div class="kpi">3</div></div>
-    <div class="card"><div class="lbl" style="display:flex;align-items:center">PTO requests waiting <button class="uth" data-h="3"></button></div><div class="kpi">2</div></div>
-    <div class="card"><div class="lbl">Onboarding in progress</div><div class="kpi">2 <small>Wetumpka hires</small></div></div>
-  </div>
-  <div class="grid g2" style="margin-top:14px">
-    <div class="card"><h2>Employee file · Amber Nix, Clinical assistant, Selma <button class="uth" data-h="0"></button></h2>
-      <div class="row"><span>Hire date</span><b>Mar 14, 2024 · from ADP</b></div>
-      <div class="row"><span>CPR card</span><b style="color:var(--amber)">Expires Feb 2027</b></div>
-      <div class="row"><span>Radiology certificate</span><b>Current</b></div>
-      <div class="row"><span>I-9, handbook, confidentiality</span><b>Signed · on file</b></div>
-      <div class="row"><span>Last review</span><b>Apr 2026</b></div>
-      <div class="row"><span>Pay rate</span><b class="muted">In ADP · not shown here</b></div>
-      <p class="small muted">Documents open from the file vault. Who opened what is logged.</p></div>
-    <div class="card"><h2>Expiring soon · all offices</h2>
-      <div class="scroll"><table><tr><th>Person</th><th>Office</th><th>Card</th><th>Expires</th></tr>
-      <tr><td>Tyler Boone</td><td>Andalusia</td><td>CPR</td><td>Dec 2</td></tr><tr><td>Amber Nix</td><td>Selma</td><td>CPR</td><td>Dec 9</td></tr><tr><td>Paige Lorne</td><td>Montgomery</td><td>Radiology</td><td>Dec 14</td></tr></table></div>
-      <p class="small muted">Same three people appear on the Command Center and in the morning brief. One field, three places.</p></div>
-  </div>
-</div>
+<div class="wrap" id="pp"></div>
 <script src="assets/app.js"></script>
+<script>
+(function () {
+  var root = document.getElementById('pp');
+  if (!root || root.querySelector('.locked-page')) return;
+  var role = window.TW.role, me = window.TW.me, say = window.TW.say;
+  var OFFICES = ['Andalusia', 'Enterprise', 'Montgomery', 'Selma'];
+  // Sample people. Invented names. cpr / rad hold an expiry note when a card is running out.
+  var P = [
+    { n: 'Amber Nix', r: 'Clinical assistant', o: 'Selma', hire: 'Mar 14, 2024', cpr: 'Dec 9', review: 'Apr 2026' },
+    { n: 'Chloe Dunn', r: 'Clinical assistant', o: 'Selma', hire: 'Aug 2, 2023', review: 'Apr 2026' },
+    { n: 'Grace Holt', r: 'Front desk', o: 'Selma', hire: 'Jan 9, 2022', review: 'Apr 2026' },
+    { n: 'Jordan Lee', r: 'Clinical assistant', o: 'Selma', hire: 'Jun 3, 2025', review: 'Apr 2026' },
+    { n: 'Kara Whitfield', r: 'Office lead', o: 'Selma', hire: 'May 20, 2019', review: 'Apr 2026' },
+    { n: 'Kelsey Ray', r: 'Clinical assistant', o: 'Selma', hire: 'Oct 11, 2023', review: 'Apr 2026', pto: true },
+    { n: 'Devon Ashby', r: 'Office lead', o: 'Montgomery', hire: 'Feb 1, 2020', review: 'Apr 2026' },
+    { n: 'Erin Vance', r: 'Treatment coordinator', o: 'Montgomery', hire: 'Sep 15, 2021', review: 'Apr 2026' },
+    { n: 'Paige Lorne', r: 'Clinical assistant', o: 'Montgomery', hire: 'Nov 4, 2022', rad: 'Dec 14', review: 'Apr 2026' },
+    { n: 'Renee Calloway', r: 'Office lead', o: 'Andalusia', hire: 'Jul 8, 2018', review: 'Apr 2026' },
+    { n: 'Tyler Boone', r: 'Clinical assistant', o: 'Andalusia', hire: 'Apr 22, 2024', cpr: 'Dec 2', review: 'Apr 2026' },
+    { n: 'Isaac Marsh', r: 'Lab tech · floats', o: 'Andalusia', hire: 'Mar 3, 2021', review: 'Apr 2026' },
+    { n: 'Marcus Pell', r: 'Office manager', o: 'Enterprise', hire: 'Jan 15, 2017', review: 'Apr 2026' },
+    { n: 'Tasha Greer', r: 'Inventory coordinator', o: 'Enterprise', hire: 'Aug 19, 2020', review: 'Apr 2026' }
+  ];
+  var PTO = [
+    { n: 'Chloe Dunn', o: 'Selma', when: 'Nov 5 to Nov 6 · 2 days', cover: 'Coverage needed' },
+    { n: 'Paige Lorne', o: 'Montgomery', when: 'Nov 12 · 1 day', cover: 'Covered' }
+  ];
+  function ini(n) { return n.split(' ').map(function (x) { return x[0]; }).join('').slice(0, 2); }
+  function by(n) { return P.filter(function (p) { return p.n === n; })[0]; }
+  var self = role === 'inv' || role === 'team', lead = role === 'lead', myOffice = me.office;
+  var mine = function (o) { return !lead || o === myOffice; };
+  var sel = self ? me.name : 'Amber Nix', office = 'All';
+
+  function fileHtml(p, own) {
+    var cpr = p.cpr ? '<b style="color:var(--amber)">Expires ' + p.cpr + '</b>' : '<b>Current</b>';
+    var rad = p.rad ? '<b style="color:var(--amber)">Expires ' + p.rad + '</b>' : '<b>Current</b>';
+    return '<h2>' + (own ? 'My HR file' : 'Employee file') + ' <button class="uth" data-h="0"></button></h2>' +
+      '<div class="top"><span class="pp-av" aria-hidden="true">' + ini(p.n) + '</span><span><b>' + p.n + '</b><span class="muted">' + p.r + ' · ' + p.o + '</span></span></div>' +
+      '<div class="row"><span>Hire date</span><b>' + p.hire + ' · from ADP</b></div>' +
+      '<div class="row"><span>CPR card</span>' + cpr + '</div>' +
+      '<div class="row"><span>Radiology certificate</span>' + rad + '</div>' +
+      '<div class="row"><span>I-9, handbook, confidentiality</span><b>Signed · on file</b></div>' +
+      '<div class="row"><span>Last review</span><b>' + p.review + '</b></div>' +
+      '<div class="row"><span>Pay rate</span><b class="muted">In ADP · not shown here</b></div>' +
+      '<p class="small muted" style="margin-bottom:0">Documents open from the file vault. Who opened what is logged.</p>';
+  }
+  function wire(scope) {
+    Array.prototype.forEach.call(scope.querySelectorAll('.uth'), function (b) {
+      if (b.textContent) return;
+      var i = parseInt(b.getAttribute('data-h'), 10); b.textContent = String(i + 1); b.type = 'button'; b.title = 'How this works in the real build';
+      b.addEventListener('click', function (ev) { ev.preventDefault(); ev.stopPropagation(); window.TW.open(i); });
+    });
+    Array.prototype.forEach.call(scope.querySelectorAll('a[href="#"]'), function (a) {
+      if (a.getAttribute('data-w')) return; a.setAttribute('data-w', '1');
+      a.addEventListener('click', function (e) { e.preventDefault(); say('Mockup: “' + a.textContent.trim() + '” works in the real build, not here.'); });
+    });
+  }
+
+  // ---- Team members and the inventory coordinator: own file only ----
+  if (self) {
+    var p = by(me.name) || { n: me.name, r: me.role, o: me.office, hire: 'Jun 3, 2025', review: 'Apr 2026' };
+    root.innerHTML = '<div class="pagehead"><div><div class="lbl">People <button class="uth" data-h="1"></button></div><h1>My HR file</h1><div class="sub">You see your own file. Your office lead and Savannah see it too.</div></div>' +
+      '<div><a class="btn pri" href="#">Request PTO</a> <button class="uth" data-h="3"></button></div></div>' +
+      '<div class="grid g2"><div class="card file" style="position:static">' + fileHtml(p, true) + '</div>' +
+      '<div class="card"><h2>My training</h2><div class="row"><span>OSHA annual training</span><b>Done · Sep</b></div><div class="row"><span>CPR recertification</span><b>Card current</b></div>' +
+      '<p class="small muted" style="margin-bottom:0">Training records and the SOP library open from here.</p></div></div>';
+    wire(root); return;
+  }
+
+  // ---- Owners, Savannah and office leads ----
+  var pto = PTO.filter(function (q) { return mine(q.o); });
+  var exp = P.filter(function (x) { return (x.cpr || x.rad) && mine(x.o); }).sort(function (a, b) { return parseInt((a.cpr || a.rad).replace(/\D/g, ''), 10) - parseInt((b.cpr || b.rad).replace(/\D/g, ''), 10); });
+  var scope = lead ? myOffice + ' office' : 'All offices';
+  root.innerHTML =
+    '<div class="pagehead"><div><div class="lbl">People · weekly · replaces BambooHR <button class="uth" data-h="1"></button></div><h1>People</h1><div class="sub">' + scope + '</div></div>' +
+    '<div><div class="stats"><span class="stat"><b>' + (lead ? P.filter(function (x) { return x.o === myOffice; }).length : 47) + '</b>team members</span>' + (lead ? '' : '<span class="stat"><b>2</b>onboarding · Wetumpka hires</span>') + '</div> <a class="btn pri" href="#">+ New hire</a></div></div>' +
+    '<h2 class="sec">Needs you <span class="hint" id="ptoHint"></span> <button class="uth" data-h="3"></button></h2>' +
+    '<ul class="todo" id="pto">' + pto.map(function (q) {
+      var x = by(q.n);
+      return '<li class="s-you"><span class="pp-av" aria-hidden="true">' + ini(q.n) + '</span><div class="t"><b>' + q.n + ' asked for PTO</b><span>' + q.when + ' · ' + x.r + ', ' + q.o + '</span></div>' +
+        '<span class="pill ' + (q.cover === 'Covered' ? 'ok' : 'warn') + '">' + q.cover + '</span>' +
+        '<div class="act"><button class="btn" type="button" data-pto="Declined">Decline</button><button class="btn pri" type="button" data-pto="Approved">Approve</button></div></li>';
+    }).join('') + '</ul>' +
+    '<p class="clear" id="ptoClear"' + (pto.length ? ' hidden' : '') + '>No PTO requests are waiting on you.</p>' +
+    '<div class="card" style="margin-top:12px"><h2>Cards expiring in the next 60 days <button class="uth" data-h="2"></button></h2>' +
+    (exp.length ? exp.map(function (x) {
+      return '<button type="button" class="exp" data-open="' + x.n + '"><span class="pp-av" aria-hidden="true">' + ini(x.n) + '</span><span><b>' + x.n + '</b><small>' + x.r + ' · ' + x.o + '</small></span><span class="when">' + (x.cpr || x.rad) + '<small>' + (x.cpr ? 'CPR card' : 'Radiology certificate') + '</small></span></button>';
+    }).join('') : '<p class="muted" style="margin:0">None in the next 60 days.</p>') +
+    '<p class="small muted" style="margin-bottom:0">The same people appear on the Command Center and in the morning brief. One field, three places.</p></div>' +
+    '<h2 class="sec">Team <span class="hint" id="teamHint"></span></h2>' +
+    (lead ? '' : '<div class="fl" id="fl" role="group" aria-label="Office"></div>') +
+    '<div class="pgrid"><div class="plist" id="plist"></div><aside class="card file" id="file" aria-live="polite" aria-label="Employee file"></aside></div>' +
+    '<p class="small muted" style="margin:14px 4px 0">Also in this hub and not drawn in this mockup: org chart, onboarding and offboarding, reviews, training and the SOP library. Pay and payroll stay in ADP.</p>';
+
+  var $pto = document.getElementById('pto'), $list = document.getElementById('plist'), $file = document.getElementById('file'), $fl = document.getElementById('fl');
+  function ptoCount() {
+    var n = $pto.querySelectorAll('li:not(.done)').length;
+    document.getElementById('ptoHint').textContent = n ? '· ' + n + ' PTO ' + (n === 1 ? 'request' : 'requests') + ' waiting on approval' : '';
+    document.getElementById('ptoClear').hidden = n !== 0;
+  }
+  $pto.addEventListener('click', function (ev) {
+    var b = ev.target.closest('[data-pto]'); if (!b) return;
+    var li = b.closest('li'), what = b.getAttribute('data-pto');
+    li.classList.add('done'); li.querySelector('.act').innerHTML = '<span class="pill ' + (what === 'Approved' ? 'ok' : 'gray') + '">' + what + '</span>';
+    li.querySelector('.t b').style.textDecoration = 'none';
+    say(what + '. In the real build the staff schedule and the office day screen update on their own.');
+    ptoCount();
+  });
+  function drawFilters() {
+    if (!$fl) return;
+    $fl.innerHTML = ['All'].concat(OFFICES).map(function (o) { return '<button type="button" class="fchip" data-o="' + o + '" aria-pressed="' + (o === office) + '">' + (o === 'All' ? 'All offices' : o) + '</button>'; }).join('');
+  }
+  function drawList() {
+    var list = P.filter(function (x) { return mine(x.o) && (office === 'All' || x.o === office); });
+    $list.innerHTML = list.map(function (x) {
+      var flag = x.cpr ? '<span class="flag warn">CPR expires ' + x.cpr + '</span>' : x.rad ? '<span class="flag warn">Radiology expires ' + x.rad + '</span>' : x.pto ? '<span class="flag gray">PTO today</span>' : '';
+      return '<button type="button" class="prow" data-open="' + x.n + '" aria-pressed="' + (x.n === sel) + '"><span class="pp-av" aria-hidden="true">' + ini(x.n) + '</span><span><b>' + x.n + '</b><small>' + x.r + ' · ' + x.o + '</small></span>' + flag + '</button>';
+    }).join('') + (lead ? '' : '<p class="pmore">Sample shows ' + list.length + ' of ' + (office === 'All' ? 47 : 'this office\'s') + ' people.</p>');
+    document.getElementById('teamHint').textContent = lead ? '· ' + myOffice + ' · tap a person to open their file' : '· tap a person to open their file';
+  }
+  function drawFile(scroll) {
+    var p = by(sel); $file.innerHTML = fileHtml(p, false); wire($file);
+    if (scroll && window.matchMedia('(max-width:960px)').matches) $file.scrollIntoView({ block: 'start', behavior: window.matchMedia('(prefers-reduced-motion:reduce)').matches ? 'auto' : 'smooth' });
+  }
+  function open(n, scroll) { sel = n; if (office !== 'All' && by(n).o !== office) { office = 'All'; drawFilters(); } drawList(); drawFile(scroll); }
+  root.addEventListener('click', function (ev) {
+    var o = ev.target.closest('[data-open]');
+    if (o) { open(o.getAttribute('data-open'), true); var again = $list.querySelector('[data-open="' + sel + '"]'); if (again && o.classList.contains('prow')) again.focus(); return; }
+    var f = ev.target.closest('.fchip');
+    if (f) { office = f.getAttribute('data-o'); drawFilters(); drawList(); var b = $fl.querySelector('[data-o="' + office + '"]'); if (b) b.focus(); }
+  });
+  if (lead && !P.some(function (x) { return x.n === sel && x.o === myOffice; })) sel = P.filter(function (x) { return x.o === myOffice; })[0].n;
+  wire(root); drawFilters(); drawList(); drawFile(false); ptoCount();
+})();
+</script>
 </body>
 </html>
