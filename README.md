@@ -36,4 +36,4 @@ assets/app.js         Banner, header, role switch, under-the-hood drawer
 
 ## Branding
 
-Colours, logo and heading font are TW Orthodontics' own, taken from twortho.com: blue `#559cb5`, grey `#636466`, orange `#ed6a40`, Montserrat. They live as tokens at the top of `assets/styles.css`. `signin.html` shows the first screen: Google sign-in, or name plus PIN on an office touch screen.
+Colours, logo and heading font are TW Orthodontics' own, taken from twortho.com: blue `#559cb5`, grey `#636466`, orange `#ed6a40`, Montserrat. They live as tokens at the top of `assets/styles.css`. `signin.html` shows the first screen: Sign in with Google, as the Hub Map says. `profile.html` holds the per-person colour schemes (`assets/theme.js`), the same idea as Home-Brace.

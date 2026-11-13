@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>TW Ops · My profile (mockup)</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="assets/tw-mark.svg">
+<link rel="stylesheet" href="assets/styles.css">
+<script src="assets/theme.js"></script>
+</head>
+<body>
+<script>
+window.PAGE = { id: 'profile', title: 'My profile', hood: [
+  { what: 'About you', how: 'Name, photo and email come from the Google Workspace account you signed in with. Role and office come from the directory in the database, which Savannah and the owners manage. Nobody types a profile in twice.', svc: ['auth','db'] },
+  { what: 'Colors for TW Ops', how: 'Each scheme is two colours. Every other shade is worked out from them, and contrast is checked so no scheme can make text hard to read. Your choice is saved on your own row, so it follows you to any computer, and a shared office screen shows each person their own. The logo and the status colours (red, amber, green) never change.', svc: ['db','auth'] }
+]};
+</script>
+<div class="wrap">
+  <div class="pagehead"><div><div class="lbl">My profile</div><h1 id="pfTitle">My profile</h1></div></div>
+  <div class="card">
+    <h2>About you <button class="uth" data-h="0"></button></h2>
+    <div class="pf-top"><span class="pf-av" id="pfAv" aria-hidden="true"></span><span><b id="pfName"></b><span class="muted" id="pfRole"></span></span></div>
+    <div class="row"><span>Office</span><b id="pfOffice"></b></div>
+    <div class="row"><span>Email</span><b id="pfEmail"></b></div>
+    <div class="row"><span>Signs in with</span><b>Google Workspace</b></div>
+  </div>
+  <div class="card" style="margin-top:12px">
+    <h2>Colors for TW Ops <button class="uth" data-h="1"></button></h2>
+    <p class="muted" style="margin:0">Pick the look you like. It changes only your own view, and you can go back to TW Blue any time.</p>
+    <div class="tsw-grid" id="tsw" role="radiogroup" aria-label="Color scheme"></div>
+  </div>
+</div>
+<script src="assets/app.js"></script>
+<script>
+(function () {
+  var me = window.TW.me, T = window.TWTheme;
+  document.getElementById('pfTitle').textContent = me.name;
+  document.getElementById('pfAv').textContent = me.ini;
+  document.getElementById('pfName').textContent = me.name;
+  document.getElementById('pfRole').textContent = me.role;
+  document.getElementById('pfOffice').textContent = me.office;
+  document.getElementById('pfEmail').textContent = me.email;
+  var box = document.getElementById('tsw');
+  function draw() {
+    var cur = T.current();
+    box.innerHTML = T.THEMES.map(function (t) {
+      var k = T.tokens(t);
+      return '<button type="button" class="tsw" role="radio" aria-checked="' + (t.id === cur) + '" data-id="' + t.id + '">' +
+        '<span class="tsw-prev" style="background:linear-gradient(120deg,' + k['--brand-deep'] + ',' + k['--brand'] + ' 50%,' + k['--brand-mid'] + ')"><i style="background:' + k['--orange'] + '"></i></span>' +
+        '<span class="tsw-name">' + t.name + '<em>Selected</em></span></button>';
+    }).join('');
+  }
+  box.addEventListener('click', function (e) {
+    var b = e.target.closest('.tsw'); if (!b) return;
+    T.set(b.getAttribute('data-id')); draw();
+    var again = box.querySelector('[data-id="' + b.getAttribute('data-id') + '"]'); if (again) again.focus();
+    window.TW.say('Saved. In the real build this follows you to any computer.');
+  });
+  draw();
+})();
+</script>
+</body>
+</html>

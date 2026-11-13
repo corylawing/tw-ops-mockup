@@ -3,11 +3,11 @@
 (function () {
   var PLANS_URL = 'https://claude.ai/artifact/VLj8XUKVRok4G7auMnYBA9';
   var ROLES = {
-    owners: { name: 'Dr. Wood', role: 'Owner', email: 'bwood@twortho.com', home: 'owners.html', ini: 'BW' },
-    ops:    { name: 'Savannah', role: 'Director of Operations', email: 'savannah@twortho.com', home: 'index.html', ini: 'SV' },
-    lead:   { name: 'Kara Whitfield', role: 'Office lead · Selma', email: 'kara@twortho.com', home: 'huddle.html', ini: 'KW' },
-    inv:    { name: 'Tasha Greer', role: 'Inventory coordinator', email: 'tasha@twortho.com', home: 'operations.html', ini: 'TG' },
-    team:   { name: 'Jordan Lee', role: 'Clinical assistant · Selma', email: 'jordan@twortho.com', home: 'huddle.html', ini: 'JL' }
+    owners: { name: 'Dr. Wood', role: 'Owner', email: 'bwood@twortho.com', office: 'All offices', home: 'owners.html', ini: 'BW' },
+    ops:    { name: 'Savannah', role: 'Director of Operations', email: 'savannah@twortho.com', office: 'All offices', home: 'index.html', ini: 'SV' },
+    lead:   { name: 'Kara Whitfield', role: 'Office lead · Selma', email: 'kara@twortho.com', office: 'Selma', home: 'huddle.html', ini: 'KW' },
+    inv:    { name: 'Tasha Greer', role: 'Inventory coordinator', email: 'tasha@twortho.com', office: 'All offices', home: 'operations.html', ini: 'TG' },
+    team:   { name: 'Jordan Lee', role: 'Clinical assistant · Selma', email: 'jordan@twortho.com', office: 'Selma', home: 'huddle.html', ini: 'JL' }
   };
   var I = {
     command: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>',
@@ -44,35 +44,34 @@
   var hood = page.hood || [];
   if (ls('tw_explain') === '1') document.body.classList.add('explain');
 
-  // 1. Top bar
-  var top = document.createElement('div'); top.className = 'topbar';
-  var opts = Object.keys(ROLES).map(function (k) { return '<option value="' + k + '"' + (k === role ? ' selected' : '') + '>' + ROLES[k].name + ' · ' + ROLES[k].role + '</option>'; }).join('');
-  top.innerHTML = '<a class="brand" href="index.html" aria-label="TW Ops home"><img src="assets/tw-logo.svg" alt="TW Orthodontics"><span class="prod">Ops</span></a>' +
-    '<div class="search" role="search">' + I.search + '<span>Search people, tasks, offices…</span><kbd>/</kbd></div>' +
-    '<div class="right"><span class="mockpill" title="Sample data. Invented names and numbers. Layout and wording are adjustable."><i></i>Mockup<span class="x"> · sample data</span></span>' +
-    '<button class="explain-btn" id="explainBtn" type="button" title="Show how each part works in the real build"><span class="sw"></span><span class="t">Explain the build</span></button>' +
-    '<button class="ibtn" type="button" title="Notifications">' + I.bell + '<span class="dot"></span></button>' +
-    '<div class="me"><select id="roleSel" title="Viewing as">' + opts + '</select><span class="avatar" title="' + me.email + '">' + me.ini + '</span></div></div>';
-  document.body.insertBefore(top, document.body.firstChild);
-  document.getElementById('roleSel').addEventListener('change', function (e) { ls('tw_role', e.target.value); location.reload(); });
-
-  // 2. Shell: sidebar + main
-  var navHtml = '<div class="sec">Hubs</div>' + NAV.map(function (n) {
+  // 1. Shell: sidebar + main. No top bar: the product chrome stays clean.
+  var navHtml = NAV.map(function (n) {
     var a = n.access[role];
     var cls = (n.id === page.id ? 'on' : '') + (a ? '' : ' locked');
-    var title = a ? (a === 'own' ? 'Own office only' : a === 'view' ? 'View only' : a === 'self' ? 'Own items only' : 'Full access') : 'Hidden for this role';
+    var title = a ? (a === 'own' ? 'Own office only' : a === 'view' ? 'View only' : a === 'self' ? 'Own items only' : 'Full access') : 'Not available for this role';
     var pre = n.id === 'calendar' ? '<div class="sec">Shared</div>' : '';
-    return pre + '<a class="' + cls + '" href="' + n.href + '" title="' + title + '">' + I[n.id] + n.label + (n.cnt && a ? '<span class="cnt">' + n.cnt + '</span>' : '') + '</a>';
+    return pre + '<a class="' + cls + '" href="' + n.href + '" title="' + title + '"' + (n.id === page.id ? ' aria-current="page"' : '') + (a ? '' : ' aria-disabled="true" tabindex="-1"') + '>' + I[n.id] + '<span>' + n.label + '</span>' + (n.cnt && a ? '<span class="cnt">' + n.cnt + '</span>' : '') + '</a>';
   }).join('');
   var side = document.createElement('aside'); side.className = 'side';
-  side.innerHTML = '<nav class="hubs" aria-label="Hubs">' + navHtml + '</nav>' +
-    '<div class="sidefoot"><a href="how-it-works.html"' + (page.id === 'how' ? ' style="color:var(--brand-ink);font-weight:600"' : '') + '>' + I.how + 'How it works</a><a href="' + PLANS_URL + '" target="_blank" rel="noopener">' + I.owners + 'Foundation plans</a></div>';
+  side.innerHTML = '<a class="logo" href="index.html" aria-label="TW Ops home"><img src="assets/tw-logo.svg" alt="TW Orthodontics"></a>' +
+    '<nav class="hubs" aria-label="Hubs">' + navHtml + '</nav>' +
+    '<div class="sidefoot"><a href="how-it-works.html">' + I.how + 'How it works</a><a href="' + PLANS_URL + '" target="_blank" rel="noopener">' + I.owners + 'Foundation plans</a></div>' +
+    '<a class="who' + (page.id === 'profile' ? ' on' : '') + '" href="profile.html" title="My profile and colors"><span class="avatar" aria-hidden="true">' + me.ini + '</span><span><b>' + me.name + '</b>My profile</span><span class="go" aria-hidden="true">›</span></a>';
   var shell = document.createElement('div'); shell.className = 'shell';
   var main = document.createElement('main');
   var wrapEl = document.querySelector('.wrap');
   shell.appendChild(side); shell.appendChild(main);
-  document.body.insertBefore(shell, top.nextSibling);
+  document.body.insertBefore(shell, document.body.firstChild);
   if (wrapEl) main.appendChild(wrapEl);
+
+  // 2. Demo controls live in one floating bar, outside the product chrome
+  var opts = Object.keys(ROLES).map(function (k) { return '<option value="' + k + '"' + (k === role ? ' selected' : '') + '>' + ROLES[k].name + ' · ' + ROLES[k].role + '</option>'; }).join('');
+  var demo = document.createElement('div'); demo.className = 'demobar'; demo.setAttribute('role', 'region'); demo.setAttribute('aria-label', 'Mockup controls');
+  demo.innerHTML = '<span class="mock" title="Sample data. Invented names and numbers. Layout and wording are adjustable."><i></i>Mockup<span class="x"> · sample data</span></span>' +
+    '<label><span class="x">View as</span><select id="roleSel" aria-label="View as">' + opts + '</select></label>' +
+    '<button class="explain-btn" id="explainBtn" type="button" title="Show how each part works in the real build"><span class="sw"></span><span class="t">Explain<span class="x"> the build</span></span></button>';
+  document.body.appendChild(demo);
+  document.getElementById('roleSel').addEventListener('change', function (e) { ls('tw_role', e.target.value); location.reload(); });
 
   var navItem = NAV.filter(function (n) { return n.id === page.id; })[0];
   if (navItem && !navItem.access[role] && wrapEl) {
@@ -105,21 +104,20 @@
   Array.prototype.forEach.call(document.querySelectorAll('.uth'), function (b) {
     var i = parseInt(b.getAttribute('data-h'), 10);
     b.textContent = isNaN(i) ? '?' : String(i + 1); b.type = 'button';
-    b.title = 'How this works in the real build';
+    b.title = 'How this works in the real build'; b.setAttribute('aria-label', 'How this works in the real build, note ' + (i + 1));
     b.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); open(i); });
   });
 
   // 4. Inert controls explain themselves
   var toast = document.createElement('div'); toast.className = 'toast'; document.body.appendChild(toast); var tt;
   function say(msg) { toast.textContent = msg; toast.classList.add('show'); clearTimeout(tt); tt = setTimeout(function () { toast.classList.remove('show'); }, 2600); }
-  Array.prototype.forEach.call(document.querySelectorAll('a[href="#"], .ibtn, .search'), function (a) {
+  Array.prototype.forEach.call(document.querySelectorAll('a[href="#"]'), function (a) {
     a.addEventListener('click', function (e) {
       e.preventDefault();
       var label = (a.getAttribute('title') || a.textContent).replace(/\s*\d+\s*$/, '').replace('▾', '').replace(/…/g, '').trim();
       say('Mockup: “' + label + '” works in the real build, not here.');
     });
   });
-  document.addEventListener('keydown', function (e) { if (e.key === '/' && document.activeElement.tagName !== 'INPUT') { e.preventDefault(); say('Mockup: search works in the real build, not here.'); } });
 
   // 5. Footer
   var ft = document.createElement('footer'); ft.className = 'ft';
