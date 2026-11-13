@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="icon" type="image/svg+xml" href="assets/tw-mark.svg">
-<link rel="stylesheet" href="assets/styles.css?v=14">
-<script src="assets/splash.js?v=14"></script>
-<script src="assets/theme.js?v=14"></script>
+<link rel="stylesheet" href="assets/styles.css?v=17">
+<script src="assets/splash.js?v=17"></script>
+<script src="assets/theme.js?v=17"></script>
 <title>TW Ops · Compliance (mockup)</title>
 <style>
 .stats{display:flex;flex-wrap:wrap;gap:8px}
@@ -32,7 +32,9 @@
 .proof svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .cgrid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:12px;align-items:start;margin-top:12px}
 @media (max-width:980px){.cgrid{grid-template-columns:1fr}}
-@media (max-width:760px){
+/* The grid follows the width of its card. Narrow card: one block per item, with the office named on each line. */
+.cmc{container-type:inline-size}
+@container (max-width:719px){
   .cm thead{position:absolute;left:-9999px}
   .cm,.cm tbody,.cm tr,.cm td,.cm th[scope="row"]{display:block;width:100%}
   .cm tr{border-bottom:1px solid var(--line2);padding:8px 0 10px}.cm tr:last-child{border-bottom:0}
@@ -52,7 +54,7 @@ window.PAGE = { id: 'compliance', title: 'Compliance', hood: [
 ]};
 </script>
 <div class="wrap" id="cp"></div>
-<script src="assets/app.js?v=14"></script>
+<script src="assets/app.js?v=17"></script>
 <script>
 (function () {
   var root = document.getElementById('cp');
@@ -108,7 +110,7 @@ window.PAGE = { id: 'compliance', title: 'Compliance', hood: [
     '<h2 class="sec">' + (late.length ? 'Needs you' : 'Coming up') + (late.length ? ' <span class="hint">· late first, then what is coming up</span>' : '') + '</h2>' +
     '<ul class="todo">' + needs + '</ul>' +
     '<h2 class="sec">' + (lead ? me.office + ', item by item' : 'Every office, item by item') + '</h2>' +
-    '<div class="card"><div class="key" aria-label="How to read this"><span class="cs done">' + ICON.done + 'Done or current</span><span class="cs due">' + ICON.due + 'Due or renewing</span><span class="cs late">' + ICON.late + 'Late</span><span><span class="proof" style="margin:0">' + ICON.clip + '</span>Proof on file</span></div>' +
+    '<div class="card cmc"><div class="key" aria-label="How to read this"><span class="cs done">' + ICON.done + 'Done or current</span><span class="cs due">' + ICON.due + 'Due or renewing</span><span class="cs late">' + ICON.late + 'Late</span><span><span class="proof" style="margin:0">' + ICON.clip + '</span>Proof on file</span></div>' +
     '<table class="cm"><thead><tr><th scope="col">Item</th>' + offices.map(function (o) { return '<th scope="col">' + o + '</th>'; }).join('') + '</tr></thead><tbody>' +
     ROWS.map(function (r) {
       return '<tr><th scope="row">' + r.t + (r.h !== undefined ? ' <button class="uth" data-h="' + r.h + '"></button>' : '') + '<small>' + r.f + '</small></th>' + offices.map(function (o) { return '<td data-l="' + o + '">' + cell(r.c[o]) + '</td>'; }).join('') + '</tr>';

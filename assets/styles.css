@@ -161,6 +161,18 @@ td:last-child{white-space:nowrap}
 .offs{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
 .offs.three{grid-template-columns:repeat(3,1fr)}
 @media (max-width:1000px){.offs,.offs.three{grid-template-columns:1fr 1fr}}
+.offs>*{min-width:0}
+/* on a phone each office is one row: ring on the left, details on the right */
+@media (max-width:560px){
+  .offs,.offs.three{grid-template-columns:1fr}
+  .offs .off{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:14px;align-items:center;text-align:left;padding:14px}
+  .offs .off .ring{margin:0;grid-column:1;grid-row:1 / span 4;align-self:center}
+  .offs .off>:not(.ring){grid-column:2}
+  .offs .off small{margin:2px 0 8px}
+  .offs .off .pill,.offs .off .streak{white-space:normal;justify-self:start}
+  .offs .off .sk{margin-top:6px}
+}
+.row .cs{white-space:normal;text-align:right}
 .off{background:#fff;border-radius:20px;padding:18px 14px 16px;text-align:center;box-shadow:var(--shadow);display:block;text-decoration:none;color:inherit;transition:box-shadow .15s}
 .off:hover{box-shadow:0 10px 24px -14px rgba(45,95,119,.55)}
 .ring{width:84px;height:84px;margin:0 auto 10px;position:relative}
@@ -306,3 +318,6 @@ body.touring .demobar{display:none}
 .demobar.min .mock::after{content:"· show controls";font-weight:500;opacity:.8;margin-left:6px}
 @media (max-width:900px){.demobar.min{right:auto}}
 .drawer .note.when{background:var(--brand-soft);color:var(--brand)}
+
+/* grid children may always shrink, so nothing pushes a page sideways on a small phone */
+.grid>*,.offs>*,.tsw-grid>*{min-width:0}

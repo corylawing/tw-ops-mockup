@@ -6,9 +6,9 @@
 <title>TW Ops · 6:30 AM brief (mockup)</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="icon" type="image/svg+xml" href="assets/tw-mark.svg">
-<link rel="stylesheet" href="assets/styles.css?v=14">
-<script src="assets/splash.js?v=14"></script>
-<script src="assets/theme.js?v=14"></script>
+<link rel="stylesheet" href="assets/styles.css?v=17">
+<script src="assets/splash.js?v=17"></script>
+<script src="assets/theme.js?v=17"></script>
 <style>
 .inbox{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:12px;background:#fff;border-radius:18px;box-shadow:var(--shadow);padding:12px 16px;max-width:640px;margin:0 auto 12px}
 .inbox img{width:36px;height:36px;border-radius:50%}
@@ -29,6 +29,21 @@
 .mail table{font-size:15px}
 .mail th,.mail td{padding:9px 8px}
 .mail td.n,.mail th.n{text-align:right;font-variant-numeric:tabular-nums}
+.mail{container-type:inline-size}
+@container (max-width:520px){
+  .ot,.ot tbody{display:block}
+  .ot tr:first-child{display:none}
+  .ot tr{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2px 10px;padding:10px 0;border-bottom:1px solid var(--line2)}
+  .ot tr:last-child{border-bottom:0}
+  .ot td{display:block;border:0;padding:0}
+  .ot td:nth-child(1){grid-column:1 / span 2}
+  .ot td:nth-child(2){justify-self:end}
+  .ot td.n{text-align:left;font-size:14.5px}
+  .ot td.n::before{content:attr(data-l) " ";color:var(--muted)}
+  .ot.lt td:nth-child(1){grid-column:1 / -1}
+  .ot.lt td:nth-child(2){justify-self:start}
+  .mail .streak{white-space:normal}
+}
 .mail ul{list-style:none;margin:0;padding:0}
 .mail li{padding:8px 0;border-top:1px solid var(--line2);display:flex;gap:10px;align-items:baseline}
 .mail li:first-child{border-top:0}
@@ -74,12 +89,12 @@ window.PAGE = { id: 'brief', title: '6:30 AM brief', hood: [
         <li><span class="d">Supplies</span><span>Enterprise has used 89% of its Q4 supply budget.</span></li></ul></div>
 
       <h3>Offices · yesterday <button class="uth" data-h="1"></button></h3>
-      <div class="scroll"><table>
+      <div class="scroll"><table class="ot">
         <tr><th>Office</th><th>Status</th><th class="n">Checklists</th><th class="n">Exams</th><th class="n">Starts</th></tr>
-        <tr><td><b>Enterprise</b></td><td><span class="cs late"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V13M12 16.4v.1"/></svg>Behind</span></td><td class="n">6/12</td><td class="n">4</td><td class="n">1</td></tr>
-        <tr><td><b>Montgomery</b></td><td><span class="cs due"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2"/></svg>Attention</span></td><td class="n">9/12</td><td class="n">5</td><td class="n">2</td></tr>
-        <tr><td><b>Andalusia</b></td><td><span class="cs done"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.2l2.4 2.4 4.6-5"/></svg>On track</span></td><td class="n">11/12</td><td class="n">6</td><td class="n">3</td></tr>
-        <tr><td><b>Selma</b></td><td><span class="cs done"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.2l2.4 2.4 4.6-5"/></svg>On track</span></td><td class="n">12/12</td><td class="n">7</td><td class="n">3</td></tr>
+        <tr><td><b>Enterprise</b></td><td><span class="cs late"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V13M12 16.4v.1"/></svg>Behind</span></td><td class="n" data-l="Checklists">6/12</td><td class="n" data-l="Exams">4</td><td class="n" data-l="Starts">1</td></tr>
+        <tr><td><b>Montgomery</b></td><td><span class="cs due"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2"/></svg>Attention</span></td><td class="n" data-l="Checklists">9/12</td><td class="n" data-l="Exams">5</td><td class="n" data-l="Starts">2</td></tr>
+        <tr><td><b>Andalusia</b></td><td><span class="cs done"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.2l2.4 2.4 4.6-5"/></svg>On track</span></td><td class="n" data-l="Checklists">11/12</td><td class="n" data-l="Exams">6</td><td class="n" data-l="Starts">3</td></tr>
+        <tr><td><b>Selma</b></td><td><span class="cs done"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.2l2.4 2.4 4.6-5"/></svg>On track</span></td><td class="n" data-l="Checklists">12/12</td><td class="n" data-l="Exams">7</td><td class="n" data-l="Starts">3</td></tr>
       </table></div>
       <p class="small muted" style="margin:6px 0 0">Exams and starts come from OrthoAI / Cloud 9 overnight.</p>
 
@@ -105,7 +120,7 @@ window.PAGE = { id: 'brief', title: '6:30 AM brief', hood: [
       <h3>Today's huddle · 7:45 AM</h3>
       <ul><li><span class="d">Value</span><span>Own it</span></li><li><span class="d">PSA</span><span>Q4 supply counts due tomorrow</span></li><li><span class="d">Icebreaker</span><span>Best concert you have been to?</span></li><li><span class="d">Celebrate</span><span>Birthdays &amp; work anniversaries this week</span></li></ul>
       <h3>Selma · yesterday <button class="uth" data-h="1"></button></h3>
-      <div class="scroll"><table><tr><th>Status</th><th class="n">Checklists</th><th class="n">Exams</th><th class="n">Starts</th></tr><tr><td><span class="cs done"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.2l2.4 2.4 4.6-5"/></svg>On track</span></td><td class="n">12/12</td><td class="n">7</td><td class="n">3</td></tr></table></div>
+      <div class="scroll"><table class="ot lt"><tr><th>Status</th><th class="n">Checklists</th><th class="n">Exams</th><th class="n">Starts</th></tr><tr><td><span class="cs done"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.2l2.4 2.4 4.6-5"/></svg>On track</span></td><td class="n" data-l="Checklists">12/12</td><td class="n" data-l="Exams">7</td><td class="n" data-l="Starts">3</td></tr></table></div>
       <h3>Due today</h3>
       <ul><li><span>Confirm Q4 supply order quantities (due tomorrow)</span></li></ul>
       <h3>Calendar · reminders firing</h3>
@@ -126,6 +141,6 @@ window.PAGE = { id: 'brief', title: '6:30 AM brief', hood: [
   </article>
   <p class="small muted versions">Four versions go out: two owner briefs, the operations brief, seven office briefs and the inventory brief.</p>
 </div>
-<script src="assets/app.js?v=14"></script>
+<script src="assets/app.js?v=17"></script>
 </body>
 </html>

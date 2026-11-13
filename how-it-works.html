@@ -6,9 +6,9 @@
 <title>TW Ops · How it works underneath (mockup)</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="icon" type="image/svg+xml" href="assets/tw-mark.svg">
-<link rel="stylesheet" href="assets/styles.css?v=14">
-<script src="assets/splash.js?v=14"></script>
-<script src="assets/theme.js?v=14"></script>
+<link rel="stylesheet" href="assets/styles.css?v=17">
+<script src="assets/splash.js?v=17"></script>
+<script src="assets/theme.js?v=17"></script>
 <style>
 html{scroll-behavior:smooth}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
@@ -50,7 +50,8 @@ html{scroll-behavior:smooth}
 .wpanel h3{font-size:19px;margin:2px 0 6px}
 .wpanel p{margin:0;max-width:64ch}
 .wnav{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:14px}
-.svs{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px}
+.svs{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(280px,100%),1fr));gap:10px}
+.svs>*,.why>*,.roll>*,.apps>*,.tl3>*,.plan2>*{min-width:0}
 .sv{background:#fff;border-radius:18px;box-shadow:var(--shadow);padding:14px 16px;display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start}
 .sv-ic{width:42px;height:42px;border-radius:50%;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center}
 .sv-ic svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
@@ -82,7 +83,7 @@ html{scroll-behavior:smooth}
 .pl .price{font-family:var(--title);font-size:26px;font-weight:700;margin:4px 0 8px}
 .pl .price small{font-family:var(--font);font-size:14.5px;font-weight:500;color:var(--muted)}
 .pl ul{margin:0;padding-left:20px}.pl li{margin:4px 0}
-.why{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px}
+.why{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(300px,100%),1fr));gap:10px}
 .why div{background:#fff;border-radius:16px;box-shadow:var(--shadow);padding:14px 16px}
 .why b{display:block;font-family:var(--title);margin-bottom:2px}
 .roll{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;counter-reset:m}
@@ -173,7 +174,7 @@ window.PAGE = { id: 'how', title: 'How it works', hood: [
     <div class="mo4"><span class="mn">Month 4</span><b>Launches and the clinical tools</b><p>Launch playbooks for Wetumpka, Dothan and Troy. Clinical tools connected. Fixes and training.</p></div>
   </div>
 </div>
-<script src="assets/app.js?v=14"></script>
+<script src="assets/app.js?v=17"></script>
 <script>
 (function () {
   var I = {"screen": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><rect x=\"4\" y=\"3\" width=\"16\" height=\"13\" rx=\"2\"/><path d=\"M9 21h6M12 16v5M8.500 9.500l2.400 2.400 4.600-4.800\"/></svg>", "door": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M6 21V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v17M4 21h16\"/><circle cx=\"14.500\" cy=\"12\" r=\".9\"/></svg>", "db": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><ellipse cx=\"12\" cy=\"6\" rx=\"7\" ry=\"3\"/><path d=\"M5 6v6c0 1.700 3.100 3 7 3s7-1.300 7-3V6M5 12v6c0 1.700 3.100 3 7 3s7-1.300 7-3v-6\"/></svg>", "night": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M20 14.500A8 8 0 0 1 9.500 4a7 7 0 1 0 10.500 10.500z\"/></svg>", "grid": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><rect x=\"3\" y=\"3\" width=\"7\" height=\"7\" rx=\"1.500\"/><rect x=\"14\" y=\"3\" width=\"7\" height=\"7\" rx=\"1.500\"/><rect x=\"3\" y=\"14\" width=\"7\" height=\"7\" rx=\"1.500\"/><rect x=\"14\" y=\"14\" width=\"7\" height=\"7\" rx=\"1.500\"/></svg>"};
