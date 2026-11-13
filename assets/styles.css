@@ -66,7 +66,6 @@ main{flex:1;min-width:0}
   nav.hubs a{min-height:50px}
 }
 @media (prefers-reduced-motion:reduce){aside.side{transition:none}}
-}
 
 /* page */
 .wrap{max-width:1040px;margin:0 auto;padding:26px 34px 40px}

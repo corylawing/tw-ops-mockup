@@ -89,6 +89,8 @@ window.PAGE = { id: 'command', title: 'Command Center', hood: [
 <script>
 (function () {
   var list = document.getElementById('todo'), lede = document.getElementById('lede'), clear = document.getElementById('clear');
+  var hi = document.querySelector('.pagehead.hero h1'), nm = window.TW.me.name;
+  if (hi) hi.textContent = 'Good morning, ' + (nm.indexOf('Dr.') === 0 ? nm : nm.split(' ')[0]);
   function count() {
     var n = list.querySelectorAll('li:not(.done)').length;
     lede.innerHTML = n ? '<b>' + n + (n === 1 ? ' thing needs' : ' things need') + ' you today.</b> Everything else is on track.' : '<b>You are caught up.</b> Every office is covered.';
