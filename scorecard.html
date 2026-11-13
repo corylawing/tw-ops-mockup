@@ -8,6 +8,52 @@
 <link rel="stylesheet" href="assets/styles.css">
 <script src="assets/theme.js"></script>
 <title>TW Ops · Scorecard (mockup)</title>
+<style>
+.key{display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;font-size:14px;color:var(--muted);margin:0 4px 10px}
+.key span{display:inline-flex;align-items:center;gap:7px}
+.key i{width:22px;height:8px;border-radius:999px;display:inline-block}
+.key .tick{width:3px;height:14px;border-radius:2px;background:var(--ink)}
+.sc{width:100%;border-collapse:separate;border-spacing:0}
+.sc th{font-size:14px;font-weight:600;color:var(--muted);text-align:left;padding:4px 14px 10px;border-bottom:1px solid var(--line2);vertical-align:bottom}
+.sc th small{display:block;font-weight:400;font-size:13px}
+.sc td{padding:14px;border-bottom:1px solid var(--line2);vertical-align:middle}
+.sc tr:last-child td{border-bottom:0}
+.sc tr.sel td{background:var(--brand-soft)}
+.sc tr.sel td:first-child{border-radius:16px 0 0 16px}.sc tr.sel td:last-child{border-radius:0 16px 16px 0}
+.obtn{font:inherit;font-family:var(--title);font-weight:700;font-size:16px;color:var(--ink);background:transparent;border:0;padding:0;min-height:44px;display:flex;align-items:center;gap:8px;text-align:left;cursor:pointer}
+.obtn::after{content:"›";font-family:var(--font);font-weight:400;color:var(--muted);font-size:20px;line-height:1}
+.obtn:hover{color:var(--brand)}
+.osub{display:block;font-size:13.5px;color:var(--muted);margin-top:-6px}
+.m{min-width:118px}
+.m .v{display:flex;align-items:baseline;gap:8px}
+.m .v b{font-family:var(--title);font-size:19px;font-weight:700;font-variant-numeric:tabular-nums}
+.m .v span{font-size:13.5px;font-weight:600}
+.m.s-watch .v span{color:var(--amber)} .m.s-below .v span{color:var(--red)}
+.bul{position:relative;height:8px;border-radius:999px;background:var(--line2);margin-top:8px}
+.bul i{position:absolute;left:0;top:0;bottom:0;border-radius:999px;background:var(--brand-bright)}
+.m.s-watch .bul i{background:#b46a00} .m.s-below .bul i{background:var(--red)}
+.bul em{position:absolute;left:83.33%;top:-4px;bottom:-4px;width:3px;margin-left:-1.5px;border-radius:2px;background:var(--ink)}
+.quiet{color:var(--muted);font-size:14.5px}
+.fun{display:grid;gap:4px;margin-top:6px}
+.fstep{display:grid;grid-template-columns:150px minmax(0,1fr) 64px;align-items:center;gap:12px;min-height:44px}
+.fstep .fb{height:30px;border-radius:10px;background:var(--brand-bright);min-width:6px}
+.fstep b{font-family:var(--title);font-size:18px;font-variant-numeric:tabular-nums;text-align:right}
+.fdrop{display:grid;grid-template-columns:150px minmax(0,1fr);gap:12px;font-size:13.5px;color:var(--muted)}
+.fdrop span:last-child::before{content:"↓ ";}
+.fdrop.weak span:last-child{color:var(--red);font-weight:600}
+.dgrid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:22px;align-items:start}
+@media (max-width:860px){.dgrid{grid-template-columns:1fr}}
+@media (max-width:760px){
+  .sc thead{position:absolute;left:-9999px}
+  .sc,.sc tbody,.sc tr,.sc td{display:block;width:100%}
+  .sc tr{border-bottom:1px solid var(--line2);padding:8px 0 12px}.sc tr:last-child{border-bottom:0}
+  .sc td{border:0;padding:6px 10px}
+  .sc td[data-l]::before{content:attr(data-l);display:block;font-size:13.5px;color:var(--muted);font-weight:600;margin-bottom:2px}
+  .sc tr.sel td,.sc tr.sel td:first-child,.sc tr.sel td:last-child{border-radius:0}
+  .sc tr.sel{background:var(--brand-soft);border-radius:16px}
+  .fstep,.fdrop{grid-template-columns:104px minmax(0,1fr) 52px}.fdrop{grid-template-columns:104px minmax(0,1fr)}
+}
+</style>
 </head>
 <body>
 <script>
@@ -15,20 +61,82 @@ window.PAGE = { id: 'scorecard', title: 'Scorecard', hood: [
   { what: 'Calls → exams → shows → starts', how: 'Counts per office per day, pulled nightly from Cloud 9 and OrthoAI by the night shift job. Counts only. No patient record exists in TW Ops.', svc: ['job','ext','db'] },
   { what: '% to benchmark, scaled to office size', how: 'Each office is compared to its own yearly average, scaled by chairs or team size, so Selma is not judged against Montgomery. The formula lives in one place and every screen uses it.', svc: ['db'] },
   { what: 'Who sees what', how: 'Owners and Savannah see every office in detail. An office lead sees their own office in detail and every office\'s progress to benchmark. The database returns only what the role allows.', svc: ['auth','db'] },
-  { what: 'Where TC conversion comes from later', how: 'When the clinical tools are on the foundation (month 1 in either plan), conversion rates by treatment coordinator arrive here as numbers from the same database, with no export.', svc: ['db'] }
+  { what: 'Where TC conversion comes from later', how: 'When the clinical tools are on the foundation, conversion rates by treatment coordinator arrive here as numbers from the same database, with no export.', svc: ['db'] }
 ]};
 </script>
 <div class="wrap">
   <div class="pagehead"><div><div class="lbl">Scorecard · weekly</div><h1>Progress to benchmark · all offices <button class="uth" data-h="2"></button></h1><div class="sub">Owners · Savannah · all leads · this month</div></div></div>
-  <div class="attn "><span class="tag">Worth a look</span><span class="msg"><b>Enterprise and Selma are below their own yearly average.</b> <span>Case starts are the gap at both offices.</span></span></div>
-  <div class="card"><div class="scroll"><table>
-    <tr><th>Office</th><th>New-patient exams <button class="uth" data-h="0"></button></th><th>Show rate</th><th>Case starts</th><th>Observation recalls</th><th>AR aging</th><th>vs. own yearly avg <button class="uth" data-h="1"></button></th></tr>
-    <tr><td><b>Selma</b></td><td>92%</td><td>88%</td><td style="color:var(--amber)">71%</td><td style="color:var(--red)">64%</td><td>ok</td><td><span class="pill warn">Below</span></td></tr>
-    <tr><td><b>Montgomery</b></td><td>104%</td><td>91%</td><td>97%</td><td>88%</td><td>ok</td><td><span class="pill ok">On</span></td></tr>
-    <tr><td><b>Andalusia</b></td><td>98%</td><td>95%</td><td>102%</td><td>90%</td><td style="color:var(--amber)">watch</td><td><span class="pill ok">On</span></td></tr>
-    <tr><td><b>Enterprise</b></td><td style="color:var(--amber)">81%</td><td>86%</td><td style="color:var(--red)">66%</td><td>79%</td><td>ok</td><td><span class="pill bad">Below</span></td></tr>
-  </table></div><p class="small muted">Calls, exams, shows and starts from Cloud 9 / OrthoAI nightly. Observation, Phase I→II and AR aging from Cloud 9. Marketing and referral doctors tracked below. Treatment-coordinator conversion arrives once the clinical tools join the foundation <button class="uth" data-h="3"></button>.</p></div>
+  <div class="attn"><span class="tag">Worth a look</span><span class="msg"><b>Enterprise and Selma are below their own yearly average.</b> <span>Case starts are the gap at both offices.</span></span></div>
+
+  <div class="card" id="sc">
+    <div class="key" aria-label="How to read the bars"><span><span class="tick"></span>Benchmark (100%)</span><span><i style="background:var(--brand-bright)"></i>On track</span><span><i style="background:#b46a00"></i>Watch</span><span><i style="background:var(--red)"></i>Below</span><span>Sample cut-offs. You set the real ones.</span></div>
+    <table class="sc">
+      <thead><tr><th scope="col">Office<small>needs help first</small></th><th scope="col">New-patient exams <button class="uth" data-h="0"></button></th><th scope="col">Show rate</th><th scope="col">Case starts</th><th scope="col">Observation recalls</th><th scope="col">AR aging</th><th scope="col">vs. own yearly average <button class="uth" data-h="1"></button></th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+
+  <div class="card" id="detail" style="margin-top:12px" aria-live="polite"></div>
+
+  <p class="small muted" style="margin:14px 4px 0">Calls, exams, shows and starts come from Cloud 9 / OrthoAI nightly. Observation, Phase I→II and AR aging come from Cloud 9. Marketing and referral doctors also belong to this hub and are not drawn in this mockup. Treatment-coordinator conversion arrives once the clinical tools join the foundation <button class="uth" data-h="3"></button>.</p>
 </div>
 <script src="assets/app.js"></script>
+<script>
+(function () {
+  var rows = document.getElementById('rows'), detail = document.getElementById('detail');
+  if (!rows) return;                                   // role cannot open the Scorecard
+  // Sample data. Percent of benchmark per office; funnel = calls, exams, shows, starts this month.
+  var OFFICES = [
+    { id: 'enterprise', name: 'Enterprise', exams: 81, show: 86, starts: 66, obs: 79, ar: 'OK', avg: 'Below', funnel: [118, 34, 29, 14] },
+    { id: 'selma',      name: 'Selma',      exams: 92, show: 88, starts: 71, obs: 64, ar: 'OK', avg: 'Below', funnel: [96, 31, 27, 13] },
+    { id: 'andalusia',  name: 'Andalusia',  exams: 98, show: 95, starts: 102, obs: 90, ar: 'Watch', avg: 'On', funnel: [110, 37, 34, 20] },
+    { id: 'montgomery', name: 'Montgomery', exams: 104, show: 91, starts: 97, obs: 88, ar: 'OK', avg: 'On', funnel: [142, 46, 41, 24] }
+  ];
+  var COLS = [['exams', 'New-patient exams'], ['show', 'Show rate'], ['starts', 'Case starts'], ['obs', 'Observation recalls']];
+  var STEPS = ['Calls', 'Exams', 'Shows', 'Starts'];
+  var role = window.TW.role, own = (window.TW.me.office || '').toLowerCase();
+  var leadOnly = role === 'lead';
+  var sel = leadOnly ? own : OFFICES[0].id;
+  function status(v) { return v >= 85 ? 'ok' : v >= 70 ? 'watch' : 'below'; }
+  function word(s) { return s === 'watch' ? 'Watch' : s === 'below' ? 'Below' : ''; }
+  function cell(v, label) {
+    var s = status(v), w = Math.min(v, 120) / 120 * 100;
+    return '<td data-l="' + label + '"><div class="m s-' + s + '"><div class="v"><b>' + v + '%</b>' + (word(s) ? '<span>' + word(s) + '</span>' : '') + '</div>' +
+      '<div class="bul" role="img" aria-label="' + v + ' percent of benchmark' + (word(s) ? ', ' + word(s).toLowerCase() : '') + '"><i style="width:' + w.toFixed(1) + '%"></i><em></em></div></div></td>';
+  }
+  function drawRows() {
+    rows.innerHTML = OFFICES.map(function (o) {
+      return '<tr class="' + (o.id === sel ? 'sel' : '') + '">' +
+        '<td><button type="button" class="obtn" data-id="' + o.id + '" aria-pressed="' + (o.id === sel) + '">' + o.name + '</button></td>' +
+        COLS.map(function (c) { return cell(o[c[0]], c[1]); }).join('') +
+        '<td data-l="AR aging">' + (o.ar === 'Watch' ? '<span class="pill warn">Watch</span>' : '<span class="quiet">OK</span>') + '</td>' +
+        '<td data-l="vs. own yearly average">' + (o.avg === 'Below' ? '<span class="pill warn">Below its average</span>' : '<span class="quiet">At its average</span>') + '</td></tr>';
+    }).join('');
+  }
+  function drawDetail() {
+    var o = OFFICES.filter(function (x) { return x.id === sel; })[0], f = o.funnel, max = f[0], h = '', worst = 1, i, r;
+    var rates = [f[1] / f[0], f[2] / f[1], f[3] / f[2]];
+    // flag the step that is furthest below this office's benchmark: case starts or exams, taken from the table above
+    worst = status(o.starts) !== 'ok' && o.starts <= o.exams ? 2 : status(o.exams) !== 'ok' ? 0 : -1;
+    for (i = 0; i < 4; i++) {
+      h += '<div class="fstep"><span>' + STEPS[i] + '</span><span><span class="fb" style="display:block;width:' + (f[i] / max * 100).toFixed(1) + '%"></span></span><b>' + f[i] + '</b></div>';
+      if (i < 3) { r = Math.round(rates[i] * 100); h += '<div class="fdrop' + (i === worst ? ' weak' : '') + '"><span></span><span>' + r + '% go on to ' + STEPS[i + 1].toLowerCase() + (i === worst ? ' · the gap' : '') + '</span></div>'; }
+    }
+    var notes = COLS.map(function (c) { var s = status(o[c[0]]); return '<div class="row"><span>' + c[1] + '</span><b' + (s === 'below' ? ' style="color:var(--red)"' : s === 'watch' ? ' style="color:var(--amber)"' : '') + '>' + o[c[0]] + '% of benchmark' + (word(s) ? ' · ' + word(s) : '') + '</b></div>'; }).join('');
+    detail.innerHTML = '<h2>' + o.name + ' · this month <span class="hint">· own office detail</span></h2>' +
+      '<div class="dgrid"><div><h3 style="margin:6px 0 2px">Calls → exams → shows → starts</h3><div class="fun">' + h + '</div></div>' +
+      '<div><h3 style="margin:6px 0 2px">Against benchmark</h3>' + notes +
+      '<div class="row"><span>AR aging</span><b>' + o.ar + '</b></div><div class="row"><span>vs. own yearly average</span><b>' + (o.avg === 'Below' ? 'Below' : 'At its average') + '</b></div></div></div>';
+  }
+  rows.addEventListener('click', function (ev) {
+    var b = ev.target.closest('.obtn'); if (!b) return;
+    var id = b.getAttribute('data-id');
+    if (leadOnly && id !== own) { window.TW.say('Office leads see detail for their own office only. Every office\'s progress to benchmark stays visible above.'); return; }
+    sel = id; drawRows(); drawDetail();
+    var again = rows.querySelector('[data-id="' + id + '"]'); if (again) again.focus();
+  });
+  drawRows(); drawDetail();
+})();
+</script>
 </body>
 </html>
