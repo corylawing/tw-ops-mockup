@@ -164,3 +164,62 @@ footer.ft{max-width:1180px;margin:0 auto;padding:16px 24px 36px;color:var(--mute
 /* brand accents */
 .accent{border-left:4px solid var(--orange)!important}
 .motto{font-family:var(--title);font-weight:600;color:var(--brand)}
+
+/* focus-first layout: what needs you, then the rest */
+.lede{font-size:15px;color:var(--muted);margin:6px 0 0}
+.lede b{color:var(--fg);font-weight:600}
+.cc{display:grid;grid-template-columns:minmax(0,1fr) 288px;gap:16px;align-items:start}
+@media (max-width:1020px){.cc{grid-template-columns:1fr}}
+.stack{display:grid;gap:16px;min-width:0}
+.card.focus{padding:18px 20px 8px;border-color:#d5dde2;box-shadow:0 1px 2px rgba(17,24,39,.06),0 8px 24px -16px rgba(45,95,119,.35)}
+.card.focus h2{font-size:17px}
+.card.quiet{box-shadow:none;background:transparent;border-color:var(--line)}
+.card.quiet h3{font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-family:var(--font);font-weight:600;margin-bottom:6px}
+.card.quiet .uth{margin-left:6px;vertical-align:middle}
+.todo{list-style:none;margin:10px 0 0;padding:0}
+.todo li{display:flex;align-items:center;gap:16px;padding:14px 0 14px 16px;border-top:1px solid var(--line2);position:relative;flex-wrap:wrap}
+.todo li::before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:3px;border-radius:3px;background:#c9ced3}
+.todo li.s-bad::before{background:var(--red)} .todo li.s-warn::before{background:var(--amber)} .todo li.s-you::before{background:var(--brand-bright)}
+.todo .t{flex:1 1 320px;min-width:0}
+.todo .t b{display:block;font-size:14.5px;font-weight:600;margin:1px 0 2px}
+.todo .t>span:last-child{color:var(--muted);font-size:13px}
+.todo .tag{font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.todo li.s-bad .tag{color:var(--red)} .todo li.s-warn .tag{color:var(--amber)} .todo li.s-you .tag{color:var(--brand)}
+.todo .act{display:flex;align-items:center;gap:12px;flex:none}
+.todo .act .btn{min-height:34px;padding:6px 14px}
+.todo .more{font-size:13px;color:var(--muted);text-decoration:none}
+.todo .more:hover{color:var(--brand);text-decoration:underline}
+.todo li.done .t{opacity:.5}
+.todo li.done .t b{text-decoration:line-through}
+.todo li.done::before{background:var(--green)}
+.todo li.done .tag::after{content:" · nudged just now";color:var(--green)}
+.clear{margin:0;padding:14px 0 12px;border-top:1px solid var(--line2);color:var(--green);font-weight:600}
+.orows{margin-top:8px}
+.orow{display:grid;grid-template-columns:minmax(120px,1.1fr) 132px minmax(140px,1.4fr) 150px 12px;align-items:center;gap:14px;padding:11px 8px;border-top:1px solid var(--line2);text-decoration:none;color:inherit;border-radius:6px;font-size:13.5px}
+.orow:hover,.orow:focus-visible{background:var(--bg);outline:none}
+.orow:focus-visible{box-shadow:0 0 0 2px var(--brand-bright)}
+.orow small{display:block;color:var(--muted);font-size:12px;font-weight:400}
+.orow .c-bar .bar{display:block;margin:0 0 4px}
+.orow .c-od{font-weight:600;font-size:13px}
+.orow .c-od.muted{font-weight:400}
+.orow .chev{color:#b6bcc2;font-size:18px;line-height:1}
+.quiet-ok{color:var(--green);font-size:12.5px;font-weight:600}
+.quiet-ok::before{content:"✓ "}
+@media (max-width:720px){.orow{grid-template-columns:1fr auto;row-gap:6px}.orow .c-bar,.orow .c-od{grid-column:1/-1}.orow .chev{display:none}}
+/* one attention line at the top of every hub */
+.attn{display:flex;align-items:center;flex-wrap:wrap;gap:8px 14px;background:#fff;border:1px solid var(--line);border-left:3px solid var(--amber);border-radius:var(--r);padding:11px 14px;margin:0 0 14px;font-size:14px}
+.attn.a-bad{border-left-color:var(--red)} .attn.a-ok{border-left-color:var(--green)}
+.attn .tag{font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--amber);flex:none}
+.attn.a-bad .tag{color:var(--red)} .attn.a-ok .tag{color:var(--green)}
+.attn .msg{flex:1 1 300px;min-width:0}
+.attn .msg span{color:var(--muted)}
+/* phone top bar: logo mark only, fewer controls */
+@media (max-width:760px){
+  .topbar{gap:8px;padding:0 10px}
+  .topbar .brand{gap:7px;flex:none}
+  .topbar .brand img{width:30px;object-fit:cover;object-position:left center}
+  .topbar .brand .prod{padding-left:8px}
+  .mockpill .x,.topbar .ibtn,.topbar .avatar{display:none}
+  .topbar .right{gap:6px;min-width:0}
+  .me select{max-width:112px}
+}

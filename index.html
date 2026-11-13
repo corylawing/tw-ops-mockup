@@ -11,78 +11,116 @@
 <body>
 <script>
 window.PAGE = { id: 'command', title: 'Command Center', hood: [
+  { what: 'Needs you today', how: 'Rules you control decide what lands here: a missed closing checklist, a compliance item running late, an approval waiting on you, a card expiring within 60 days. Each item is one row with a severity and an owner. When it is handled it leaves the list. The same list writes the top of the 6:30 AM brief, so the screen and the email never disagree.', svc: ['job','db','mail'] },
+  { what: 'Nudge', how: 'One click sends a Slack direct message (email if the person has no Slack) to the task owner. The message is generated from the task name and office only, so it can never contain patient information. The nudge is logged in the audit trail, and can be undone for a few seconds.', svc: ['mail','db'] },
+  { what: 'Offices, worst first', how: 'One office record per location. Adding Wetumpka is one row; every hub, report and permission follows from it. The list is sorted so the office that needs help is always on top. Each row is a query filtered by the signed-in role: Savannah sees every office, an office lead sees their own. Switch the name in the header to see it.', svc: ['db','auth'] },
   { what: '41 of 56 checklists done', how: 'Every tick on an office touch screen writes one sign-off row (who, when, which station, which office) to the database, through the role check. This number is a live count of today\'s rows across the offices this account may see. Nothing is emailed around.', svc: ['db','auth'] },
   { what: '6 overdue tasks', how: 'A scheduled job runs every 15 minutes, compares due dates to the clock, marks items overdue and escalates them: office lead first, then Savannah, then the owners, after the delays you decide. The escalation itself is a row in the database and a message from the mailroom.', svc: ['job','db','mail'] },
   { what: '3 certifications expiring in 60 days', how: 'The People hub stores each card\'s expiry date. A nightly job pulls everyone expiring within 90 days, adds them to the Practice Calendar reminders and to the next morning brief.', svc: ['job','db','mail'] },
-  { what: 'The 7-office grid', how: 'One office record per location. Adding Wetumpka is one row; every hub, report and permission follows from it. Each tile is a query filtered by the signed-in role: Savannah sees all seven, an office lead sees their own expanded and the others as a benchmark summary. Switch "View as" in the header to see it.', svc: ['db','auth'] },
-  { what: 'Nudge', how: 'One click sends a Slack direct message (email if the person has no Slack) to the task owner. The message is generated from the task name and office only, so it can never contain patient information. The nudge is logged in the audit trail.', svc: ['mail','db'] },
-  { what: 'Next 14 days', how: 'Practice Calendar events with reminders set at 60, 30 and 7 days. The same rows produce the "reminders firing" section of the 6:30 AM brief, so the screen and the email never disagree.', svc: ['db','job'] },
-  { what: 'Exams and starts per office', how: 'A nightly job pulls yesterday\'s counts from Cloud 9 and OrthoAI: exams, shows, starts, per office. Counts only. No patient name ever enters TW Ops.', svc: ['job','ext','db'] }
+  { what: 'Exams, shows and starts', how: 'A nightly job loads yesterday\'s counts per office from Cloud 9 and OrthoAI: through the vendor\'s connection where one is offered, through a scheduled export where it is not. Counts only. No patient name ever enters TW Ops.', svc: ['job','ext','db'] },
+  { what: 'Coming up', how: 'Practice Calendar events with reminders set at 60, 30 and 7 days. The same rows produce the "reminders firing" section of the 6:30 AM brief.', svc: ['db','job'] }
 ]};
 </script>
 <div class="wrap">
   <div class="pagehead">
-    <div><div class="lbl">Command Center · Wednesday, October 14 · sample data</div><h1>Good morning, Savannah</h1></div>
-    <div><a class="btn" href="#">Office ▾</a> <a class="btn pri" href="#">+ New task</a></div>
-  </div>
-
-  <div class="tabs"><a class="on" href="index.html">Overview</a><a href="#">Checklists</a><a href="#">Escalations</a><a href="#">Launches</a></div>
-  <div class="grid g4">
-    <div class="card"><div class="lbl" style="display:flex;align-items:center">Today's checklists <button class="uth" data-h="0"></button></div><div class="kpi">41 <small>of 56 done</small></div><div class="delta up">▲ 4 vs. yesterday</div><svg class="spark" viewBox="0 0 84 28" aria-hidden="true"><polygon points="0,28 0,20 12,18 24,21 36,14 48,16 60,10 72,9 84,6 84,28"/><polyline points="0,20 12,18 24,21 36,14 48,16 60,10 72,9 84,6"/></svg></div>
-    <div class="card"><div class="lbl" style="display:flex;align-items:center">Overdue <button class="uth" data-h="1"></button></div><div class="kpi" style="color:var(--red)">6 <small>tasks</small></div><div class="delta down">▲ 2 since Monday</div><svg class="spark" viewBox="0 0 84 28" aria-hidden="true"><polygon points="0,28 0,22 12,20 24,21 36,18 48,19 60,14 72,12 84,8 84,28"/><polyline points="0,22 12,20 24,21 36,18 48,19 60,14 72,12 84,8"/></svg></div>
-    <div class="card"><div class="lbl">Due this week</div><div class="kpi">14</div><div class="delta flat">3 due today</div><svg class="spark" viewBox="0 0 84 28" aria-hidden="true"><polyline points="0,14 12,16 24,12 36,15 48,13 60,16 72,12 84,14"/></svg></div>
-    <div class="card"><div class="lbl" style="display:flex;align-items:center">Certifications expiring · 60 days <button class="uth" data-h="2"></button></div><div class="kpi">3</div><div class="delta flat">next: Dec 2 · Andalusia</div></div>
-  </div>
-
-  <h2 style="margin:22px 0 10px;display:flex;align-items:center;gap:8px">Offices <span class="muted small" style="font-weight:400">· tap an office to open its day</span> <button class="uth" data-h="3"></button></h2>
-  <div class="grid g4">
-    <a class="card office" href="huddle.html"><h3>Selma <span class="pill ok">On track</span></h3><div class="lead"><span class="av">KW</span>Kara Whitfield · Lead</div>
-      <div class="row"><span>Opening checklist</span><b>12 / 12</b></div><div class="bar "><i style="width:100%"></i></div><div class="row"><span>Yesterday closing</span><b>Done</b></div><div class="row"><span>Overdue tasks</span><b>0</b></div>
-      <p class="small muted">Next: Fire extinguisher check · Oct 19</p></a>
-    <a class="card office" href="huddle.html"><h3>Montgomery <span class="pill warn">Needs attention</span></h3><div class="lead"><span class="av">DA</span>Devon Ashby · Lead</div>
-      <div class="row"><span>Opening checklist</span><b>9 / 12</b></div><div class="bar warn"><i style="width:75%"></i></div><div class="row"><span>Yesterday closing</span><b>Done</b></div><div class="row"><span>Overdue tasks</span><b style="color:var(--amber)">2</b></div>
-      <p class="small muted">Next: Sterilizer spore test · Oct 16</p></a>
-    <a class="card office" href="huddle.html"><h3>Andalusia <span class="pill ok">On track</span></h3><div class="lead"><span class="av">RC</span>Renee Calloway · Lead</div>
-      <div class="row"><span>Opening checklist</span><b>11 / 12</b></div><div class="bar "><i style="width:92%"></i></div><div class="row"><span>Yesterday closing</span><b>Done</b></div><div class="row"><span>Overdue tasks</span><b>0</b></div>
-      <p class="small muted">Next: CPR cohort B · Oct 22</p></a>
-    <a class="card office" href="huddle.html"><h3>Enterprise <span class="pill bad">Behind</span></h3><div class="lead"><span class="av">MP</span>Marcus Pell · OM</div>
-      <div class="row"><span>Opening checklist</span><b>6 / 12</b></div><div class="bar bad"><i style="width:50%"></i></div><div class="row"><span>Yesterday closing</span><b style="color:var(--red)">Missed</b></div><div class="row"><span>Overdue tasks</span><b style="color:var(--red)">4</b></div>
-      <p class="small muted">Next: Q4 supply order · Oct 15</p></a>
-    <a class="card office" href="huddle.html"><h3>Wetumpka <span class="pill launch">Launching</span></h3><div class="lead"><span class="av">SV</span>Savannah · Launch lead</div>
-      <div class="row"><span>Launch checklist</span><b>38 / 64</b></div><div class="bar launch"><i style="width:59%"></i></div><div class="row"><span>Hires onboarded</span><b>2 / 5</b></div><div class="row"><span>Target open</span><b>Jan 12</b></div>
-      <p class="small muted">Next: X-ray registration filed</p></a>
-    <a class="card office" href="huddle.html"><h3>Dothan <span class="pill launch">Launching</span></h3><div class="lead"><span class="av">SV</span>Savannah · Launch lead</div>
-      <div class="row"><span>Launch checklist</span><b>12 / 64</b></div><div class="bar launch"><i style="width:19%"></i></div><div class="row"><span>Hires onboarded</span><b>0 / 5</b></div><div class="row"><span>Target open</span><b>Mar 2</b></div>
-      <p class="small muted">Next: Lease signed</p></a>
-    <a class="card office" href="huddle.html"><h3>Troy <span class="pill launch">Launching</span></h3><div class="lead"><span class="av">SV</span>Savannah · Launch lead</div>
-      <div class="row"><span>Launch checklist</span><b>5 / 64</b></div><div class="bar launch"><i style="width:8%"></i></div><div class="row"><span>Hires onboarded</span><b>0 / 5</b></div><div class="row"><span>Target open</span><b>May 4</b></div>
-      <p class="small muted">Next: JV docs with attorney</p></a>
-    <div class="card" style="border-style:dashed;color:var(--muted)"><h3>Yesterday · all offices <button class="uth" data-h="6"></button></h3>
-      <div class="row"><span>New-patient exams</span><b>23</b></div><div class="row"><span>Shows</span><b>19</b></div><div class="row"><span>Starts</span><b>11</b></div>
-      <p class="small">From Cloud 9 / OrthoAI overnight. Counts only.</p></div>
-  </div>
-
-  <div class="grid g2" style="margin-top:22px">
-    <div class="card">
-      <h2>Overdue &amp; escalated <button class="uth" data-h="4"></button></h2>
-      <div class="scroll"><table>
-        <tr><td><b>Closing checklist not signed off</b><br><span class="muted small">Enterprise · OM</span></td><td class="muted small">1 day</td><td><a class="btn sm" href="#">Nudge</a></td></tr>
-        <tr><td><b>Weekly sterilizer spore test</b><br><span class="muted small">Montgomery · Devon Ashby</span></td><td class="muted small">2 days</td><td><a class="btn sm" href="#">Nudge</a></td></tr>
-        <tr><td><b>New hire I-9 &amp; handbook sign-off</b><br><span class="muted small">Enterprise · OM</span></td><td class="muted small">3 days</td><td><a class="btn sm" href="#">Nudge</a></td></tr>
-        <tr><td><b>Equipment service call follow-up</b><br><span class="muted small">Enterprise · OM</span></td><td class="muted small">4 days</td><td><a class="btn sm" href="#">Nudge</a></td></tr>
-        <tr><td><b>Eyewash station weekly flush log</b><br><span class="muted small">Montgomery · Devon Ashby</span></td><td class="muted small">1 day</td><td><a class="btn sm" href="#">Nudge</a></td></tr>
-      </table></div>
+    <div>
+      <div class="lbl">Command Center · Wednesday, October 14 · sample data</div>
+      <h1>Good morning, Savannah</h1>
+      <p class="lede" id="lede" aria-live="polite"><b>4 things need you today.</b> Everything else is on track.</p>
     </div>
-    <div class="card">
-      <h2>Next 14 days <button class="uth" data-h="5"></button> <a class="btn sm" href="calendar.html" style="margin-left:6px">Open calendar</a></h2>
-      <div class="row"><span><b>Oct 15</b> · Q4 supply order</span><span class="muted small">Operations · All offices</span></div>
-      <div class="row"><span><b>Oct 19</b> · Year-end benefits marketing push</span><span class="muted small">Scorecard · All offices</span></div>
-      <div class="row"><span><b>Oct 22</b> · CPR recertification · cohort B</span><span class="muted small">People · Andalusia, Selma</span></div>
-      <div class="row"><span><b>Oct 24</b> · Christmas party · venue deposit due</span><span class="muted small">Culture · All offices</span></div>
-      <div class="row"><span><b>Oct 27</b> · Open enrollment closes</span><span class="muted small">People · All offices</span></div>
+    <div><a class="btn" href="#">+ New task</a></div>
+  </div>
+
+  <div class="cc">
+    <div class="stack">
+      <section class="card focus" aria-labelledby="needh">
+        <h2 id="needh">Needs you today <button class="uth" data-h="0"></button></h2>
+        <ul class="todo" id="todo">
+          <li class="s-bad"><div class="t"><span class="tag">Behind</span><b>Enterprise missed last night's closing checklist</b><span>4 overdue tasks, the oldest is 4 days old. Marcus Pell is the office manager.</span></div>
+            <div class="act"><a class="more" href="huddle.html">Open office</a><button class="btn pri" type="button" data-nudge="Marcus Pell">Nudge Marcus</button><button class="uth" data-h="1"></button></div></li>
+          <li class="s-warn"><div class="t"><span class="tag">Late</span><b>Montgomery's sterilizer spore test is 2 days late</b><span>Weekly compliance item. Devon Ashby holds it this week.</span></div>
+            <div class="act"><a class="more" href="compliance.html">See compliance</a><button class="btn pri" type="button" data-nudge="Devon Ashby">Nudge Devon</button></div></li>
+          <li class="s-you"><div class="t"><span class="tag">Waiting on you</span><b>2 time-off requests need your approval</b><span>The oldest was sent 3 days ago.</span></div>
+            <div class="act"><a class="btn" href="people.html">Review</a></div></li>
+          <li class="s-soon"><div class="t"><span class="tag">Coming up</span><b>3 certification cards expire within 60 days</b><span>First is Tyler Boone's CPR card, Dec 2, Andalusia.</span></div>
+            <div class="act"><a class="btn" href="people.html">See who</a></div></li>
+        </ul>
+        <p class="clear" id="clear" hidden>You are caught up. Nothing else needs you today.</p>
+      </section>
+
+      <section class="card" aria-labelledby="offh">
+        <h2 id="offh">Offices today <span class="muted small" style="font-weight:400">· worst first</span> <button class="uth" data-h="2"></button></h2>
+        <div class="orows">
+          <a class="orow" href="huddle.html"><span class="c-name"><b>Enterprise</b><small>Marcus Pell · Office manager</small></span><span class="c-st"><span class="pill bad">Behind</span></span>
+            <span class="c-bar"><span class="bar bad"><i style="width:50%"></i></span><small>Opening checklist 6 of 12</small></span><span class="c-od" style="color:var(--red)">4 overdue</span><span class="chev" aria-hidden="true">›</span></a>
+          <a class="orow" href="huddle.html"><span class="c-name"><b>Montgomery</b><small>Devon Ashby · Lead</small></span><span class="c-st"><span class="pill warn">Needs attention</span></span>
+            <span class="c-bar"><span class="bar warn"><i style="width:75%"></i></span><small>Opening checklist 9 of 12</small></span><span class="c-od" style="color:var(--amber)">2 overdue</span><span class="chev" aria-hidden="true">›</span></a>
+          <a class="orow" href="huddle.html"><span class="c-name"><b>Andalusia</b><small>Renee Calloway · Lead</small></span><span class="c-st"><span class="quiet-ok">On track</span></span>
+            <span class="c-bar"><span class="bar"><i style="width:92%"></i></span><small>Opening checklist 11 of 12</small></span><span class="c-od muted">None overdue</span><span class="chev" aria-hidden="true">›</span></a>
+          <a class="orow" href="huddle.html"><span class="c-name"><b>Selma</b><small>Kara Whitfield · Lead</small></span><span class="c-st"><span class="quiet-ok">On track</span></span>
+            <span class="c-bar"><span class="bar"><i style="width:100%"></i></span><small>Opening checklist 12 of 12</small></span><span class="c-od muted">None overdue</span><span class="chev" aria-hidden="true">›</span></a>
+        </div>
+      </section>
+
+      <section class="card" aria-labelledby="lah">
+        <h2 id="lah">Launches <span class="muted small" style="font-weight:400">· soonest first</span></h2>
+        <div class="orows">
+          <a class="orow" href="owners.html"><span class="c-name"><b>Wetumpka</b><small>Opens Jan 12</small></span><span class="c-st"><span class="pill launch">Launching</span></span>
+            <span class="c-bar"><span class="bar launch"><i style="width:59%"></i></span><small>38 of 64 launch tasks · 2 of 5 hires onboarded</small></span><span class="c-od muted">Next: X-ray registration</span><span class="chev" aria-hidden="true">›</span></a>
+          <a class="orow" href="owners.html"><span class="c-name"><b>Dothan</b><small>Opens Mar 2</small></span><span class="c-st"><span class="pill launch">Launching</span></span>
+            <span class="c-bar"><span class="bar launch"><i style="width:19%"></i></span><small>12 of 64 launch tasks</small></span><span class="c-od muted">Next: lease signed</span><span class="chev" aria-hidden="true">›</span></a>
+          <a class="orow" href="owners.html"><span class="c-name"><b>Troy</b><small>Opens May 4</small></span><span class="c-st"><span class="pill launch">Launching</span></span>
+            <span class="c-bar"><span class="bar launch"><i style="width:8%"></i></span><small>5 of 64 launch tasks</small></span><span class="c-od muted">Next: JV documents</span><span class="chev" aria-hidden="true">›</span></a>
+        </div>
+      </section>
     </div>
+
+    <aside class="stack rail" aria-label="Background numbers">
+      <div class="card quiet">
+        <h3>Today at a glance</h3>
+        <div class="row"><span>Checklists done <button class="uth" data-h="3"></button></span><b>41 of 56</b></div>
+        <div class="bar"><i style="width:73%"></i></div>
+        <div class="row"><span>Overdue tasks <button class="uth" data-h="4"></button></span><b>6</b></div>
+        <div class="row"><span>Due this week</span><b>14</b></div>
+        <div class="row"><span>Cards expiring · 60 days <button class="uth" data-h="5"></button></span><b>3</b></div>
+      </div>
+      <div class="card quiet">
+        <h3>Yesterday · all offices <button class="uth" data-h="6"></button></h3>
+        <div class="row"><span>New-patient exams</span><b>23</b></div>
+        <div class="row"><span>Shows</span><b>19</b></div>
+        <div class="row"><span>Starts</span><b>11</b></div>
+        <p class="small muted">From Cloud 9 and OrthoAI overnight. Counts only.</p>
+      </div>
+      <div class="card quiet">
+        <h3>Coming up <button class="uth" data-h="7"></button></h3>
+        <div class="row"><span><b>Oct 15</b> Q4 supply order</span></div>
+        <div class="row"><span><b>Oct 19</b> Year-end benefits push</span></div>
+        <div class="row"><span><b>Oct 22</b> CPR recert · cohort B</span></div>
+        <div class="row"><span><b>Oct 27</b> Open enrollment closes</span></div>
+        <p class="small"><a href="calendar.html">Open the calendar</a></p>
+      </div>
+    </aside>
   </div>
 </div>
 <script src="assets/app.js"></script>
+<script>
+(function () {
+  var list = document.getElementById('todo'), lede = document.getElementById('lede'), clear = document.getElementById('clear');
+  function count() {
+    var n = list.querySelectorAll('li:not(.done)').length;
+    lede.innerHTML = n ? '<b>' + n + (n === 1 ? ' thing needs' : ' things need') + ' you today.</b> Everything else is on track.' : '<b>You are caught up.</b> Every office is covered.';
+    clear.hidden = n !== 0;
+  }
+  Array.prototype.forEach.call(list.querySelectorAll('[data-nudge]'), function (b) {
+    var label = b.textContent, li = b.closest('li');
+    b.addEventListener('click', function () {
+      if (li.classList.contains('done')) { li.classList.remove('done'); b.textContent = label; b.classList.add('pri'); count(); return; }
+      li.classList.add('done'); b.classList.remove('pri'); b.textContent = 'Undo';
+      window.TW.say('Nudge sent to ' + b.getAttribute('data-nudge') + ' on Slack. In the real build it is logged.');
+      count();
+    });
+  });
+})();
+</script>
 </body>
 </html>

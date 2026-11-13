@@ -49,7 +49,7 @@
   var opts = Object.keys(ROLES).map(function (k) { return '<option value="' + k + '"' + (k === role ? ' selected' : '') + '>' + ROLES[k].name + ' · ' + ROLES[k].role + '</option>'; }).join('');
   top.innerHTML = '<a class="brand" href="index.html" aria-label="TW Ops home"><img src="assets/tw-logo.svg" alt="TW Orthodontics"><span class="prod">Ops</span></a>' +
     '<div class="search" role="search">' + I.search + '<span>Search people, tasks, offices…</span><kbd>/</kbd></div>' +
-    '<div class="right"><span class="mockpill" title="Sample data. Invented names and numbers. Layout and wording are adjustable."><i></i>Mockup · sample data</span>' +
+    '<div class="right"><span class="mockpill" title="Sample data. Invented names and numbers. Layout and wording are adjustable."><i></i>Mockup<span class="x"> · sample data</span></span>' +
     '<button class="explain-btn" id="explainBtn" type="button" title="Show how each part works in the real build"><span class="sw"></span><span class="t">Explain the build</span></button>' +
     '<button class="ibtn" type="button" title="Notifications">' + I.bell + '<span class="dot"></span></button>' +
     '<div class="me"><select id="roleSel" title="Viewing as">' + opts + '</select><span class="avatar" title="' + me.email + '">' + me.ini + '</span></div></div>';

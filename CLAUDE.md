@@ -8,16 +8,16 @@ A static HTML mockup (no framework, no build step) of **TW Ops**, an operations 
 Owners Dr. Wood and Dr. Turner; Director of Operations Savannah. Built by **Cory Lawing** (not a developer
 by trade; keep answers short) from the "TW Ops Hub Map" PDF the doctors sent.
 
-**It is a mockup.** Every page carries the yellow MOCKUP banner. Look and feel is a placeholder.
+**It is a mockup.** Every page carries the small "Mockup · sample data" pill. Layout and wording are adjustable; colours, logo and font are TW Orthodontics' own (see README).
 The deliverable that matters is the foundation design: `how-it-works.html` here and the Foundation
 Plans page at https://claude.ai/artifact/VLj8XUKVRok4G7auMnYBA9 (Plan A ≈ $1,450–1,600/mo,
-Plan B ≈ $45–90/mo; **Cory recommends Plan B**, with formal HIPAA readiness added when
-the first patient-data app needs it).
+Plan B ≈ $45–90/mo). **The doctors signed in November 2026 and chose Plan B on Render**, which they already use.
 
 ## Rules that must survive any edit
 - No real data. Staff names (Kara Whitfield, Amber Nix, etc.) and all numbers are invented; keep them obviously fictional.
 - **No patient information anywhere**, not even invented. TW Ops is counts only.
-- Every page keeps: the MOCKUP banner, the View-as role switch, and `window.PAGE.hood` entries so the
+- **Focus first.** Every hub opens with what needs attention (`.attn` line, or the "Needs you today" list on the Command Center), each item with one action. Offices are sorted worst first. Colour is for exceptions only; on-track items stay quiet. Background numbers go in the side rail, not in equal-weight tiles.
+- Every page keeps: the Mockup pill, the View-as role switch, and `window.PAGE.hood` entries so the
   "Under the hood" drawer explains the infrastructure for that screen. Numbered markers are
   `<button class="uth" data-h="N"></button>` pointing at `hood[N]`.
 - Roles and what they can open live in `NAV` in `assets/app.js` and mirror the map's "Who sees what" table.
