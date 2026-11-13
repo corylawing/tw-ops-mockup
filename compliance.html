@@ -8,28 +8,120 @@
 <link rel="stylesheet" href="assets/styles.css">
 <script src="assets/theme.js"></script>
 <title>TW Ops · Compliance (mockup)</title>
+<style>
+.stats{display:flex;flex-wrap:wrap;gap:8px}
+.stat{background:#fff;border-radius:16px;padding:8px 14px;box-shadow:var(--shadow);font-size:14px;color:var(--muted)}
+.stat b{font-family:var(--title);font-size:18px;color:var(--ink);margin-right:6px;font-variant-numeric:tabular-nums}
+.stat.late b{color:var(--red)} .stat.soon b{color:var(--amber)}
+.key{display:flex;flex-wrap:wrap;align-items:center;gap:6px 16px;font-size:14px;color:var(--muted);margin:0 4px 10px}
+.key span{display:inline-flex;align-items:center;gap:6px}
+.cm{width:100%;border-collapse:separate;border-spacing:0}
+.cm th{font-size:14px;font-weight:600;color:var(--muted);text-align:left;padding:4px 12px 10px;border-bottom:1px solid var(--line2);vertical-align:bottom}
+.cm th[scope="row"]{font-size:15.5px;color:var(--ink);padding:14px 12px;border-bottom:1px solid var(--line2);vertical-align:middle}
+.cm th[scope="row"] small{display:block;font-weight:400;color:var(--muted);font-size:13.5px}
+.cm td{padding:12px;border-bottom:1px solid var(--line2);vertical-align:middle}
+.cm tr:last-child td,.cm tr:last-child th{border-bottom:0}
+.cs{display:inline-flex;align-items:center;gap:7px;font-size:14.5px;font-weight:600;white-space:nowrap}
+.cs svg{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-width:2.200;stroke-linecap:round;stroke-linejoin:round}
+.cs.done{color:var(--muted);font-weight:500} .cs.done svg{color:var(--green)}
+.cs.due{color:var(--amber)} .cs.late{color:var(--red)}
+.cs.late,.cs.due{border-radius:999px;padding:4px 11px 4px 8px}
+.cs.late{background:var(--red-soft)} .cs.due{background:var(--amber-soft)}
+.proof{display:inline-flex;vertical-align:middle;margin-left:6px;color:var(--muted)}
+.proof svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.cgrid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:12px;align-items:start;margin-top:12px}
+@media (max-width:980px){.cgrid{grid-template-columns:1fr}}
+@media (max-width:760px){
+  .cm thead{position:absolute;left:-9999px}
+  .cm,.cm tbody,.cm tr,.cm td,.cm th[scope="row"]{display:block;width:100%}
+  .cm tr{border-bottom:1px solid var(--line2);padding:8px 0 10px}.cm tr:last-child{border-bottom:0}
+  .cm td,.cm th[scope="row"]{border:0;padding:5px 6px}
+  .cm td{display:flex;justify-content:space-between;align-items:center;gap:10px}
+  .cm td[data-l]::before{content:attr(data-l);font-size:14.5px;color:var(--muted)}
+}
+</style>
 </head>
 <body>
 <script>
 window.PAGE = { id: 'compliance', title: 'Compliance', hood: [
   { what: 'Logs signed from the station', how: 'The sterilizer cycle log and spore test are checklist items on the Sterilization station. Whoever holds the station signs them on the office day screen; the row lands here with their name and the time. No separate logbook.', svc: ['db','auth'] },
   { what: 'Yearly items with proof', how: 'OSHA training, the HIPAA risk assessment per office, X-ray registrations and vendor agreement renewals are Practice Calendar events. Proof (a certificate, a signed form) is uploaded once to the file vault and linked here.', svc: ['vault','db','job'] },
-  { what: 'Incident reports', how: 'Anyone can submit one for their own office. Savannah and owners see all. Submission notifies Savannah by Slack immediately, not at 6:30.', svc: ['db','mail','auth'] },
+  { what: 'Incident reports', how: 'Anyone can submit one for their own office. Savannah and owners see all. Savannah is notified as soon as one is submitted, not at 6:30.', svc: ['db','mail','auth'] },
   { what: 'Vendor BAAs and renewals', how: 'Every vendor that touches patient information is listed with its agreement date and renewal date, including the foundation vendors themselves. The calendar reminds 60 days out.', svc: ['db','job'] }
 ]};
 </script>
-<div class="wrap">
-  <div class="pagehead"><div><div class="lbl">Compliance · monthly / yearly</div><h1>Compliance</h1><div class="sub">Compliance lead · Savannah</div></div><div><a class="btn" href="#">Submit incident report</a> <button class="uth" data-h="2"></button></div></div>
-  <div class="attn a-bad"><span class="tag">Needs attention</span><span class="msg"><b>Montgomery's spore test is 2 days late.</b> <span>Everything else is current.</span></span><a class="btn sm" href="#">Nudge Devon</a></div>
-  <div class="grid g3">
-    <div class="card"><h2>Sterilization logs · this week <button class="uth" data-h="0"></button></h2>
-      <div class="row"><span>Selma</span><span class="pill ok">Spore test due Fri</span></div><div class="row"><span>Montgomery</span><span class="pill bad">Spore test 2 days late</span></div><div class="row"><span>Andalusia</span><span class="pill ok">Done Tue</span></div><div class="row"><span>Enterprise</span><span class="pill ok">Done Mon</span></div></div>
-    <div class="card"><h2>Yearly · with proof <button class="uth" data-h="1"></button></h2>
-      <div class="row"><span>OSHA annual training</span><b>Sep · 4/4 offices</b></div><div class="row"><span>HIPAA risk assessment</span><b>Mar · 4/4 offices</b></div><div class="row"><span>X-ray registrations</span><b style="color:var(--amber)">Montgomery renews in 60 days</b></div><div class="row"><span>Wetumpka X-ray registration</span><b>Filed · awaiting</b></div></div>
-    <div class="card"><h2>Vendor agreements (BAAs) <button class="uth" data-h="3"></button></h2>
-      <div class="row"><span>Cloud 9 (Planet DDS)</span><b>On file</b></div><div class="row"><span>OrthoAI</span><b>On file</b></div><div class="row"><span>Foundation vendors</span><b class="muted">Plan A: 4 signed · Plan B: Google only</b></div><div class="row"><span>Shredding vendor</span><b style="color:var(--amber)">Renews Jan</b></div></div>
-  </div>
-</div>
+<div class="wrap" id="cp"></div>
 <script src="assets/app.js"></script>
+<script>
+(function () {
+  var root = document.getElementById('cp');
+  if (!root || root.querySelector('.locked-page')) return;
+  var role = window.TW.role, me = window.TW.me, say = window.TW.say;
+  var lead = role === 'lead', self = role === 'team' || role === 'inv';
+  var ICON = { done: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.500 12.200l2.400 2.400 4.600-5"/></svg>',
+    due: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.500V12l3 2"/></svg>',
+    late: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.500v5.500M12 16.400v.100"/></svg>',
+    clip: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 11.500l-7.800 7.800a5 5 0 0 1-7-7l8.200-8.200a3.300 3.300 0 0 1 4.700 4.700l-8.200 8.200a1.700 1.700 0 0 1-2.400-2.400l7.500-7.500"/></svg>' };
+  // Offices in the order of who needs attention first. Sample data.
+  var OFFICES = ['Montgomery', 'Selma', 'Andalusia', 'Enterprise'];
+  var ROWS = [
+    { t: 'Sterilizer spore test', f: 'Weekly · infection-control log', h: 0, c: { Montgomery: ['late', 'Late · 2 days'], Selma: ['due', 'Due Fri'], Andalusia: ['done', 'Done Tue'], Enterprise: ['done', 'Done Mon'] } },
+    { t: 'OSHA annual training', f: 'Yearly', h: 1, c: { Montgomery: ['done', 'Done Sep'], Selma: ['done', 'Done Sep'], Andalusia: ['done', 'Done Sep'], Enterprise: ['done', 'Done Sep'] } },
+    { t: 'HIPAA risk assessment', f: 'Yearly · per office', c: { Montgomery: ['done', 'Done Mar'], Selma: ['done', 'Done Mar'], Andalusia: ['done', 'Done Mar'], Enterprise: ['done', 'Done Mar'] } },
+    { t: 'X-ray registration', f: 'Renewal', c: { Montgomery: ['due', 'Renews in 60 days'], Selma: ['done', 'Current'], Andalusia: ['done', 'Current'], Enterprise: ['done', 'Current'] } }
+  ];
+  function cell(c) { return '<span class="cs ' + c[0] + '">' + ICON[c[0]] + c[1] + '</span>' + (c[0] === 'done' ? '<span class="proof" title="Proof on file">' + ICON.clip + '</span>' : ''); }
+  function wire(scope) {
+    Array.prototype.forEach.call(scope.querySelectorAll('.uth'), function (b) {
+      var i = parseInt(b.getAttribute('data-h'), 10); b.textContent = String(i + 1); b.type = 'button'; b.title = 'How this works in the real build';
+      b.addEventListener('click', function (ev) { ev.preventDefault(); window.TW.open(i); });
+    });
+    Array.prototype.forEach.call(scope.querySelectorAll('a[href="#"]'), function (a) {
+      a.addEventListener('click', function (e) { e.preventDefault(); say('Mockup: “' + a.textContent.trim() + '” works in the real build, not here.'); });
+    });
+  }
+  var incident = '<a class="btn pri" href="#">Submit incident report</a> <button class="uth" data-h="2"></button>';
+
+  // ---- Team members and the inventory coordinator ----
+  if (self) {
+    root.innerHTML = '<div class="pagehead"><div><div class="lbl">Compliance</div><h1>Compliance</h1><div class="sub">' + (role === 'team' ? 'Your assigned logs, and incident reports' : 'Incident reports') + '</div></div><div>' + incident + '</div></div>' +
+      (role === 'team' ? '<div class="card"><h2>My assigned logs <button class="uth" data-h="0"></button></h2><p class="muted" style="margin:0">No logs are assigned to you this week. When you hold the Sterilization station, its cycle log and spore test show up here and on the office day screen.</p></div>' : '') +
+      '<div class="card" style="margin-top:12px"><h2>Incident reports</h2><p class="muted" style="margin:0">Anyone can submit a report for their own office. It goes straight to Savannah.</p></div>';
+    wire(root); return;
+  }
+
+  // ---- Owners, Savannah, office leads ----
+  var offices = lead ? [me.office] : OFFICES;
+  var late = [], soon = [], done = 0, total = 0;
+  ROWS.forEach(function (r) { offices.forEach(function (o) { var c = r.c[o]; total++; if (c[0] === 'late') late.push([r, o, c]); else if (c[0] === 'due') soon.push([r, o, c]); else done++; }); });
+  var needs = late.map(function (x) {
+      return '<li class="s-bad"><span class="ic" aria-hidden="true">' + ICON.late + '</span><div class="t"><b>' + x[1] + '\'s ' + x[0].t.charAt(0).toLowerCase() + x[0].t.slice(1) + ' is 2 days late</b><span>' + x[0].f + ' · held by Devon Ashby this week</span></div><div class="act"><a class="btn pri" href="#">Nudge Devon</a></div></li>';
+    }).join('') +
+    soon.map(function (x) {
+      return '<li class="s-warn"><span class="ic" aria-hidden="true">' + ICON.due + '</span><div class="t"><b>' + x[1] + ': ' + x[0].t + '</b><span>' + x[2][1] + ' · ' + x[0].f + '</span></div></li>';
+    }).join('') +
+    (lead ? '' : '<li class="s-warn"><span class="ic" aria-hidden="true">' + ICON.due + '</span><div class="t"><b>Shredding vendor agreement renews in January</b><span>Vendor BAA · the calendar reminds 60 days out</span></div></li>');
+  root.innerHTML =
+    '<div class="pagehead"><div><div class="lbl">Compliance · monthly / yearly</div><h1>Compliance</h1><div class="sub">' + (lead ? me.office + ' office' : 'Compliance lead · Savannah · all offices') + '</div></div>' +
+    '<div><div class="stats"><span class="stat"><b>' + done + ' of ' + total + '</b>current</span>' + (late.length ? '<span class="stat late"><b>' + late.length + '</b>late</span>' : '') + '<span class="stat soon"><b>' + (soon.length + (lead ? 0 : 1)) + '</b>coming up</span></div> ' + incident + '</div></div>' +
+    '<h2 class="sec">' + (late.length ? 'Needs you' : 'Coming up') + (late.length ? ' <span class="hint">· late first, then what is coming up</span>' : '') + '</h2>' +
+    '<ul class="todo">' + needs + '</ul>' +
+    '<h2 class="sec">' + (lead ? me.office + ', item by item' : 'Every office, item by item') + '</h2>' +
+    '<div class="card"><div class="key" aria-label="How to read this"><span class="cs done">' + ICON.done + 'Done or current</span><span class="cs due">' + ICON.due + 'Due or renewing</span><span class="cs late">' + ICON.late + 'Late</span><span><span class="proof" style="margin:0">' + ICON.clip + '</span>Proof on file</span></div>' +
+    '<table class="cm"><thead><tr><th scope="col">Item</th>' + offices.map(function (o) { return '<th scope="col">' + o + '</th>'; }).join('') + '</tr></thead><tbody>' +
+    ROWS.map(function (r) {
+      return '<tr><th scope="row">' + r.t + (r.h !== undefined ? ' <button class="uth" data-h="' + r.h + '"></button>' : '') + '<small>' + r.f + '</small></th>' + offices.map(function (o) { return '<td data-l="' + o + '">' + cell(r.c[o]) + '</td>'; }).join('') + '</tr>';
+    }).join('') + '</tbody></table>' +
+    (lead ? '' : '<p class="small muted" style="margin:10px 4px 0">Launching: Wetumpka X-ray registration is filed and awaiting approval.</p>') + '</div>' +
+    (lead ? '' : '<div class="cgrid"><div class="card"><h2>Vendor agreements (BAAs) <button class="uth" data-h="3"></button> <span class="hint">· soonest renewal first</span></h2>' +
+      '<div class="row"><span>Shredding vendor</span><span class="cs due">' + ICON.due + 'Renews Jan</span></div>' +
+      '<div class="row"><span>Cloud 9 (Planet DDS)</span><span class="cs done">' + ICON.done + 'On file</span></div>' +
+      '<div class="row"><span>OrthoAI</span><span class="cs done">' + ICON.done + 'On file</span></div>' +
+      '<div class="row"><span>Google Workspace</span><span class="cs done">' + ICON.done + 'On file</span></div>' +
+      '<p class="small muted" style="margin-bottom:0">The other foundation vendors sign theirs when you move to Plan A.</p></div>' +
+      '<div class="card"><h2>Incident reports</h2><p class="muted" style="margin:0 0 12px">Anyone can submit one for their own office. You are told as soon as it is sent.</p><a class="btn" href="#">Submit incident report</a></div></div>');
+  wire(root);
+})();
+</script>
 </body>
 </html>

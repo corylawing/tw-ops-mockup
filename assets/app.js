@@ -28,7 +28,7 @@
     { id: 'command',    href: 'index.html',        label: 'Command Center',    cnt: 6,  access: { owners: 'view', ops: 'full', lead: 'own', inv: 'view', team: 'view' } },
     { id: 'huddle',     href: 'huddle.html',       label: 'Office day',               access: { owners: 'view', ops: 'full', lead: 'own', inv: 'self', team: 'self' } },
     { id: 'people',     href: 'people.html',       label: 'People',            cnt: 2,  access: { owners: 'full', ops: 'full', lead: 'own', inv: 'self', team: 'self' } },
-    { id: 'compliance', href: 'compliance.html',   label: 'Compliance',               access: { owners: 'full', ops: 'full', lead: 'own', inv: false, team: 'self' } },
+    { id: 'compliance', href: 'compliance.html',   label: 'Compliance',               access: { owners: 'full', ops: 'full', lead: 'own', inv: 'self', team: 'self' } },
     { id: 'scorecard',  href: 'scorecard.html',    label: 'Scorecard',                access: { owners: 'full', ops: 'full', lead: 'own', inv: false, team: false } },
     { id: 'operations', href: 'operations.html',   label: 'Operations',               access: { owners: 'view', ops: 'view', lead: 'own', inv: 'full', team: false } },
     { id: 'owners',     href: 'owners.html',       label: "Owner's Desk",             access: { owners: 'full', ops: false, lead: false, inv: false, team: false } },

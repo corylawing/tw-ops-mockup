@@ -22,6 +22,11 @@
 .fl{display:flex;flex-wrap:wrap;gap:8px;margin:0 4px 12px}
 .fchip{font:inherit;font-size:14.5px;font-weight:600;border-radius:999px;min-height:40px;padding:0 16px;border:2px solid var(--line);background:transparent;color:var(--muted);cursor:pointer}
 .fchip[aria-pressed="true"]{background:var(--brand);border-color:var(--brand);color:#fff}
+.find{display:flex;align-items:center;gap:10px;background:#fff;border:2px solid var(--line);border-radius:999px;padding:0 16px;min-height:48px;margin:0 0 10px;max-width:420px}
+.find:focus-within{border-color:var(--brand)}
+.find svg{width:18px;height:18px;flex:none;fill:none;stroke:var(--muted);stroke-width:2;stroke-linecap:round}
+.find input{font:inherit;border:0;outline:0;background:transparent;flex:1;min-width:0;color:var(--ink);min-height:44px}
+.find label{position:absolute;left:-9999px}
 .pgrid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:14px;align-items:start}
 @media (max-width:960px){.pgrid{grid-template-columns:1fr}}
 .plist{background:#fff;border-radius:20px;box-shadow:var(--shadow);padding:6px}
@@ -81,7 +86,7 @@ window.PAGE = { id: 'people', title: 'People', hood: [
   function by(n) { return P.filter(function (p) { return p.n === n; })[0]; }
   var self = role === 'inv' || role === 'team', lead = role === 'lead', myOffice = me.office;
   var mine = function (o) { return !lead || o === myOffice; };
-  var sel = self ? me.name : 'Amber Nix', office = 'All';
+  var sel = self ? me.name : 'Amber Nix', office = 'All', q = '';
 
   function fileHtml(p, own) {
     var cpr = p.cpr ? '<b style="color:var(--amber)">Expires ' + p.cpr + '</b>' : '<b>Current</b>';
@@ -140,6 +145,7 @@ window.PAGE = { id: 'people', title: 'People', hood: [
     }).join('') : '<p class="muted" style="margin:0">None in the next 60 days.</p>') +
     '<p class="small muted" style="margin-bottom:0">The same people appear on the Command Center and in the morning brief. One field, three places.</p></div>' +
     '<h2 class="sec">Team <span class="hint" id="teamHint"></span></h2>' +
+    '<div class="find"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.600-3.600"/></svg><label for="q">Find a person</label><input id="q" type="search" placeholder="Find a person" autocomplete="off"></div>' +
     (lead ? '' : '<div class="fl" id="fl" role="group" aria-label="Office"></div>') +
     '<div class="pgrid"><div class="plist" id="plist"></div><aside class="card file" id="file" aria-live="polite" aria-label="Employee file"></aside></div>' +
     '<p class="small muted" style="margin:14px 4px 0">Also in this hub and not drawn in this mockup: org chart, onboarding and offboarding, reviews, training and the SOP library. Pay and payroll stay in ADP.</p>';
@@ -163,18 +169,18 @@ window.PAGE = { id: 'people', title: 'People', hood: [
     $fl.innerHTML = ['All'].concat(OFFICES).map(function (o) { return '<button type="button" class="fchip" data-o="' + o + '" aria-pressed="' + (o === office) + '">' + (o === 'All' ? 'All offices' : o) + '</button>'; }).join('');
   }
   function drawList() {
-    var list = P.filter(function (x) { return mine(x.o) && (office === 'All' || x.o === office); });
+    var list = P.filter(function (x) { return mine(x.o) && (office === 'All' || x.o === office) && (!q || (x.n + ' ' + x.r + ' ' + x.o).toLowerCase().indexOf(q) !== -1); });
     $list.innerHTML = list.map(function (x) {
       var flag = x.cpr ? '<span class="flag warn">CPR expires ' + x.cpr + '</span>' : x.rad ? '<span class="flag warn">Radiology expires ' + x.rad + '</span>' : x.pto ? '<span class="flag gray">PTO today</span>' : '';
       return '<button type="button" class="prow" data-open="' + x.n + '" aria-pressed="' + (x.n === sel) + '"><span class="pp-av" aria-hidden="true">' + ini(x.n) + '</span><span><b>' + x.n + '</b><small>' + x.r + ' · ' + x.o + '</small></span>' + flag + '</button>';
-    }).join('') + (lead ? '' : '<p class="pmore">Sample shows ' + list.length + ' of ' + (office === 'All' ? 47 : 'this office\'s') + ' people.</p>');
+    }).join('') + (!list.length ? '<p class="pmore">No one matches “' + q.replace(/[<&]/g, '') + '”. Check the spelling or pick All offices.</p>' : q || lead ? '' : '<p class="pmore">Sample shows ' + list.length + ' of ' + (office === 'All' ? 47 : 'this office\'s') + ' people.</p>');
     document.getElementById('teamHint').textContent = lead ? '· ' + myOffice + ' · tap a person to open their file' : '· tap a person to open their file';
   }
   function drawFile(scroll) {
     var p = by(sel); $file.innerHTML = fileHtml(p, false); wire($file);
     if (scroll && window.matchMedia('(max-width:960px)').matches) $file.scrollIntoView({ block: 'start', behavior: window.matchMedia('(prefers-reduced-motion:reduce)').matches ? 'auto' : 'smooth' });
   }
-  function open(n, scroll) { sel = n; if (office !== 'All' && by(n).o !== office) { office = 'All'; drawFilters(); } drawList(); drawFile(scroll); }
+  function open(n, scroll) { sel = n; if (office !== 'All' && by(n).o !== office) { office = 'All'; drawFilters(); } if (q && (by(n).n + ' ' + by(n).r + ' ' + by(n).o).toLowerCase().indexOf(q) === -1) { q = ''; document.getElementById('q').value = ''; } drawList(); drawFile(scroll); }
   root.addEventListener('click', function (ev) {
     var o = ev.target.closest('[data-open]');
     if (o) { open(o.getAttribute('data-open'), true); var again = $list.querySelector('[data-open="' + sel + '"]'); if (again && o.classList.contains('prow')) again.focus(); return; }
@@ -182,6 +188,7 @@ window.PAGE = { id: 'people', title: 'People', hood: [
     if (f) { office = f.getAttribute('data-o'); drawFilters(); drawList(); var b = $fl.querySelector('[data-o="' + office + '"]'); if (b) b.focus(); }
   });
   if (lead && !P.some(function (x) { return x.n === sel && x.o === myOffice; })) sel = P.filter(function (x) { return x.o === myOffice; })[0].n;
+  document.getElementById('q').addEventListener('input', function () { q = this.value.trim().toLowerCase(); drawList(); });
   wire(root); drawFilters(); drawList(); drawFile(false); ptoCount();
 })();
 </script>
