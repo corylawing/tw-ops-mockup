@@ -47,9 +47,9 @@
   // 1. Top bar
   var top = document.createElement('div'); top.className = 'topbar';
   var opts = Object.keys(ROLES).map(function (k) { return '<option value="' + k + '"' + (k === role ? ' selected' : '') + '>' + ROLES[k].name + ' · ' + ROLES[k].role + '</option>'; }).join('');
-  top.innerHTML = '<a class="brand" href="index.html"><span class="mark">TW</span>TW Ops <small>TW Orthodontics</small></a>' +
+  top.innerHTML = '<a class="brand" href="index.html" aria-label="TW Ops home"><img src="assets/tw-logo.svg" alt="TW Orthodontics"><span class="prod">Ops</span></a>' +
     '<div class="search" role="search">' + I.search + '<span>Search people, tasks, offices…</span><kbd>/</kbd></div>' +
-    '<div class="right"><span class="mockpill" title="Sample data. Invented names and numbers. Look and feel is a placeholder."><i></i>Mockup · sample data</span>' +
+    '<div class="right"><span class="mockpill" title="Sample data. Invented names and numbers. Layout and wording are adjustable."><i></i>Mockup · sample data</span>' +
     '<button class="explain-btn" id="explainBtn" type="button" title="Show how each part works in the real build"><span class="sw"></span><span class="t">Explain the build</span></button>' +
     '<button class="ibtn" type="button" title="Notifications">' + I.bell + '<span class="dot"></span></button>' +
     '<div class="me"><select id="roleSel" title="Viewing as">' + opts + '</select><span class="avatar" title="' + me.email + '">' + me.ini + '</span></div></div>';
@@ -123,7 +123,7 @@
 
   // 5. Footer
   var ft = document.createElement('footer'); ft.className = 'ft';
-  ft.innerHTML = 'TW Ops mockup · first idea, October 2026 · sample data, invented names · look and feel is a placeholder · <a href="how-it-works.html">How it works</a> · <a href="' + PLANS_URL + '" target="_blank" rel="noopener">Foundation plans</a>';
+  ft.innerHTML = 'TW Ops mockup · sample data, invented names · TW Orthodontics colours and logo from twortho.com · layout and wording still adjustable · <a href="how-it-works.html">How it works</a> · <a href="' + PLANS_URL + '" target="_blank" rel="noopener">Foundation plans</a>';
   main.appendChild(ft);
 
   // 6. Checklist demo: ticking records who signed and when
