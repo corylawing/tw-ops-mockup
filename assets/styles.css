@@ -294,3 +294,15 @@ body.touring .demobar{display:none}
 @media (max-width:900px){.demobar .tour-btn{padding:0 12px}.explain-btn .t{display:none}.explain-btn{padding:0 8px}}
 
 .off .sk{margin-top:8px}
+
+/* the mockup bar tucks away so it never has to sit on top of what you are reading */
+.bar-min{width:32px;height:32px;border-radius:50%;border:0;background:transparent;color:#fff;display:grid;place-items:center;flex:none;opacity:.8}
+.bar-min:hover{opacity:1;background:rgba(255,255,255,.14)}
+.bar-min svg{width:15px;height:15px}
+.demobar.min{padding:6px 14px;gap:0}
+.demobar.min>:not(.mock){display:none}
+.demobar.min .mock{margin:0;cursor:pointer}
+.demobar.min .mock .x{display:none}
+.demobar.min .mock::after{content:"· show controls";font-weight:500;opacity:.8;margin-left:6px}
+@media (max-width:900px){.demobar.min{right:auto}}
+.drawer .note.when{background:var(--brand-soft);color:var(--brand)}

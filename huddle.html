@@ -6,9 +6,9 @@
 <title>TW Ops · Selma office day (mockup)</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="icon" type="image/svg+xml" href="assets/tw-mark.svg">
-<link rel="stylesheet" href="assets/styles.css">
-<script src="assets/splash.js"></script>
-<script src="assets/theme.js"></script>
+<link rel="stylesheet" href="assets/styles.css?v=14">
+<script src="assets/splash.js?v=14"></script>
+<script src="assets/theme.js?v=14"></script>
 <style>
 .hero .ringbox{display:flex;align-items:center;gap:14px}
 .hero .ring{width:92px;height:92px;margin:0;flex:none}
@@ -111,7 +111,7 @@ window.PAGE = { id: 'huddle', title: 'Office day · Selma', hood: [
 </script>
 <div class="wrap">
   <div class="pagehead hero">
-    <div><div class="lbl">Selma office · Thursday, October 15</div>
+    <div><div class="lbl">Selma office · Wednesday, October 14</div>
       <h1 data-for="lead">Good morning, Kara</h1><h1 data-for="team">Good morning, Jordan</h1><h1 data-for="owners ops inv">Selma office day</h1>
       <p class="lede" id="odLede" aria-live="polite"><b>3 checklist items left before opening.</b> One station has nobody on it.</p>
       <p style="margin:10px 0 0"><span class="streak" id="odStreak"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c1 3.500 5 5.500 5 10a5 5 0 0 1-10 0c0-1.800.800-3 1.800-4 .200 1.600 1 2.500 2 2.800C10 9 10.500 5.500 12 3z"/></svg><span>14 days in a row</span></span> <button class="uth" data-h="6"></button></p></div>
@@ -163,7 +163,7 @@ window.PAGE = { id: 'huddle', title: 'Office day · Selma', hood: [
     </div>
   </div>
 </div>
-<script src="assets/app.js"></script>
+<script src="assets/app.js?v=14"></script>
 <script>
 (function () {
   var list = document.getElementById('ck'); if (!list) return;
@@ -179,9 +179,13 @@ window.PAGE = { id: 'huddle', title: 'Office day · Selma', hood: [
     ringBox.classList.toggle('done', all);
     lede.innerHTML = all ? '<b>All 12 signed. Selma is ready to open.</b> That makes 15 days in a row.' : '<b>' + left + ' checklist ' + (left === 1 ? 'item' : 'items') + ' left before opening.</b> One station has nobody on it.';
     streak.textContent = all ? '15 days in a row' : '14 days in a row';
+    try { sessionStorage.setItem('tw_selma_ck', String(done)); } catch (e) {}
     if (all && !wasDone) window.TW.celebrate(ringBox);
     wasDone = all;
   }
+  // pick up where this visit left off, so the Command Center and this screen agree
+  try { var prev = parseInt(sessionStorage.getItem('tw_selma_ck'), 10); if (prev > 9) boxes.filter(function (b) { return !b.checked; }).slice(0, prev - 9).forEach(function (b) { b.checked = true; var by = b.closest('li').querySelector('.by'); if (by) by.textContent = 'Signed earlier today'; }); } catch (e) {}
+  wasDone = count() === 12; draw();
   list.addEventListener('change', draw);
 
   // ---- Present full screen: the 7:45 huddle on the office screen ----
@@ -195,7 +199,7 @@ window.PAGE = { id: 'huddle', title: 'Office day · Selma', hood: [
   var FL = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c1 3.500 5 5.500 5 10a5 5 0 0 1-10 0c0-1.800.800-3 1.800-4 .200 1.600 1 2.500 2 2.800C10 9 10.500 5.500 12 3z"/></svg>';
   function slides() {
     return [
-      slide('sun', 'Selma · Thursday, October 15 · 7:45 AM', 'Good morning, Selma', '<span class="streak">' + FL + '<span>' + streak.textContent + ' of complete checklists</span></span>'),
+      slide('sun', 'Selma · Wednesday, October 14 · 7:45 AM', 'Good morning, Selma', '<span class="streak">' + FL + '<span>' + streak.textContent + ' of complete checklists</span></span>'),
       slide('heart', 'Core value', 'Own it'),
       slide('horn', 'PSA', 'Q4 supply counts due tomorrow'),
       slide('chat', 'Icebreaker', 'Best concert you have been to?'),

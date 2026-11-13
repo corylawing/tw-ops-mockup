@@ -6,9 +6,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="icon" type="image/svg+xml" href="assets/tw-mark.svg">
-<link rel="stylesheet" href="assets/styles.css">
-<script src="assets/splash.js"></script>
-<script src="assets/theme.js"></script>
+<link rel="stylesheet" href="assets/styles.css?v=14">
+<script src="assets/splash.js?v=14"></script>
+<script src="assets/theme.js?v=14"></script>
 </head>
 <body>
 <script>
@@ -37,34 +37,40 @@ window.PAGE = { id: 'command', title: 'Command Center', hood: [
     </div>
   </div>
 
-  <h2 class="sec">Needs you today <button class="uth" data-h="0"></button> <a class="btn sm" href="#" style="margin-left:auto">+ New task</a></h2>
-  <ul class="todo" id="todo">
-    <li class="s-bad"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.4v.1"/></svg></span>
+  <h2 class="sec" data-for="owners ops lead">Needs you today <button class="uth" data-h="0"></button> <a class="btn sm" href="#" style="margin-left:auto">+ New task</a></h2>
+  <ul class="todo" id="todo" data-for="owners ops lead">
+    <li class="s-bad" data-for="owners ops"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.4v.1"/></svg></span>
       <div class="t"><b>Enterprise missed last night's closing checklist</b><span>Behind: 4 overdue tasks, the oldest is 4 days old</span></div>
       <div class="act"><a class="more" href="huddle.html">Open office</a><button class="btn pri" type="button" data-nudge="Marcus Pell">Nudge Marcus</button><button class="uth" data-h="1"></button></div></li>
-    <li class="s-warn"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+    <li class="s-warn" data-for="owners ops"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
       <div class="t"><b>Montgomery's sterilizer spore test is 2 days late</b><span>Late: weekly compliance item, held by Devon Ashby</span></div>
       <div class="act"><a class="more" href="compliance.html">See compliance</a><button class="btn pri" type="button" data-nudge="Devon Ashby">Nudge Devon</button></div></li>
-    <li class="s-you"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 13l3-8h10l3 8v6H4z"/><path d="M4 13h5l1 2h4l1-2h5"/></svg></span>
+    <li class="s-you" data-for="lead"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 13l3-8h10l3 8v6H4z"/><path d="M4 13h5l1 2h4l1-2h5"/></svg></span>
+      <div class="t"><b>Chloe Dunn asked for PTO</b><span>Nov 5 to Nov 6 · waiting on your approval</span></div>
+      <div class="act"><a class="btn" href="people.html">Review</a></div></li>
+    <li class="s-soon" data-for="lead"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span>
+      <div class="t"><b>Amber Nix's CPR card expires Dec 9</b><span>Selma · inside the 60-day window</span></div>
+      <div class="act"><a class="btn" href="people.html">See file</a></div></li>
+    <li class="s-you" data-for="owners ops"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 13l3-8h10l3 8v6H4z"/><path d="M4 13h5l1 2h4l1-2h5"/></svg></span>
       <div class="t"><b>2 PTO requests are waiting on your approval</b><span>From the People hub</span></div>
       <div class="act"><a class="btn" href="people.html">Review</a></div></li>
-    <li class="s-soon"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span>
+    <li class="s-soon" data-for="owners ops"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span>
       <div class="t"><b>3 certifications expire in the next 60 days</b><span>First is Tyler Boone's CPR card, Dec 2, Andalusia <button class="uth" data-h="5"></button></span></div>
       <div class="act"><a class="btn" href="people.html">See who</a></div></li>
   </ul>
   <p class="clear" id="clear" hidden>You are caught up. Nothing else needs you today.</p>
 
-  <h2 class="sec">Your offices <span class="hint">· the one that needs you comes first · tap to open its day</span> <button class="uth" data-h="2"></button></h2>
+  <h2 class="sec"><span data-for="owners ops">Your offices</span><span data-for="lead inv team">All offices today</span> <span class="hint" data-for="owners ops">· the one that needs you comes first · tap to open its day</span> <button class="uth" data-h="2"></button></h2>
   <div class="offs">
     <a class="off" href="huddle.html"><div class="ring r-bad"><svg viewBox="0 0 84 84" aria-hidden="true"><circle class="trk" cx="42" cy="42" r="36"/><circle class="val" cx="42" cy="42" r="36" stroke-dasharray="113 227"/></svg><b>6/12</b></div><h3>Enterprise</h3><small>Marcus Pell · Office manager</small><span class="pill bad">Behind · 4 overdue</span><div class="sk"><span class="streak none">Streak ended yesterday</span></div></a>
     <a class="off" href="huddle.html"><div class="ring r-warn"><svg viewBox="0 0 84 84" aria-hidden="true"><circle class="trk" cx="42" cy="42" r="36"/><circle class="val" cx="42" cy="42" r="36" stroke-dasharray="170 227"/></svg><b>9/12</b></div><h3>Montgomery</h3><small>Devon Ashby · Lead</small><span class="pill warn">Needs attention · 2 overdue</span><div class="sk"><span class="streak"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c1 3.500 5 5.500 5 10a5 5 0 0 1-10 0c0-1.800.800-3 1.800-4 .200 1.600 1 2.500 2 2.800C10 9 10.500 5.500 12 3z"/></svg><span>3-day streak</span></span></div></a>
     <a class="off" href="huddle.html"><div class="ring"><svg viewBox="0 0 84 84" aria-hidden="true"><circle class="trk" cx="42" cy="42" r="36"/><circle class="val" cx="42" cy="42" r="36" stroke-dasharray="207 227"/></svg><b>11/12</b></div><h3>Andalusia</h3><small>Renee Calloway · Lead</small><span class="pill ok">On track</span><div class="sk"><span class="streak"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c1 3.500 5 5.500 5 10a5 5 0 0 1-10 0c0-1.800.800-3 1.800-4 .200 1.600 1 2.500 2 2.800C10 9 10.500 5.500 12 3z"/></svg><span>6-day streak</span></span></div></a>
-    <a class="off" href="huddle.html"><div class="ring"><svg viewBox="0 0 84 84" aria-hidden="true"><circle class="trk" cx="42" cy="42" r="36"/><circle class="val" cx="42" cy="42" r="36" stroke-dasharray="227 227"/></svg><b>12/12</b></div><h3>Selma</h3><small>Kara Whitfield · Lead</small><span class="pill ok">On track</span><div class="sk"><span class="streak"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c1 3.500 5 5.500 5 10a5 5 0 0 1-10 0c0-1.800.800-3 1.800-4 .200 1.600 1 2.500 2 2.800C10 9 10.500 5.500 12 3z"/></svg><span>14-day streak</span></span></div></a>
+    <a class="off" href="huddle.html"><div class="ring"><svg viewBox="0 0 84 84" aria-hidden="true"><circle class="trk" cx="42" cy="42" r="36"/><circle class="val" id="selRing" cx="42" cy="42" r="36" stroke-dasharray="170 227"/></svg><b id="selNum">9/12</b></div><h3>Selma</h3><small>Kara Whitfield · Lead</small><span class="pill ok">On track</span><div class="sk"><span class="streak"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c1 3.500 5 5.500 5 10a5 5 0 0 1-10 0c0-1.800.800-3 1.800-4 .200 1.600 1 2.500 2 2.800C10 9 10.500 5.500 12 3z"/></svg><span id="selStreak">14-day streak</span></span></div></a>
   </div>
   <p class="small muted" style="margin:8px 4px 0">The ring is today's opening checklist. A streak counts the days in a row an office signed off every checklist.</p>
 
-  <h2 class="sec">Launches <span class="hint">· soonest first</span></h2>
-  <div class="offs three">
+  <h2 class="sec" data-for="owners ops">Launches <span class="hint">· soonest first</span></h2>
+  <div class="offs three" data-for="owners ops">
     <a class="off" href="owners.html"><div class="ring r-launch"><svg viewBox="0 0 84 84" aria-hidden="true"><circle class="trk" cx="42" cy="42" r="36"/><circle class="val" cx="42" cy="42" r="36" stroke-dasharray="134 227"/></svg><b>38/64</b></div><h3>Wetumpka</h3><small>Opens Jan 12 · 2 of 5 hires onboarded</small><span class="pill launch">Next: X-ray registration filed</span></a>
     <a class="off" href="owners.html"><div class="ring r-launch"><svg viewBox="0 0 84 84" aria-hidden="true"><circle class="trk" cx="42" cy="42" r="36"/><circle class="val" cx="42" cy="42" r="36" stroke-dasharray="43 227"/></svg><b>12/64</b></div><h3>Dothan</h3><small>Opens Mar 2 · 0 of 5 hires onboarded</small><span class="pill launch">Next: lease signed</span></a>
     <a class="off" href="owners.html"><div class="ring r-launch"><svg viewBox="0 0 84 84" aria-hidden="true"><circle class="trk" cx="42" cy="42" r="36"/><circle class="val" cx="42" cy="42" r="36" stroke-dasharray="18 227"/></svg><b>5/64</b></div><h3>Troy</h3><small>Opens May 4 · 0 of 5 hires onboarded</small><span class="pill launch">Next: JV docs with attorney</span></a>
@@ -85,18 +91,25 @@ window.PAGE = { id: 'command', title: 'Command Center', hood: [
       <p class="small muted">Exams, shows and starts come from Cloud 9 and OrthoAI overnight. Counts only.</p></div>
   </div>
 </div>
-<script src="assets/app.js"></script>
+<script src="assets/app.js?v=14"></script>
 <script>
 (function () {
-  var list = document.getElementById('todo'), lede = document.getElementById('lede'), clear = document.getElementById('clear');
+  var list = document.getElementById('todo'), lede = document.getElementById('lede'), clear = document.getElementById('clear'), role = window.TW.role;
+  // One database: what the Selma lead signs on Office day shows up here.
+  var ck = 9; try { ck = parseInt(sessionStorage.getItem('tw_selma_ck'), 10) || 9; } catch (e) {}
+  document.getElementById('selRing').setAttribute('stroke-dasharray', Math.round(226.2 * ck / 12) + ' 227'); document.getElementById('selNum').textContent = ck + '/12';
+  var chip = document.querySelector('.chips .chip b'); if (chip) chip.textContent = (41 + ck - 9) + '/56';
+  var sk = document.getElementById('selStreak'); if (sk && ck === 12) sk.textContent = '15-day streak';
   var hi = document.querySelector('.pagehead.hero h1'), nm = window.TW.me.name;
   if (hi) hi.textContent = 'Good morning, ' + (nm.indexOf('Dr.') === 0 ? nm : nm.split(' ')[0]);
   function count() {
+    if (!list) { lede.innerHTML = role === 'inv' ? '<b>Here is how every office is doing today.</b> Supply budgets are in Operations.' : '<b>Here is how every office is doing today.</b> Your own day is on Office day.'; return; }
     var n = list.querySelectorAll('li:not(.done)').length;
     lede.innerHTML = n ? '<b>' + n + (n === 1 ? ' thing needs' : ' things need') + ' you today.</b> Everything else is on track.' : '<b>You are caught up.</b> Every office is covered.';
     clear.hidden = n !== 0;
   }
-  Array.prototype.forEach.call(list.querySelectorAll('[data-nudge]'), function (b) {
+  count();
+  if (list) Array.prototype.forEach.call(list.querySelectorAll('[data-nudge]'), function (b) {
     b.addEventListener('click', function () {
       var li = b.closest('li'); if (li.classList.contains('done')) return;
       li.classList.add('done'); b.classList.remove('pri'); b.textContent = 'Nudged'; b.disabled = true; window.TW.celebrate(b);

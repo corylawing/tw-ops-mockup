@@ -25,9 +25,9 @@
     help: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.3-1 .9-1 1.7M12 17h.01"/></svg>'
   };
   var NAV = [
-    { id: 'command',    href: 'index.html',        label: 'Command Center',    cnt: 6,  access: { owners: 'view', ops: 'full', lead: 'own', inv: 'view', team: 'view' } },
+    { id: 'command',    href: 'index.html',        label: 'Command Center',    cnt: { owners: 6, ops: 6 },  access: { owners: 'view', ops: 'full', lead: 'own', inv: 'view', team: 'view' } },
     { id: 'huddle',     href: 'huddle.html',       label: 'Office day',               access: { owners: 'view', ops: 'full', lead: 'own', inv: 'self', team: 'self' } },
-    { id: 'people',     href: 'people.html',       label: 'People',            cnt: 2,  access: { owners: 'full', ops: 'full', lead: 'own', inv: 'self', team: 'self' } },
+    { id: 'people',     href: 'people.html',       label: 'People',            cnt: { owners: 2, ops: 2, lead: 1 },  access: { owners: 'full', ops: 'full', lead: 'own', inv: 'self', team: 'self' } },
     { id: 'compliance', href: 'compliance.html',   label: 'Compliance',               access: { owners: 'full', ops: 'full', lead: 'own', inv: 'self', team: 'self' } },
     { id: 'scorecard',  href: 'scorecard.html',    label: 'Scorecard',                access: { owners: 'full', ops: 'full', lead: 'own', inv: false, team: false } },
     { id: 'operations', href: 'operations.html',   label: 'Operations',               access: { owners: 'view', ops: 'view', lead: 'own', inv: 'full', team: 'self' } },
@@ -35,7 +35,7 @@
     { id: 'calendar',   href: 'calendar.html',     label: 'Practice Calendar',        access: { owners: 'full', ops: 'full', lead: 'own', inv: 'self', team: 'self' } },
     { id: 'brief',      href: 'brief.html',        label: 'Morning brief',            access: { owners: 'full', ops: 'full', lead: 'own', inv: 'self', team: false } }
   ];
-  var SVC = { auth: 'Front door · Google sign-in + roles', db: 'Database · Postgres, role rules', vault: 'File vault · Drive + private storage', job: 'Night shift · scheduled jobs', mail: 'Mailroom · Gmail + Slack', ai: 'AI desk · Claude API, server-side', ext: 'Outside system, linked' };
+  var SVC = { auth: 'Front door · Google sign-in + roles', db: 'Database · Postgres, role rules', vault: 'File vault · Drive + private storage', job: 'Night shift · scheduled jobs', mail: 'Mailroom · Gmail and alerts', ai: 'AI desk · Claude API, server-side', ext: 'Outside system, linked' };
 
   function ls(k, v) { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; } }
   var role = ls('tw_role') || 'ops';
@@ -55,7 +55,7 @@
     var cls = (n.id === page.id ? 'on' : '') + (a ? '' : ' locked');
     var title = a ? (a === 'own' ? 'Own office only' : a === 'view' ? 'View only' : a === 'self' ? 'Own items only' : 'Full access') : 'Not available for this role';
     var pre = n.id === 'calendar' ? '<div class="sec">Shared</div>' : '';
-    return pre + '<a class="' + cls + '" href="' + n.href + '" title="' + title + '"' + (n.id === page.id ? ' aria-current="page"' : '') + (a ? '' : ' aria-disabled="true" tabindex="-1"') + '>' + I[n.id] + '<span>' + n.label + '</span>' + (n.cnt && a ? '<span class="cnt">' + n.cnt + '</span>' : '') + '</a>';
+    return pre + '<a class="' + cls + '" href="' + n.href + '" title="' + title + '"' + (n.id === page.id ? ' aria-current="page"' : '') + (a ? '' : ' aria-disabled="true" tabindex="-1"') + '>' + I[n.id] + '<span>' + n.label + '</span>' + (n.cnt && n.cnt[role] && a ? '<span class="cnt">' + n.cnt[role] + '</span>' : '') + '</a>';
   }).join('');
   var side = document.createElement('aside'); side.className = 'side';
   side.id = 'sideMenu';
@@ -91,8 +91,13 @@
   demo.innerHTML = '<span class="mock" title="Sample data. Invented names and numbers. Layout and wording are adjustable."><i></i>Mockup<span class="x"> · sample data</span></span>' +
     '<label><span class="x">View as</span><select id="roleSel" aria-label="View as">' + opts + '</select></label>' +
     '<button class="explain-btn" id="explainBtn" type="button" title="Show how each part works in the real build"><span class="sw"></span><span class="t">Explain<span class="x"> the build</span></span></button>' +
-    '<button class="tour-btn" id="tourBtn" type="button" title="A one-minute walk through the morning">Tour</button>';
+    '<button class="tour-btn" id="tourBtn" type="button" title="A one-minute walk through the morning">Tour</button>' +
+    '<button class="bar-min" id="barMin" type="button" aria-label="Hide the mockup controls" title="Hide">' + CLOSE + '</button>';
   document.body.appendChild(demo);
+  function barMin(on) { demo.classList.toggle('min', on); ls('tw_bar', on ? 'min' : 'open'); }
+  if (ls('tw_bar') === 'min') demo.classList.add('min');
+  document.getElementById('barMin').addEventListener('click', function (e) { e.stopPropagation(); barMin(true); });
+  demo.querySelector('.mock').addEventListener('click', function () { if (demo.classList.contains('min')) barMin(false); });
   document.getElementById('roleSel').addEventListener('change', function (e) { ls('tw_role', e.target.value); try { sessionStorage.setItem('tw_skip_splash', '1'); } catch (x) {} location.reload(); });
 
   var navItem = NAV.filter(function (n) { return n.id === page.id; })[0];
@@ -108,7 +113,9 @@
   // 3. Explain mode: drawer with the under-the-hood notes
   var back = document.createElement('div'); back.className = 'backdrop';
   var dr = document.createElement('aside'); dr.className = 'drawer'; dr.setAttribute('aria-label', 'How this screen works underneath');
-  dr.innerHTML = '<header><h2>How this works · ' + (page.title || '') + '</h2><button class="x" id="uthClose" type="button">Close</button></header>' +
+  var BUILT = { command: 1, huddle: 1, calendar: 1, brief: 1, profile: 1, people: 2, compliance: 2, scorecard: 3, operations: 3, owners: 3 };
+  var when = BUILT[page.id] ? '<div class="note when"><b>Built in month ' + BUILT[page.id] + ' of 4.</b> ' + (BUILT[page.id] === 1 ? 'Part of the first month, with the foundation.' : 'Until then this screen is a picture of what is coming.') + '</div>' : '';
+  dr.innerHTML = '<header><h2>How this works · ' + (page.title || '') + '</h2><button class="x" id="uthClose" type="button">Close</button></header>' + when +
     '<div class="note">Each numbered marker on the screen matches a line below: what the foundation does there in the real build. Full picture on <a href="how-it-works.html">How it works</a>.</div>' +
     hood.map(function (h, i) {
       return '<div class="hood" id="hood' + i + '"><div class="what"><span class="num">' + (i + 1) + '</span>' + h.what + '</div><div class="how">' + h.how + '</div>' +
