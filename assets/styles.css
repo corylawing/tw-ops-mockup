@@ -230,6 +230,7 @@ body.explain .explain-btn .sw{background:var(--orange)} body.explain .explain-bt
 .tsw-prev i{width:20px;height:20px;border-radius:50%;border:2px solid rgba(255,255,255,.85)}
 .tsw-name{display:flex;align-items:center;justify-content:space-between;gap:6px;font-weight:600;font-size:15px;margin:8px 4px 0}
 .tsw-name em{font-style:normal;font-size:13px;font-weight:600;color:var(--brand);visibility:hidden}
+.tsw[data-id="tw"] .tsw-name em{visibility:visible;color:var(--muted)}
 .tsw[aria-checked="true"] .tsw-name em{visibility:visible}
 
 /* shared by the hub pages: small counts, status chips, value bars */

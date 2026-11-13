@@ -9,6 +9,39 @@
 <link rel="stylesheet" href="assets/styles.css">
 <script src="assets/splash.js"></script>
 <script src="assets/theme.js"></script>
+<style>
+.pf-id{display:flex;flex-wrap:wrap;align-items:center;gap:16px 18px;background:#fff;border-radius:24px;box-shadow:var(--shadow);padding:20px 22px}
+.pf-id .pf-av{width:84px;height:84px;font-size:28px}
+.pf-id .who2{flex:1 1 220px;min-width:0}
+.pf-id h1{font-size:26px;margin:0}
+.pf-id .role{color:var(--muted);font-size:17px}
+.pf-facts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+@media (max-width:640px){.pf-facts{grid-template-columns:1fr}}
+.pf-fact{background:#fff;border-radius:18px;box-shadow:var(--shadow);padding:12px 16px;display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:center}
+.pf-fact .fi{width:40px;height:40px;border-radius:50%;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center}
+.pf-fact svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.pf-fact small{display:block;color:var(--muted);font-size:13.5px}
+.pf-fact b{font-weight:600;overflow-wrap:anywhere}
+.pv{border-radius:20px;overflow:hidden;background:var(--bg);margin-top:14px}
+.pv-hero{background:linear-gradient(120deg,var(--brand-deep,#244e63) 0%,var(--brand) 45%,var(--brand-mid) 100%);color:#fff;padding:16px 18px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px}
+.pv-hero b{font-family:var(--title);font-size:19px;display:block}
+.pv-hero span{font-size:14.5px}
+.pv-ring{width:56px;height:56px;position:relative;flex:none}
+.pv-ring svg{width:56px;height:56px;transform:rotate(-90deg)}
+.pv-ring circle{fill:none;stroke-width:7;stroke-linecap:round}
+.pv-ring .a{stroke:rgba(255,255,255,.25)}.pv-ring .b{stroke:#fff}
+.pv-row{display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:14px 18px}
+.pv-nav{display:inline-flex;align-items:center;gap:8px;background:var(--brand);color:#fff;border-radius:14px;padding:0 14px;min-height:42px;font-weight:600}
+.pv-nav i{background:var(--orange);color:var(--on-accent,var(--ink));font-style:normal;font-size:12.5px;font-weight:700;border-radius:999px;min-width:22px;height:22px;display:grid;place-items:center}
+.pv-bar{flex:1 1 140px;height:8px;border-radius:999px;background:var(--line2);overflow:hidden}
+.pv-bar i{display:block;height:100%;width:68%;background:var(--brand-bright);border-radius:999px}
+.tsw{position:relative}
+.tsw-ck{position:absolute;top:14px;left:14px;width:24px;height:24px;border-radius:50%;background:#fff;display:none;place-items:center;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.tsw-ck svg{width:14px;height:14px;fill:none;stroke:var(--ink);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.tsw[aria-checked="true"] .tsw-ck{display:grid}
+.pf-reset{margin-top:14px}
+@media (max-width:560px){.tsw-grid{grid-template-columns:1fr 1fr}}
+</style>
 </head>
 <body>
 <script>
@@ -18,46 +51,69 @@ window.PAGE = { id: 'profile', title: 'My profile', hood: [
 ]};
 </script>
 <div class="wrap">
-  <div class="pagehead"><div><div class="lbl">My profile</div><h1 id="pfTitle">My profile</h1></div></div>
-  <div class="card">
-    <h2>About you <button class="uth" data-h="0"></button></h2>
-    <div class="pf-top"><span class="pf-av" id="pfAv" aria-hidden="true"></span><span><b id="pfName"></b><span class="muted" id="pfRole"></span></span></div>
-    <div class="row"><span>Office</span><b id="pfOffice"></b></div>
-    <div class="row"><span>Email</span><b id="pfEmail"></b></div>
-    <div class="row"><span>Signs in with</span><b>Google Workspace</b></div>
+  <div class="pf-id">
+    <span class="pf-av" id="pfAv" aria-hidden="true"></span>
+    <div class="who2"><div class="lbl">My profile <button class="uth" data-h="0"></button></div><h1 id="pfName">My profile</h1><div class="role" id="pfRole"></div></div>
+    <a class="btn" href="signin.html">Sign out</a>
   </div>
-  <div class="card" style="margin-top:12px">
-    <h2>Colors for TW Ops <button class="uth" data-h="1"></button></h2>
-    <p class="muted" style="margin:0">Pick the look you like. It changes only your own view, and you can go back to TW Blue any time.</p>
+  <div class="pf-facts">
+    <div class="pf-fact"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-5h6v5M9 10h.010M15 10h.010"/></svg></span><span><small>Office</small><b id="pfOffice"></b></span></div>
+    <div class="pf-fact"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span><span><small>Email</small><b id="pfEmail"></b></span></div>
+    <div class="pf-fact"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg></span><span><small>Your home screen</small><b id="pfHome"></b></span></div>
+    <div class="pf-fact"><span class="fi"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span><span><small>Signs in with</small><b>Google Workspace</b></span></div>
+  </div>
+  <p class="small muted" style="margin:10px 4px 0">These come from your Google account and the TW directory. To change one, ask Savannah.</p>
+
+  <h2 class="sec">Colors for TW Ops <button class="uth" data-h="1"></button></h2>
+  <div class="card">
+    <p class="muted" style="margin:0">Pick the look you like. It changes only your own view, on every screen. The preview shows it straight away.</p>
+    <div class="pv" aria-label="Preview of the selected colors">
+      <div class="pv-hero"><span><b id="pvHi">Good morning</b><span>4 things need you today.</span></span><div class="pv-ring"><svg viewBox="0 0 56 56" aria-hidden="true"><circle class="a" cx="28" cy="28" r="23"/><circle class="b" cx="28" cy="28" r="23" stroke-dasharray="98 145"/></svg></div></div>
+      <div class="pv-row"><span class="pv-nav">Command Center <i>6</i></span><span class="btn pri sm" aria-hidden="true">Nudge</span><span class="btn sm" aria-hidden="true">Review</span><span class="pill info">Same huddle today</span><span class="pv-bar"><i></i></span></div>
+    </div>
     <div class="tsw-grid" id="tsw" role="radiogroup" aria-label="Color scheme"></div>
+    <div class="pf-reset" id="pfReset" hidden><button class="btn sm" type="button" id="pfBack">Back to TW Blue</button></div>
   </div>
 </div>
 <script src="assets/app.js"></script>
 <script>
 (function () {
-  var me = window.TW.me, T = window.TWTheme;
-  document.getElementById('pfTitle').textContent = me.name;
+  var me = window.TW.me, T = window.TWTheme, role = window.TW.role;
+  // Where each role lands, in the Hub Map's own words
+  var HOME = { owners: "Owner's Desk + all-office summary", ops: 'Command Center office grid', lead: "Morning huddle + today's checklist", inv: 'Inventory & budgets', team: 'My tasks, training, my HR file' };
   document.getElementById('pfAv').textContent = me.ini;
   document.getElementById('pfName').textContent = me.name;
   document.getElementById('pfRole').textContent = me.role;
   document.getElementById('pfOffice').textContent = me.office;
   document.getElementById('pfEmail').textContent = me.email;
-  var box = document.getElementById('tsw');
+  document.getElementById('pfHome').textContent = HOME[role];
+  document.getElementById('pvHi').textContent = 'Good morning, ' + me.name.replace(/^Dr\. /, 'Dr. ').split(' ').slice(0, me.name.indexOf('Dr.') === 0 ? 2 : 1).join(' ');
+  var box = document.getElementById('tsw'), reset = document.getElementById('pfReset');
+  var CK = '<span class="tsw-ck" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>';
   function draw() {
     var cur = T.current();
     box.innerHTML = T.THEMES.map(function (t) {
-      var k = T.tokens(t);
-      return '<button type="button" class="tsw" role="radio" aria-checked="' + (t.id === cur) + '" data-id="' + t.id + '">' +
+      var k = T.tokens(t), on = t.id === cur;
+      return '<button type="button" class="tsw" role="radio" aria-checked="' + on + '" tabindex="' + (on ? 0 : -1) + '" data-id="' + t.id + '">' + CK +
         '<span class="tsw-prev" style="background:linear-gradient(120deg,' + k['--brand-deep'] + ',' + k['--brand'] + ' 50%,' + k['--brand-mid'] + ')"><i style="background:' + k['--orange'] + '"></i></span>' +
-        '<span class="tsw-name">' + t.name + '<em>Selected</em></span></button>';
+        '<span class="tsw-name">' + t.name + '<em>' + (t.id === 'tw' ? 'Default' : 'Selected') + '</em></span></button>';
     }).join('');
+    reset.hidden = cur === 'tw';
   }
-  box.addEventListener('click', function (e) {
-    var b = e.target.closest('.tsw'); if (!b) return;
-    T.set(b.getAttribute('data-id')); draw();
-    var again = box.querySelector('[data-id="' + b.getAttribute('data-id') + '"]'); if (again) again.focus();
-    window.TW.say('Saved. In the real build this follows you to any computer.');
+  function pick(id, quiet) {
+    T.set(id); draw();
+    var b = box.querySelector('[data-id="' + id + '"]'); if (b) b.focus();
+    if (!quiet) window.TW.say('Saved. In the real build this follows you to any computer.');
+  }
+  box.addEventListener('click', function (e) { var b = e.target.closest('.tsw'); if (b) pick(b.getAttribute('data-id')); });
+  // Arrow keys move through the schemes, as a radio group should
+  box.addEventListener('keydown', function (e) {
+    var keys = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }; if (!keys[e.key]) return;
+    e.preventDefault();
+    var ids = T.THEMES.map(function (t) { return t.id; }), i = ids.indexOf(T.current());
+    pick(ids[(i + keys[e.key] + ids.length) % ids.length], true);
   });
+  document.getElementById('pfBack').addEventListener('click', function () { pick('tw'); });
   draw();
 })();
 </script>
