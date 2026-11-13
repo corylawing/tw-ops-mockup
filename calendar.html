@@ -8,7 +8,70 @@
 <link rel="icon" type="image/svg+xml" href="assets/tw-mark.svg">
 <link rel="stylesheet" href="assets/styles.css">
 <script src="assets/theme.js"></script>
-<style>.months{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}@media(max-width:980px){.months{grid-template-columns:repeat(2,1fr)}}@media(max-width:560px){.months{grid-template-columns:1fr}}.m{background:#fff;border-radius:18px;padding:14px 14px;min-width:0;box-shadow:var(--shadow)}.m h3{margin-bottom:6px}.ev{font-size:14px;padding:6px 9px;border-radius:9px;margin:4px 0;border-left:4px solid var(--teal);background:var(--bg)}.ev.p{border-color:#1d4ed8}.ev.c{border-color:var(--amber)}.ev.o{border-color:var(--violet)}.ev.f{border-color:var(--navy)}.ev.k{border-color:#b0245a}.ev.mk{border-color:var(--green)}.ev.sel{background:var(--teal-soft)}.leg span{display:inline-block;font-size:14px;margin-right:10px}.leg i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px;vertical-align:middle}</style>
+<style>
+.cal-bar{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;margin:0 0 14px}
+.seg{display:inline-flex;background:#fff;border-radius:999px;padding:4px;box-shadow:var(--shadow)}
+.seg button{font:inherit;font-weight:600;font-size:15px;border:0;background:transparent;color:var(--muted);border-radius:999px;padding:0 18px;min-height:40px}
+.seg button[aria-pressed="true"]{background:var(--brand);color:#fff}
+.flt{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.flt .lab{font-size:14.5px;font-weight:600;color:var(--muted);margin-right:2px}
+.fchip{font:inherit;font-size:14.5px;font-weight:600;display:inline-flex;align-items:center;gap:8px;border-radius:999px;min-height:38px;padding:0 14px 0 12px;border:2px solid transparent;background:#fff;color:var(--ink);box-shadow:var(--shadow)}
+.fchip i{width:10px;height:10px;border-radius:50%;flex:none}
+.fchip[aria-pressed="false"]{background:transparent;box-shadow:none;border-color:var(--line);color:var(--muted)}
+.fchip[aria-pressed="false"] i{opacity:.35}
+.cal{display:grid;grid-template-columns:minmax(0,2.2fr) minmax(290px,1fr);gap:14px;align-items:start}
+@media (max-width:1080px){.cal{grid-template-columns:1fr}}
+.months{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.cal.wide{grid-template-columns:1fr}
+@media (max-width:980px){.months{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:520px){.months{grid-template-columns:1fr}}
+.mo{background:#fff;border-radius:20px;padding:14px 12px 12px;min-width:0;box-shadow:var(--shadow)}
+.mo header{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin:0 4px 8px}
+.mo header span{font-size:13px;font-weight:600;color:var(--muted);background:var(--bg);border-radius:999px;min-width:26px;height:26px;display:inline-grid;place-items:center;padding:0 8px;white-space:nowrap}
+.mo.empty{box-shadow:none;background:transparent;outline:2px dashed var(--line);outline-offset:-2px}
+.evt{font:inherit;font-size:14.5px;line-height:1.3;text-align:left;display:flex;align-items:flex-start;gap:8px;width:100%;border:2px solid transparent;border-radius:12px;padding:8px 10px;margin:5px 0 0;min-height:40px;color:var(--ink);cursor:pointer}
+.evt i{width:9px;height:9px;border-radius:50%;flex:none;margin-top:5px}
+.evt:hover{filter:brightness(.97)}
+.evt[aria-pressed="true"]{border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-soft)}
+.c-p{background:#e6edff}.c-p i,.d-p{background:#1d4ed8}
+.c-c{background:var(--amber-soft)}.c-c i,.d-c{background:#b46a00}
+.c-mk{background:var(--green-soft)}.c-mk i,.d-mk{background:var(--green)}
+.c-o{background:var(--violet-soft)}.c-o i,.d-o{background:var(--violet)}
+.c-f{background:#e6eaed}.c-f i,.d-f{background:#1f2a30}
+.c-k{background:#ffe4ee}.c-k i,.d-k{background:#a3154f}
+/* month view */
+.mgrid{background:#fff;border-radius:20px;box-shadow:var(--shadow);padding:14px;overflow-x:auto}
+.mgrid h2{margin:2px 6px 12px}
+.mtable{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;min-width:720px}
+.mtable .dow{font-size:13.5px;font-weight:600;color:var(--muted);padding:0 8px 2px}
+.day{background:var(--bg);border-radius:14px;min-height:96px;padding:8px}
+.day.out{background:transparent}
+.day .n{font-weight:600;font-size:14.5px;display:inline-grid;place-items:center;min-width:28px;height:28px;border-radius:50%}
+.day.today .n{background:var(--brand);color:#fff}
+.day .evt{font-size:13.5px;padding:6px 8px;min-height:0;background-clip:padding-box}
+/* list view */
+.agenda{background:#fff;border-radius:20px;box-shadow:var(--shadow);padding:6px 18px 12px}
+.agenda h3{margin:16px 0 4px;color:var(--brand)}
+.agenda .evt{background:transparent;border-radius:12px;padding:10px 8px;margin:0;border-top:1px solid var(--line2);border-radius:0}
+.agenda .evt:first-of-type{border-top:0}
+.agenda .evt[aria-pressed="true"]{background:var(--brand-soft);border-radius:12px;box-shadow:none;border-color:transparent}
+.agenda .evt span.cat{margin-left:auto;color:var(--muted);font-size:13.5px;white-space:nowrap}
+/* detail */
+.det{position:sticky;top:16px}
+.det .cat{display:inline-flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;border-radius:999px;padding:4px 12px}
+.det .cat i{width:9px;height:9px;border-radius:50%}
+.det h2{font-size:20px;margin:10px 0 2px}
+.rem{display:inline-flex;gap:6px}
+.rem span{background:var(--brand-soft);color:var(--brand);font-weight:600;font-size:13.5px;border-radius:999px;padding:3px 10px}
+.tl{list-style:none;margin:8px 0 0;padding:0}
+.tl li{display:grid;grid-template-columns:18px 1fr auto;gap:10px;align-items:start;padding:0 0 14px;position:relative;font-size:15px}
+.tl li::before{content:"";width:12px;height:12px;border-radius:50%;background:#fff;border:3px solid var(--brand-bright);margin-top:4px;z-index:1}
+.tl li::after{content:"";position:absolute;left:8px;top:16px;bottom:-4px;width:2px;background:var(--line)}
+.tl li:last-child::after{display:none}
+.tl li b{font-weight:600;color:var(--muted);font-size:14px;white-space:nowrap}
+.none{color:var(--muted);padding:18px 6px}
+@media (max-width:1080px){.det{position:static}}
+</style>
 </head>
 <body>
 <script>
@@ -21,41 +84,126 @@ window.PAGE = { id: 'calendar', title: 'Practice Calendar', hood: [
 ]};
 </script>
 <div class="wrap">
-  <div class="pagehead"><div><div class="lbl">Practice Calendar · 2027</div><h1>Every yearly event, set once <button class="uth" data-h="0"></button></h1><div class="sub">Starter events shown. Confirm dates.</div></div>
-    <div><a class="btn" href="#">Year</a> <a class="btn" href="#">Month</a> <a class="btn" href="#">List</a> <a class="btn pri" href="#">+ Yearly event</a> <button class="uth" data-h="4"></button></div></div>
-  <p class="leg small"><b>Show</b> <span><i style="background:#1d4ed8"></i>People</span><span><i style="background:var(--amber)"></i>Compliance</span><span><i style="background:var(--green)"></i>Marketing</span><span><i style="background:var(--violet)"></i>Operations</span><span><i style="background:var(--navy)"></i>Owner / finance</span><span><i style="background:#b0245a"></i>Culture</span></p>
-  <div class="grid" style="grid-template-columns:minmax(0,2.2fr) minmax(250px,1fr)">
-    <div class="months">
-      <div class="m"><h3>January</h3><div class="ev f">Budget lock</div><div class="ev f">W-2 / 1099 filing</div><div class="ev k">Team kickoff &amp; annual goals</div></div>
-      <div class="m"><h3>February</h3><div class="ev p sel">CPR recert · cohort A</div><div class="ev mk">Valentine referral-doctor touch</div></div>
-      <div class="m"><h3>March</h3><div class="ev c">HIPAA risk assessment · each office</div><div class="ev o">Spring break schedule plan</div></div>
-      <div class="m"><h3>April</h3><div class="ev p">Performance reviews</div><div class="ev p">Benefits renewal review</div></div>
-      <div class="m"><h3>May</h3><div class="ev o">AAO annual session</div><div class="ev p">Summer staffing plan</div></div>
-      <div class="m"><h3>June</h3><div class="ev f">Mid-year budget variance</div><div class="ev mk">Back-to-school campaign build</div></div>
-      <div class="m"><h3>July</h3><div class="ev mk">Back-to-school push</div><div class="ev o">Mid-year equipment service</div></div>
-      <div class="m"><h3>August</h3><div class="ev p">CPR recert · cohort B</div><div class="ev mk">Back-to-school push</div></div>
-      <div class="m"><h3>September</h3><div class="ev c">OSHA annual training</div><div class="ev k">Christmas party planning starts</div></div>
-      <div class="m"><h3>October</h3><div class="ev p">Year-end benefits push</div><div class="ev p">Open enrollment</div><div class="ev o">Q4 supply order</div></div>
-      <div class="m"><h3>November</h3><div class="ev f">Next-year budget</div><div class="ev mk">Referral-doctor holiday gifts</div><div class="ev k">Thanksgiving appreciation</div></div>
-      <div class="m"><h3>December</h3><div class="ev k">Christmas party</div><div class="ev f">Year-end bonuses</div><div class="ev o">Publish next year calendar</div></div>
-    </div>
-    <div class="card" style="align-self:start">
-      <div class="lbl">People</div><h2>CPR recertification · cohort A</h2><div class="small muted">Every February · repeats yearly</div>
-      <div class="row"><span>Owner</span><b>Savannah</b></div>
-      <div class="row"><span>Offices</span><b>All 7 · each lead books</b></div>
-      <div class="row"><span>Reminders <button class="uth" data-h="1"></button></span><b>60 · 30 · 7 days before</b></div>
-      <div class="row"><span>Who's due <button class="uth" data-h="2"></button></span><b>From People: cards expiring in 90 days</b></div>
-      <div class="row"><span>Proof <button class="uth" data-h="3"></button></span><b>Upload card → employee file</b></div>
-      <div class="lbl" style="margin-top:14px">Checklist · reused every year</div>
-      <div class="row"><span>Pull list of expiring cards</span><b>60 days</b></div>
-      <div class="row"><span>Book instructor per office</span><b>45 days</b></div>
-      <div class="row"><span>Post sign-up times</span><b>30 days</b></div>
-      <div class="row"><span>Hold class · take attendance</span><b>Day of</b></div>
-      <div class="row"><span>Upload new cards</span><b>+7 days</b></div>
-      <p class="small muted">Shows up in: Savannah's morning email at 60/30/7 days · each office brief the week of · Compliance hub as a training record.</p>
-    </div>
+  <div class="pagehead"><div><div class="lbl" id="calLbl">Practice Calendar · 2027</div><h1>Every yearly event, set once <button class="uth" data-h="0"></button></h1><div class="sub">Repeats with reminders. Starter events shown: confirm dates.</div></div>
+    <div><a class="btn pri" href="#">+ Yearly event</a> <button class="uth" data-h="4"></button></div></div>
+
+  <div class="cal-bar">
+    <div class="seg" role="group" aria-label="Calendar view"><button type="button" data-view="year" aria-pressed="true">Year</button><button type="button" data-view="month" aria-pressed="false">Month</button><button type="button" data-view="list" aria-pressed="false">List</button></div>
+    <div class="flt" role="group" aria-label="Show"><span class="lab">Show</span><span id="flt"></span></div>
+  </div>
+
+  <div class="cal">
+    <div id="view" aria-live="polite"></div>
+    <aside class="card det" id="det" aria-label="Event details"></aside>
   </div>
 </div>
 <script src="assets/app.js"></script>
+<script>
+(function () {
+  var CATS = { p: 'People', c: 'Compliance', mk: 'Marketing', o: 'Operations', f: 'Owner / finance', k: 'Culture' };
+  var MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  // The starter events from the Hub Map: [month, category, title]
+  var EV = [
+    [1,'f','Budget lock'],[1,'f','W-2 / 1099 filing'],[1,'k','Team kickoff & annual goals'],
+    [2,'p','CPR recert · cohort A'],[2,'mk','Valentine referral-doctor touch'],
+    [3,'c','HIPAA risk assessment · each office'],[3,'o','Spring break schedule plan'],
+    [4,'p','Performance reviews'],[4,'p','Benefits renewal review'],
+    [5,'o','AAO annual session'],[5,'p','Summer staffing plan'],
+    [6,'f','Mid-year budget variance'],[6,'mk','Back-to-school campaign build'],
+    [7,'mk','Back-to-school push'],[7,'o','Mid-year equipment service'],
+    [8,'p','CPR recert · cohort B'],[8,'mk','Back-to-school push'],
+    [9,'c','OSHA annual training'],[9,'k','Christmas party planning starts'],
+    [10,'p','Year-end benefits push'],[10,'p','Open enrollment'],[10,'o','Q4 supply order'],
+    [11,'f','Next-year budget'],[11,'mk','Referral-doctor holiday gifts'],[11,'k','Thanksgiving appreciation'],
+    [12,'k','Christmas party'],[12,'f','Year-end bonuses'],[12,'o','Publish next year calendar']
+  ].map(function (e, i) { return { id: 'y' + i, m: e[0], cat: e[1], t: e[2] }; });
+  // This month's dated items, the same five the Command Center lists under "Next 14 days"
+  var OCT = [ { id: 'd15', d: 15, cat: 'o', t: 'Q4 supply order', where: 'Operations · All offices' }, { id: 'd19', d: 19, cat: 'mk', t: 'Year-end benefits marketing push', where: 'Scorecard · All offices' },
+    { id: 'd22', d: 22, cat: 'p', t: 'CPR recertification · cohort B', where: 'People · Andalusia, Selma' }, { id: 'd24', d: 24, cat: 'k', t: 'Christmas party · venue deposit due', where: 'Culture · All offices' },
+    { id: 'd27', d: 27, cat: 'p', t: 'Open enrollment closes', where: 'People · All offices' } ];
+  var view = 'year', sel = 'y3', on = { p: true, c: true, mk: true, o: true, f: true, k: true };
+  var $view = document.getElementById('view'), $det = document.getElementById('det'), $flt = document.getElementById('flt'), $lbl = document.getElementById('calLbl');
+  function esc(s) { return s.replace(/&/g, '&amp;'); }
+  function btn(e, extra) { return '<button type="button" class="evt c-' + e.cat + '" data-id="' + e.id + '" aria-pressed="' + (e.id === sel) + '"><i></i><span>' + esc(e.t) + '</span>' + (extra || '') + '</button>'; }
+  function drawFilters() {
+    $flt.innerHTML = Object.keys(CATS).map(function (k) { return '<button type="button" class="fchip" data-cat="' + k + '" aria-pressed="' + on[k] + '"><i class="d-' + k + '"></i>' + CATS[k] + '</button>'; }).join(' ');
+  }
+  function drawYear() {
+    $lbl.textContent = 'Practice Calendar · 2027';
+    $view.innerHTML = '<div class="months">' + MONTHS.map(function (name, i) {
+      var list = EV.filter(function (e) { return e.m === i + 1 && on[e.cat]; });
+      return '<section class="mo' + (list.length ? '' : ' empty') + '"><header><h3>' + name + '</h3><span title="' + list.length + (list.length === 1 ? ' event' : ' events') + ' shown">' + list.length + '</span></header>' + list.map(function (e) { return btn(e); }).join('') + '</section>';
+    }).join('') + '</div>';
+  }
+  function drawMonth() {
+    $lbl.textContent = 'Practice Calendar · this month';
+    var first = 4, days = 31, cells = '', d;          // October 1, 2026 is a Thursday
+    ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].forEach(function (x) { cells += '<div class="dow">' + x + '</div>'; });
+    for (d = 0; d < first; d++) cells += '<div class="day out"></div>';
+    for (d = 1; d <= days; d++) {
+      var list = OCT.filter(function (e) { return e.d === d && on[e.cat]; });
+      cells += '<div class="day' + (d === 14 ? ' today' : '') + '"><span class="n"' + (d === 14 ? ' title="Today"' : '') + '>' + d + '</span>' + list.map(function (e) { return btn(e); }).join('') + '</div>';
+    }
+    $view.innerHTML = '<div class="mgrid"><h2>October 2026</h2><div class="mtable">' + cells + '</div></div>';
+  }
+  function drawList() {
+    $lbl.textContent = 'Practice Calendar · 2027';
+    var out = '';
+    MONTHS.forEach(function (name, i) {
+      var list = EV.filter(function (e) { return e.m === i + 1 && on[e.cat]; });
+      if (list.length) out += '<h3>' + name + '</h3>' + list.map(function (e) { return btn(e, '<span class="cat">' + CATS[e.cat] + '</span>'); }).join('');
+    });
+    $view.innerHTML = '<div class="agenda">' + (out || '<p class="none">Nothing to show. Turn a group back on above.</p>') + '</div>';
+  }
+  function find(id) { var all = EV.concat(OCT), i; for (i = 0; i < all.length; i++) if (all[i].id === id) return all[i]; return null; }
+  function drawDetail() {
+    var e = find(sel), h;
+    if (!e) { $det.innerHTML = '<p class="none">Pick an event to see its details.</p>'; return; }
+    h = '<span class="cat c-' + e.cat + '"><i class="d-' + e.cat + '"></i>' + CATS[e.cat] + '</span>';
+    if (e.id === 'y3') {
+      h += '<h2>CPR recertification · cohort A</h2><div class="small muted">Every February · repeats yearly</div>' +
+        '<div class="row" style="margin-top:10px"><span>Owner</span><b>Savannah</b></div>' +
+        '<div class="row"><span>Offices</span><b>All 7 · each office lead books its own session</b></div>' +
+        '<div class="row"><span>Reminders <button class="uth" data-h="1"></button></span><span class="rem"><span>60</span><span>30</span><span>7</span></span></div>' +
+        '<div class="row"><span>Who\'s due <button class="uth" data-h="2"></button></span><b>Pulled from People: anyone whose card expires within 90 days</b></div>' +
+        '<div class="row"><span>Proof <button class="uth" data-h="3"></button></span><b>Upload card, saved to employee file</b></div>' +
+        '<h3 style="margin:16px 0 0">Checklist · reused every year</h3>' +
+        '<ol class="tl"><li><span>Pull list of expiring cards</span><b>60 days</b></li><li><span>Book instructor per office</span><b>45 days</b></li><li><span>Post sign-up times</span><b>30 days</b></li><li><span>Hold class · take attendance</span><b>Day of</b></li><li><span>Upload new cards</span><b>+7 days</b></li></ol>' +
+        '<p class="small muted" style="margin-bottom:0">Shows up in: Savannah\'s morning email at 60/30/7 days · each office brief the week of · Compliance hub as training record.</p>';
+    } else if (e.d) {
+      h += '<h2>' + esc(e.t) + '</h2><div class="small muted">October ' + e.d + '</div><div class="row" style="margin-top:10px"><span>Where</span><b>' + esc(e.where) + '</b></div>' +
+        '<p class="small muted" style="margin-bottom:0">Also listed under "Next 14 days" on the Command Center.</p>';
+    } else {
+      h += '<h2>' + esc(e.t) + '</h2><div class="small muted">Every ' + MONTHS[e.m - 1] + ' · repeats yearly</div>' +
+        '<p class="small muted" style="margin:12px 0 0">Starter event. Owner, offices, reminders, proof and checklist are set when you confirm it. Open CPR recert · cohort A in February to see a finished one.</p>';
+    }
+    $det.innerHTML = h;
+    Array.prototype.forEach.call($det.querySelectorAll('.uth'), function (b) {
+      var i = parseInt(b.getAttribute('data-h'), 10); b.textContent = String(i + 1); b.type = 'button'; b.title = 'How this works in the real build';
+      b.addEventListener('click', function (ev) { ev.preventDefault(); window.TW.open(i); });
+    });
+  }
+  function draw() { document.querySelector('.cal').classList.toggle('wide', view === 'month'); (view === 'year' ? drawYear : view === 'month' ? drawMonth : drawList)(); drawDetail(); }
+  document.querySelector('.seg').addEventListener('click', function (ev) {
+    var b = ev.target.closest('button'); if (!b) return;
+    view = b.getAttribute('data-view');
+    Array.prototype.forEach.call(this.querySelectorAll('button'), function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+    if (view === 'month' && !find(sel).d) sel = 'd15';
+    if (view !== 'month' && find(sel).d) sel = 'y3';
+    draw();
+  });
+  $flt.addEventListener('click', function (ev) {
+    var b = ev.target.closest('.fchip'); if (!b) return;
+    var k = b.getAttribute('data-cat'); on[k] = !on[k]; drawFilters(); draw();
+    var again = $flt.querySelector('[data-cat="' + k + '"]'); if (again) again.focus();
+  });
+  $view.addEventListener('click', function (ev) {
+    var b = ev.target.closest('.evt'); if (!b) return;
+    sel = b.getAttribute('data-id'); draw();
+    var again = $view.querySelector('[data-id="' + sel + '"]'); if (again) again.focus();
+  });
+  drawFilters(); draw();
+})();
+</script>
 </body>
 </html>
