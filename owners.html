@@ -6,8 +6,22 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="icon" type="image/svg+xml" href="assets/tw-mark.svg">
 <link rel="stylesheet" href="assets/styles.css">
+<script src="assets/splash.js"></script>
 <script src="assets/theme.js"></script>
 <title>TW Ops · Owner's Desk (mockup)</title>
+<style>
+.dv{display:grid;grid-template-columns:1fr 1fr;align-items:center;height:14px;position:relative}
+.dv::before{content:"";position:absolute;left:50%;top:-5px;bottom:-5px;width:3px;margin-left:-1.5px;border-radius:2px;background:var(--ink)}
+.dv span{height:12px;display:flex}
+.dv .neg{justify-content:flex-end;background:var(--line2);border-radius:999px 0 0 999px}
+.dv .pos{background:var(--line2);border-radius:0 999px 999px 0}
+.dv i{display:block;height:100%}
+.dv .neg i{background:#b46a00;border-radius:999px 0 0 999px}
+.dv .pos i{background:var(--brand-bright);border-radius:0 999px 999px 0}
+.dvkey{display:flex;justify-content:space-between;font-size:13.5px;color:var(--muted);margin:0 0 4px;padding:0 0 0 144px}
+.dvkey span:nth-child(2){color:var(--ink);font-weight:600}
+@media (max-width:560px){.dvkey{padding-left:0}}
+</style>
 </head>
 <body>
 <script>
@@ -18,16 +32,41 @@ window.PAGE = { id: 'owners', title: "Owner's Desk", hood: [
 ]};
 </script>
 <div class="wrap">
-  <div class="pagehead"><div><div class="lbl">Owner's Desk · monthly · owners only <button class="uth" data-h="0"></button></div><h1>Owner's Desk</h1><div class="sub">Dr. Wood · Dr. Turner</div></div></div>
-  <div class="attn a-ok"><span class="tag">All clear</span><span class="msg"><b>Nothing needs a decision from you this week.</b> <span>Enterprise is 5% under budget for September; Wetumpka opens Jan 12.</span></span></div>
-  <div class="grid g3">
-    <div class="card"><h2>P&amp;L vs. budget · September <button class="uth" data-h="1"></button></h2>
-      <div class="row"><span>Selma</span><b>+4%</b></div><div class="row"><span>Montgomery</span><b>+6%</b></div><div class="row"><span>Andalusia</span><b>−2%</b></div><div class="row"><span>Enterprise</span><b style="color:var(--amber)">−5%</b></div></div>
-    <div class="card"><h2>Associate tracking</h2>
-      <div class="row"><span>Dr. Priya Nair · starts this month</span><b>14</b></div><div class="row"><span>Chair time vs. plan</span><b class="muted">After clinical tools join the foundation</b></div><div class="row"><span>Contracts &amp; leases</span><b>3 renewals in 2027</b></div></div>
-    <div class="card"><h2>Launch playbook <button class="uth" data-h="2"></button></h2>
-      <div class="row"><span>Wetumpka</span><b>38 / 64</b></div><div class="row"><span>Dothan</span><b>12 / 64</b></div><div class="row"><span>Troy</span><b>5 / 64</b></div><p class="small muted">One template, 64 tasks per launch, dated from the target open.</p></div>
+  <div class="pagehead hero">
+    <div><div class="lbl">Owner's Desk · monthly · owners only <button class="uth" data-h="0"></button></div><h1>Good morning, Dr. Wood</h1>
+      <p class="lede"><b>Nothing needs a decision from you this week.</b> Two offices are behind budget for September.</p></div>
+    <div class="chips"><div class="chip"><b>2 of 4</b><span>offices on track today</span></div><div class="chip"><b>3</b><span>launches under way</span></div></div>
   </div>
+
+  <h2 class="sec">P&amp;L vs. budget · September <span class="hint">· furthest behind first</span> <button class="uth" data-h="1"></button></h2>
+  <div class="card">
+    <div class="dvkey"><span>Behind budget</span><span>Budget</span><span>Ahead</span></div>
+    <div class="vrow"><b>Enterprise</b><div class="dv" role="img" aria-label="5 percent behind budget"><span class="neg"><i style="width:62.5%"></i></span><span class="pos"></span></div><div class="num"><b>−5%</b><span class="w">Behind</span></div></div>
+    <div class="vrow"><b>Andalusia</b><div class="dv" role="img" aria-label="2 percent behind budget"><span class="neg"><i style="width:25%"></i></span><span class="pos"></span></div><div class="num"><b>−2%</b><span class="w">Behind</span></div></div>
+    <div class="vrow"><b>Selma</b><div class="dv" role="img" aria-label="4 percent ahead of budget"><span class="neg"></span><span class="pos"><i style="width:50%"></i></span></div><div class="num"><b>+4%</b><span>Ahead</span></div></div>
+    <div class="vrow"><b>Montgomery</b><div class="dv" role="img" aria-label="6 percent ahead of budget"><span class="neg"></span><span class="pos"><i style="width:75%"></i></span></div><div class="num"><b>+6%</b><span>Ahead</span></div></div>
+  </div>
+
+  <div class="grid g2" style="margin-top:12px">
+    <div class="card"><h2>All offices today <a class="btn sm" href="index.html" style="margin-left:auto">Open Command Center</a></h2>
+      <div class="row"><span><b>Enterprise</b></span><span class="cs late"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V13M12 16.4v.1"/></svg>Behind · 4 overdue</span></div>
+      <div class="row"><span><b>Montgomery</b></span><span class="cs due"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2"/></svg>Needs attention · 2 overdue</span></div>
+      <div class="row"><span><b>Andalusia</b></span><span class="cs done"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.2l2.4 2.4 4.6-5"/></svg>On track</span></div>
+      <div class="row"><span><b>Selma</b></span><span class="cs done"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.2l2.4 2.4 4.6-5"/></svg>On track</span></div></div>
+    <div class="card"><h2>Associate tracking</h2>
+      <div class="row"><span>Dr. Priya Nair · starts this month</span><b>14</b></div>
+      <div class="row"><span>Chair time vs. plan</span><b class="muted">After clinical tools join the foundation</b></div>
+      <h2 style="margin-top:16px">Contracts &amp; leases</h2>
+      <div class="row"><span>Renewals coming</span><b>3 in 2027</b></div></div>
+  </div>
+
+  <h2 class="sec">New-office launch playbook <span class="hint">· soonest first</span> <button class="uth" data-h="2"></button></h2>
+  <div class="offs three">
+    <div class="off"><div class="ring r-launch"><svg viewBox="0 0 84 84" aria-hidden="true"><circle class="trk" cx="42" cy="42" r="36"/><circle class="val" cx="42" cy="42" r="36" stroke-dasharray="134 227"/></svg><b>38/64</b></div><h3>Wetumpka</h3><small>Opens Jan 12 · 2 of 5 hires onboarded</small><span class="pill launch">Next: X-ray registration filed</span></div>
+    <div class="off"><div class="ring r-launch"><svg viewBox="0 0 84 84" aria-hidden="true"><circle class="trk" cx="42" cy="42" r="36"/><circle class="val" cx="42" cy="42" r="36" stroke-dasharray="43 227"/></svg><b>12/64</b></div><h3>Dothan</h3><small>Opens Mar 2 · 0 of 5 hires onboarded</small><span class="pill launch">Next: lease signed</span></div>
+    <div class="off"><div class="ring r-launch"><svg viewBox="0 0 84 84" aria-hidden="true"><circle class="trk" cx="42" cy="42" r="36"/><circle class="val" cx="42" cy="42" r="36" stroke-dasharray="18 227"/></svg><b>5/64</b></div><h3>Troy</h3><small>Opens May 4 · 0 of 5 hires onboarded</small><span class="pill launch">Next: JV docs with attorney</span></div>
+  </div>
+  <p class="small muted" style="margin:8px 4px 0">One template, 64 tasks per launch, dated from the target open.</p>
 </div>
 <script src="assets/app.js"></script>
 </body>

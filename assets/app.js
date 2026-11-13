@@ -30,7 +30,7 @@
     { id: 'people',     href: 'people.html',       label: 'People',            cnt: 2,  access: { owners: 'full', ops: 'full', lead: 'own', inv: 'self', team: 'self' } },
     { id: 'compliance', href: 'compliance.html',   label: 'Compliance',               access: { owners: 'full', ops: 'full', lead: 'own', inv: 'self', team: 'self' } },
     { id: 'scorecard',  href: 'scorecard.html',    label: 'Scorecard',                access: { owners: 'full', ops: 'full', lead: 'own', inv: false, team: false } },
-    { id: 'operations', href: 'operations.html',   label: 'Operations',               access: { owners: 'view', ops: 'view', lead: 'own', inv: 'full', team: false } },
+    { id: 'operations', href: 'operations.html',   label: 'Operations',               access: { owners: 'view', ops: 'view', lead: 'own', inv: 'full', team: 'self' } },
     { id: 'owners',     href: 'owners.html',       label: "Owner's Desk",             access: { owners: 'full', ops: false, lead: false, inv: false, team: false } },
     { id: 'calendar',   href: 'calendar.html',     label: 'Practice Calendar',        access: { owners: 'full', ops: 'full', lead: 'own', inv: 'self', team: 'self' } },
     { id: 'brief',      href: 'brief.html',        label: 'Morning brief',            access: { owners: 'full', ops: 'full', lead: 'own', inv: 'self', team: false } }
@@ -71,12 +71,17 @@
     '<label><span class="x">View as</span><select id="roleSel" aria-label="View as">' + opts + '</select></label>' +
     '<button class="explain-btn" id="explainBtn" type="button" title="Show how each part works in the real build"><span class="sw"></span><span class="t">Explain<span class="x"> the build</span></span></button>';
   document.body.appendChild(demo);
-  document.getElementById('roleSel').addEventListener('change', function (e) { ls('tw_role', e.target.value); location.reload(); });
+  document.getElementById('roleSel').addEventListener('change', function (e) { ls('tw_role', e.target.value); try { sessionStorage.setItem('tw_skip_splash', '1'); } catch (x) {} location.reload(); });
 
   var navItem = NAV.filter(function (n) { return n.id === page.id; })[0];
   if (navItem && !navItem.access[role] && wrapEl) {
     wrapEl.innerHTML = '<div class="locked-page"><h2>Not available for your role</h2><p>' + me.name + ' (' + me.role + ') cannot open ' + navItem.label + '. In the real build the database returns no rows for this account; hiding the menu item is only a courtesy.</p><p><a class="btn" href="' + me.home + '">Go to my home screen</a></p></div>';
   }
+
+  // Role filters for static pages. data-for="owners ops" keeps an element only for those roles;
+  // data-office="Selma" hides other offices' rows from an office lead.
+  Array.prototype.forEach.call(document.querySelectorAll('[data-for]'), function (el) { if ((' ' + el.getAttribute('data-for') + ' ').indexOf(' ' + role + ' ') === -1) el.parentNode.removeChild(el); });
+  if (role === 'lead') Array.prototype.forEach.call(document.querySelectorAll('[data-office]'), function (el) { if (el.getAttribute('data-office') !== me.office) el.parentNode.removeChild(el); });
 
   // 3. Explain mode: drawer with the under-the-hood notes
   var back = document.createElement('div'); back.className = 'backdrop';

@@ -231,3 +231,25 @@ body.explain .explain-btn .sw{background:var(--orange)} body.explain .explain-bt
 .tsw-name{display:flex;align-items:center;justify-content:space-between;gap:6px;font-weight:600;font-size:15px;margin:8px 4px 0}
 .tsw-name em{font-style:normal;font-size:13px;font-weight:600;color:var(--brand);visibility:hidden}
 .tsw[aria-checked="true"] .tsw-name em{visibility:visible}
+
+/* shared by the hub pages: small counts, status chips, value bars */
+.stats{display:flex;flex-wrap:wrap;gap:8px}
+.stat{background:#fff;border-radius:16px;padding:8px 14px;box-shadow:var(--shadow);font-size:14px;color:var(--muted)}
+.stat b{font-family:var(--title);font-size:18px;color:var(--ink);margin-right:6px;font-variant-numeric:tabular-nums}
+.stat.late b{color:var(--red)} .stat.soon b{color:var(--amber)}
+.cs{display:inline-flex;align-items:center;gap:7px;font-size:14.5px;font-weight:600;white-space:nowrap}
+.cs svg{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.cs.done{color:var(--muted);font-weight:500} .cs.done svg{color:var(--green)}
+.cs.due{color:var(--amber);background:var(--amber-soft);border-radius:999px;padding:4px 11px 4px 8px}
+.cs.late{color:var(--red);background:var(--red-soft);border-radius:999px;padding:4px 11px 4px 8px}
+.vrow{display:grid;grid-template-columns:130px minmax(0,1fr) auto;align-items:center;gap:14px;padding:12px 0;border-top:1px solid var(--line2)}
+.vrow:first-of-type{border-top:0}
+.vrow>b:first-child{font-family:var(--title);font-size:16px}
+.vrow .num{text-align:right;white-space:nowrap}
+.vrow .num b{font-family:var(--title);font-size:17px;font-variant-numeric:tabular-nums}
+.vrow .num span{display:block;font-size:13.5px;color:var(--muted)}
+.vrow .num span.w{color:var(--amber);font-weight:600}
+.vbar{height:10px;border-radius:999px;background:var(--line2);overflow:hidden}
+.vbar i{display:block;height:100%;border-radius:999px;background:var(--brand-bright)}
+.vbar.w i{background:#b46a00}
+@media (max-width:560px){.vrow{grid-template-columns:1fr auto}.vrow .vbar,.vrow .dv{grid-column:1/-1;grid-row:2}}

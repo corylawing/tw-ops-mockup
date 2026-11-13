@@ -6,6 +6,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="icon" type="image/svg+xml" href="assets/tw-mark.svg">
 <link rel="stylesheet" href="assets/styles.css">
+<script src="assets/splash.js"></script>
 <script src="assets/theme.js"></script>
 <title>TW Ops · Operations (mockup)</title>
 </head>
@@ -18,15 +19,40 @@ window.PAGE = { id: 'operations', title: 'Operations', hood: [
 ]};
 </script>
 <div class="wrap">
-  <div class="pagehead"><div><div class="lbl">Operations · weekly</div><h1>Operations</h1><div class="sub">Inventory coordinator · leads · Savannah</div></div><div><a class="btn" href="#">Report an issue</a> <button class="uth" data-h="2"></button></div></div>
-  <div class="attn a-bad"><span class="tag">Needs attention</span><span class="msg"><b>The Enterprise pan/ceph service follow-up is 4 days overdue.</b> <span>Enterprise supply spend is also at 89% of budget.</span></span><a class="btn sm" href="#">Nudge Marcus</a></div>
-  <div class="grid g3">
-    <div class="card"><h2>Supply spend vs. budget · Q4 <button class="uth" data-h="0"></button></h2>
-      <div class="row"><span>Selma</span><b>$4,180 · 61% of budget</b></div><div class="row"><span>Montgomery</span><b>$5,960 · 74%</b></div><div class="row"><span>Andalusia</span><b>$3,870 · 58%</b></div><div class="row"><span>Enterprise</span><b style="color:var(--amber)">$7,420 · 89%</b></div><p class="small muted">From Dentira nightly. Q4 supply order due Oct 15.</p></div>
-    <div class="card"><h2>Equipment service <button class="uth" data-h="1"></button></h2>
-      <div class="row"><span>Sterilizer · Montgomery</span><b>Serviced Aug</b></div><div class="row"><span>Pan/ceph · Enterprise</span><b style="color:var(--red)">Follow-up 4 days overdue</b></div><div class="row"><span>Compressor · Selma</span><b>Due Nov</b></div></div>
-    <div class="card"><h2>Open issues</h2>
-      <div class="row"><span>Enterprise · front desk PC slow</span><span class="pill warn">3 days</span></div><div class="row"><span>Selma · op 3 light flickers</span><span class="pill gray">New</span></div><div class="row"><span>Andalusia · door closer</span><span class="pill ok">Vendor booked</span></div></div>
+  <div class="pagehead"><div><div class="lbl">Operations · weekly</div><h1>Operations</h1>
+      <div class="sub" data-for="owners ops inv">Inventory coordinator · leads · Savannah · all offices</div><div class="sub" data-for="lead">Selma office</div><div class="sub" data-for="team">Report an IT, device or facility issue</div></div>
+    <div><div class="stats" data-for="owners ops inv"><span class="stat late"><b>1</b>overdue</span><span class="stat"><b>3</b>open issues</span></div> <a class="btn pri" href="#">Report an issue</a> <button class="uth" data-h="2"></button></div></div>
+
+  <div data-for="team"><div class="card"><h2>Report an issue</h2><p class="muted" style="margin:0">Tell your office lead about a computer, a device or something in the building that needs fixing. It becomes a task with an owner, so it cannot get lost.</p></div></div>
+
+  <div data-for="owners ops lead inv">
+  <h2 class="sec">Needs you</h2>
+  <ul class="todo">
+    <li class="s-bad" data-office="Enterprise"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V13M12 16.4v.1"/></svg></span><div class="t"><b>Enterprise: pan/ceph service follow-up is 4 days overdue</b><span>Equipment service · Marcus Pell is the office manager</span></div><div class="act"><a class="btn pri" href="#">Nudge Marcus</a></div></li>
+    <li class="s-warn" data-office="Enterprise"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2"/></svg></span><div class="t"><b>Enterprise has used 89% of its Q4 supply budget</b><span>$7,420 spent · from Dentira</span></div></li>
+    <li class="s-soon"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg></span><div class="t"><b>Q4 supply order is due tomorrow, Oct 15</b><span>All offices · from the Practice Calendar</span></div></li>
+  </ul>
+
+  <h2 class="sec">Supply spend vs. budget · Q4 <span class="hint" data-for="owners ops inv">· closest to budget first</span> <button class="uth" data-h="0"></button></h2>
+  <div class="card">
+    <div class="vrow" data-office="Enterprise"><b>Enterprise</b><div class="vbar w" role="img" aria-label="89 percent of budget, watch"><i style="width:89%"></i></div><div class="num"><b>89%</b><span class="w">Watch · $7,420</span></div></div>
+    <div class="vrow" data-office="Montgomery"><b>Montgomery</b><div class="vbar" role="img" aria-label="74 percent of budget"><i style="width:74%"></i></div><div class="num"><b>74%</b><span>$5,960</span></div></div>
+    <div class="vrow" data-office="Selma"><b>Selma</b><div class="vbar" role="img" aria-label="61 percent of budget"><i style="width:61%"></i></div><div class="num"><b>61%</b><span>$4,180</span></div></div>
+    <div class="vrow" data-office="Andalusia"><b>Andalusia</b><div class="vbar" role="img" aria-label="58 percent of budget"><i style="width:58%"></i></div><div class="num"><b>58%</b><span>$3,870</span></div></div>
+    <p class="small muted" style="margin:10px 0 0">A full bar is the whole Q4 budget. From Dentira nightly. Sample cut-off for Watch; you set the real one.</p>
+  </div>
+
+  <div class="grid g2" style="margin-top:12px">
+    <div class="card"><h2>Equipment service log <button class="uth" data-h="1"></button></h2>
+      <div class="row" data-office="Enterprise"><span><b>Pan/ceph</b> · Enterprise</span><span class="cs late"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V13M12 16.4v.1"/></svg>Follow-up 4 days overdue</span></div>
+      <div class="row" data-office="Selma"><span><b>Compressor</b> · Selma</span><span class="cs due"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2"/></svg>Due Nov</span></div>
+      <div class="row" data-office="Montgomery"><span><b>Sterilizer</b> · Montgomery</span><span class="cs done"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.2l2.4 2.4 4.6-5"/></svg>Serviced Aug</span></div></div>
+    <div class="card"><h2>Open issues <span class="hint" data-for="owners ops inv">· oldest first</span></h2>
+      <div class="row" data-office="Enterprise"><span><b>Front desk PC slow</b> · Enterprise</span><span class="cs due"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 2"/></svg>Open 3 days</span></div>
+      <div class="row" data-office="Andalusia"><span><b>Door closer</b> · Andalusia</span><span class="cs done"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.2l2.4 2.4 4.6-5"/></svg>Vendor booked</span></div>
+      <div class="row" data-office="Selma"><span><b>Op 3 light flickers</b> · Selma</span><span class="pill gray">New</span></div></div>
+  </div>
+  <p class="small muted" style="margin:14px 4px 0">Also in this hub and not drawn in this mockup: vendors and the full inventory from Dentira.</p>
   </div>
 </div>
 <script src="assets/app.js"></script>
