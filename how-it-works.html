@@ -9,148 +9,194 @@
 <link rel="stylesheet" href="assets/styles.css">
 <script src="assets/splash.js"></script>
 <script src="assets/theme.js"></script>
-<style>.hiw h2{margin-top:38px;font-size:22px}.plans{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}@media(max-width:700px){.plans{grid-template-columns:1fr}}.plan{background:#fff;border-radius:20px;padding:18px;box-shadow:var(--shadow)}.plan.a{border-top:6px solid var(--teal)}.plan.b{border-top:6px solid var(--amber)}.big{font-size:26px;font-weight:800}.traffic{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:12px}@media(max-width:700px){.traffic{grid-template-columns:1fr}}.traffic div{border-radius:8px;padding:12px 14px;font-size:14px}.traffic b{display:block;font-size:16px;margin-bottom:4px}</style>
+<style>
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+.hw h2.sec{margin-top:40px;font-size:22px;scroll-margin-top:16px}
+.hw .intro{font-size:18px;max-width:62ch;margin:6px 0 0}
+.jump{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 0}
+.jump a{font-weight:600;font-size:14.5px;text-decoration:none;background:#fff;border-radius:999px;padding:0 14px;min-height:40px;display:inline-flex;align-items:center;box-shadow:var(--shadow);color:var(--brand)}
+.jump a:hover{background:var(--brand-soft)}
+.lay{display:grid;gap:0}
+.band{background:#fff;border-radius:20px;padding:14px 16px;box-shadow:var(--shadow)}
+.band h3{font-size:14px;font-family:var(--font);font-weight:600;color:var(--muted);margin:0 0 8px}
+.band.found{border:3px solid var(--brand);box-shadow:none}
+.band.found h3{color:var(--brand)}
+.band.out{background:transparent;box-shadow:none;outline:2px dashed var(--line);outline-offset:-2px}
+.join{height:26px;display:grid;place-items:center;color:var(--muted);font-size:13.5px;position:relative}
+.join::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:3px;margin-left:-1.5px;background:var(--line);z-index:0}
+.join span{background:var(--bg);padding:0 10px;position:relative;z-index:1}
+.lrow{display:flex;flex-wrap:wrap;gap:8px}
+.lchip{display:inline-flex;align-items:center;gap:7px;background:var(--bg);border-radius:999px;padding:6px 12px;font-size:14.5px;font-weight:600}
+.lchip small{font-weight:400;color:var(--muted)}
+.lchip svg{width:16px;height:16px;fill:none;stroke:var(--brand);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.apps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media (max-width:760px){.apps{grid-template-columns:1fr}}
+.app{background:var(--bg);border-radius:14px;padding:12px 14px}
+.app b{display:block;font-family:var(--title)}.app small{color:var(--muted);font-size:14px}
+.app.next{background:transparent;outline:2px dashed var(--line);outline-offset:-2px}
+.walk{background:#fff;border-radius:20px;box-shadow:var(--shadow);padding:20px}
+.wsteps{display:grid;grid-template-columns:repeat(5,1fr);position:relative;margin-bottom:16px}
+.wsteps::before{content:"";position:absolute;left:10%;right:10%;top:23px;height:3px;background:var(--line)}
+.wbtn{font:inherit;background:transparent;border:0;display:grid;justify-items:center;gap:6px;padding:0 2px;cursor:pointer;position:relative;color:var(--muted);font-size:13.5px;font-weight:600;text-align:center;line-height:1.25}
+.wbtn .dot{width:48px;height:48px;border-radius:50%;background:#fff;border:3px solid var(--line);display:grid;place-items:center}
+.wbtn svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.wbtn.past .dot{border-color:var(--brand-bright);color:var(--brand)}
+.wbtn[aria-current="step"]{color:var(--ink)}
+.wbtn[aria-current="step"] .dot{background:var(--brand);border-color:var(--brand);color:#fff}
+@media (max-width:640px){.wbtn span.t{display:none}.wbtn .dot{width:42px;height:42px}.wsteps::before{top:20px}}
+.wpanel{background:var(--bg);border-radius:16px;padding:16px 18px;min-height:132px}
+.wpanel .n{font-size:13.5px;font-weight:600;color:var(--brand)}
+.wpanel h3{font-size:19px;margin:2px 0 6px}
+.wpanel p{margin:0;max-width:64ch}
+.wnav{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:14px}
+.svs{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px}
+.sv{background:#fff;border-radius:18px;box-shadow:var(--shadow);padding:14px 16px;display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start}
+.sv-ic{width:42px;height:42px;border-radius:50%;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center}
+.sv-ic svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.sv b{display:block;font-family:var(--title);font-size:16px}
+.sv small{display:block;color:var(--muted);font-size:13.5px}
+.sv p{margin:6px 0 0;font-size:15px}
+.hub{background:#fff;border-radius:16px;box-shadow:var(--shadow);margin-bottom:8px}
+.hub summary{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;padding:12px 16px;min-height:52px;cursor:pointer;list-style:none}
+.hub summary::-webkit-details-marker{display:none}
+.hub summary::after{content:"+";margin-left:auto;font-size:22px;color:var(--muted);line-height:1}
+.hub[open] summary::after{content:"–"}
+.hub summary b{font-family:var(--title);min-width:150px}
+.hchips{display:flex;flex-wrap:wrap;gap:6px}
+.hchips span{font-size:13px;font-weight:600;background:var(--brand-soft);color:var(--brand);border-radius:999px;padding:2px 10px}
+.hub p{margin:0;padding:0 16px 14px;color:#3a4850}
+.tl3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media (max-width:820px){.tl3{grid-template-columns:1fr}}
+.tl{border-radius:18px;padding:16px;display:grid;gap:6px;align-content:start}
+.tl .hd-i{width:40px;height:40px;border-radius:50%;background:#fff;display:grid;place-items:center}
+.tl svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:2.200;stroke-linecap:round;stroke-linejoin:round}
+.tl b{font-family:var(--title);font-size:17px}
+.tl small{font-weight:600;font-size:14px}
+.tl p{margin:0;font-size:15px;color:var(--ink)}
+.tl.g{background:var(--green-soft);color:var(--green)} .tl.y{background:var(--amber-soft);color:var(--amber)} .tl.r{background:var(--red-soft);color:var(--red)}
+.plan2{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:12px}
+@media (max-width:820px){.plan2{grid-template-columns:1fr}}
+.pl{background:#fff;border-radius:20px;box-shadow:var(--shadow);padding:18px 20px}
+.pl.mine{border:3px solid var(--brand);box-shadow:none}
+.pl .price{font-family:var(--title);font-size:26px;font-weight:700;margin:4px 0 8px}
+.pl .price small{font-family:var(--font);font-size:14.5px;font-weight:500;color:var(--muted)}
+.pl ul{margin:0;padding-left:20px}.pl li{margin:4px 0}
+.why{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:10px}
+.why div{background:#fff;border-radius:16px;box-shadow:var(--shadow);padding:14px 16px}
+.why b{display:block;font-family:var(--title);margin-bottom:2px}
+.roll{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;counter-reset:m}
+@media (max-width:900px){.roll{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.roll{grid-template-columns:1fr}}
+.mo4{background:#fff;border-radius:18px;box-shadow:var(--shadow);padding:16px}
+.mo4 .mn{display:inline-block;font-size:13.5px;font-weight:700;color:#fff;background:var(--brand);border-radius:999px;padding:3px 12px;margin-bottom:8px}
+.mo4 b{display:block;font-family:var(--title);margin-bottom:4px}
+.mo4 p{margin:0;font-size:15px;color:#3a4850}
+.mo4 .gone{display:inline-block;margin-top:8px;font-size:13.5px;font-weight:600;color:var(--green);background:var(--green-soft);border-radius:999px;padding:2px 10px}
+</style>
 </head>
 <body>
 <script>
 window.PAGE = { id: 'how', title: 'How it works', hood: [
-  { what: 'This page', how: 'Everything on this page is the same in Plan A and Plan B. The plans differ only in vendor tiers, signed agreements and whether patient information may enter. The screens in this mockup are drawings of what the foundation will show; every colour, font, label and layout is adjustable.', svc: ['auth','db','vault','job','mail','ai'] }
+  { what: 'This page', how: 'TW chose Plan B on Render. Everything on this page works the same way under Plan A; the plans differ only in vendor tiers, signed agreements and whether patient information is formally covered. The screens in this mockup show what the foundation will feed; their layout and wording are still adjustable.', svc: ['auth','db','vault','job','mail','ai'] }
 ]};
 </script>
-<div class="wrap hiw">
-  <div class="pagehead"><div><div class="lbl">How it works underneath</div><h1>The screens are a drawing. The foundation is the decision.</h1></div></div>
-  <div class="card" style="border-left:5px solid #e6c84a;background:#fffbe8">
-    <p style="margin:0"><b>About this mockup.</b> The pages you clicked through are a picture of what TW Ops will show, built from the TW Ops Hub map. The colours, fonts, wording, hub names and layouts are placeholders and will be changed with Savannah and the office leads. The sample numbers and names are invented. What this page explains is the part that is not a placeholder: how the real system will work under those screens, and why that matters for every app TW builds after this one.</p>
+<div class="wrap hw">
+  <div class="pagehead"><div><div class="lbl">How it works <button class="uth" data-h="0"></button></div><h1>One foundation under every TW app</h1>
+    <p class="intro">TW Ops is the first app on it. Dr. Turner's clinical tools are the second. Sign-in, roles, storage, backups and the morning email are built once and shared by every app after that.</p>
+    <nav class="jump" aria-label="On this page"><a href="#picture">The picture</a><a href="#tick">Follow one tick</a><a href="#services">The ten services</a><a href="#hubs">What each hub uses</a><a href="#out">What is kept out</a><a href="#plan">Your plan</a><a href="#rollout">Rollout</a></nav></div></div>
+  <p class="small muted" style="margin:0 4px">The screens in this site are a mockup with sample data. What this page describes is the real plan underneath them.</p>
+
+  <h2 class="sec" id="picture">The picture</h2>
+  <div class="lay">
+    <div class="band"><h3>People · 5 roles</h3><div class="lrow"><span class="lchip">Owners <small>Dr. Wood · Dr. Turner</small></span><span class="lchip">Director of Ops <small>Savannah</small></span><span class="lchip">Office leads <small>one per office</small></span><span class="lchip">Inventory coordinator</span><span class="lchip">Team members</span></div></div>
+    <div class="join"><span>TW Google account · 2-step verification</span></div>
+    <div class="band"><h3>Front door</h3><b>Sign in with Google Workspace.</b> TW accounts only. The home screen changes by role.</div>
+    <div class="join"><span>the role check runs every time</span></div>
+    <div class="band"><h3>Apps · rooms on the foundation</h3><div class="apps">
+      <div class="app"><b>TW Ops · app 1</b><small>Six hubs, the calendar and the briefs. Counts only, no patient names. Replaces BambooHR and Basecamp.</small></div>
+      <div class="app"><b>Clinical Tools · app 2</b><small>Dr. Turner's build, on Render today. Holds patient information.</small></div>
+      <div class="app next"><b>The next app</b><small>TC coaching, chair time, call review. A new room, not a new building.</small></div></div></div>
+    <div class="join"><span>every app uses the same services</span></div>
+    <div class="band found"><h3>The foundation · built once · shared by every app</h3><div class="lrow"><span class="lchip"><svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 1.700 3.100 3 7 3s7-1.300 7-3V6M5 12v6c0 1.700 3.100 3 7 3s7-1.300 7-3v-6"/></svg>Database</span><span class="lchip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>File vault</span><span class="lchip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.500A8 8 0 0 1 9.500 4a7 7 0 1 0 10.500 10.500z"/></svg>Night shift</span><span class="lchip"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>Mailroom</span><span class="lchip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.800 5.200L19 10l-5.200 1.800L12 17l-1.800-5.200L5 10l5.200-1.800z"/><path d="M19 15v4M17 17h4"/></svg>AI desk</span><span class="lchip"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="15" r="4"/><path d="M11 12l8-8M16 7l3 3"/></svg>Key safe</span><span class="lchip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8l8-4 8 4v8l-8 4-8-4z"/><path d="M4 8l8 4 8-4M12 12v8"/></svg>Black box</span><span class="lchip"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg>Test copy</span><span class="lchip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.600-7 10-7 10 7 10 7-3.600 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>Watchdog</span><span class="lchip"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4M9 13l-2 2 2 2M13 13l2 2-2 2"/></svg>Blueprints</span></div></div>
+    <div class="join"><span>linked, never rebuilt</span></div>
+    <div class="band out"><h3>Outside systems</h3><div class="lrow"><span class="lchip">Cloud 9 <small>daily counts</small></span><span class="lchip">OrthoAI <small>KPIs</small></span><span class="lchip">ADP <small>roster, hire dates</small></span><span class="lchip">Dentira <small>inventory, budgets</small></span><span class="lchip">Google Workspace <small>sign-in, Gmail, Drive</small></span><span class="lchip">Slack</span></div></div>
+  </div>
+  <p class="small muted" style="margin:10px 4px 0">Adding Wetumpka is one office record. Adding the next app is one new room.</p>
+
+  <h2 class="sec" id="tick">Follow one tick <span class="hint">· the simplest thing in the app, all the way through</span></h2>
+  <div class="walk">
+    <div class="wsteps" id="wsteps" role="group" aria-label="Steps"></div>
+    <div class="wpanel" id="wpanel" aria-live="polite"></div>
+    <div class="wnav"><button class="btn sm" type="button" id="wprev">Back</button><span class="small muted">Approving PTO, logging a spore test and swapping a station all take this same path.</span><button class="btn sm pri" type="button" id="wnext">Next</button></div>
   </div>
 
-  <h2>One foundation, every app on top</h2>
-  <p class="prose">Today each tool is its own building: BambooHR, Basecamp, Slack, the clinical tools on Render, the huddle library on Netlify. The plan is one foundation that holds everything every app needs and nobody wants to build twice. TW Ops is the first app on it. Dr. Turner's clinical tools are the second. The treatment-coordinator coaching, chair-time and call-review ideas are the third, fourth and fifth.</p>
-  <figure>
-<svg viewBox="0 0 1000 700" role="img" aria-label="Five roles sign in through one Google Workspace front door, land in TW Ops Hub, Clinical Tools or a future app, and all apps use one foundation of ten shared services, which pulls counts from Cloud 9, OrthoAI, ADP and Dentira and sends briefs through Gmail and Slack." xmlns="http://www.w3.org/2000/svg" font-family="Manrope, Segoe UI, Helvetica, Arial, sans-serif" font-size="13" fill="#17212b" color="#17212b">
-<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#17212b"/></marker></defs>
-<text x="12" y="22" font-size="11" letter-spacing="1.5" opacity=".7">PEOPLE · 5 ROLES</text>
-<g stroke="#17212b" stroke-width="1.2" fill="none"><rect x="12" y="32" width="184" height="56" rx="4"/><rect x="210" y="32" width="184" height="56" rx="4"/><rect x="408" y="32" width="184" height="56" rx="4"/><rect x="606" y="32" width="184" height="56" rx="4"/><rect x="804" y="32" width="184" height="56" rx="4"/></g>
-<g font-weight="700" font-size="14"><text x="24" y="54">Owners</text><text x="222" y="54">Director of Ops</text><text x="420" y="54">Office leads</text><text x="618" y="54">Inventory coord.</text><text x="816" y="54">Team members</text></g>
-<g font-size="12" opacity=".75"><text x="24" y="74">Dr. Wood · Dr. Turner</text><text x="222" y="74">Savannah</text><text x="420" y="74">One per office</text><text x="618" y="74">Dentira, budgets</text><text x="816" y="74">Everyone else</text></g>
-<line x1="500" y1="88" x2="500" y2="118" stroke="#17212b" stroke-width="1.4" marker-end="url(#ar)"/>
-<text x="512" y="108" font-size="12" opacity=".8">TW Google account · 2-step verification</text>
-<rect x="12" y="120" width="976" height="44" rx="22" fill="none" stroke="#17212b" stroke-width="1.6"/>
-<text x="500" y="147" text-anchor="middle" font-weight="700" font-size="14">FRONT DOOR · ops.twortho.com · Sign in with Google Workspace · TW accounts only · home screen changes by role</text>
-<line x1="500" y1="164" x2="500" y2="194" stroke="#17212b" stroke-width="1.4" marker-end="url(#ar)"/>
-<text x="12" y="190" font-size="11" letter-spacing="1.5" opacity=".7">APPS · ROOMS ON THE FOUNDATION</text>
-<g stroke="#17212b" stroke-width="1.4" fill="none"><rect x="12" y="198" width="440" height="96" rx="4"/><rect x="470" y="198" width="250" height="96" rx="4"/><rect x="738" y="198" width="250" height="96" rx="4" stroke-dasharray="6 5"/></g>
-<text x="24" y="222" font-weight="700" font-size="15">TW Ops Hub · app #1</text>
-<text x="24" y="244" font-size="12.5">Command Center · People · Compliance</text><text x="24" y="262" font-size="12.5">Scorecard · Operations · Owner's Desk</text>
-<text x="24" y="282" font-size="12" opacity=".75">Counts only, no patient names. Replaces BambooHR and Basecamp.</text>
-<text x="482" y="222" font-weight="700" font-size="15">Clinical Tools · app #2</text>
-<text x="482" y="244" font-size="12.5">Dr. Turner's build, today on Render</text><text x="482" y="262" font-size="12.5">New-patient flow, TC follow-up</text>
-<text x="482" y="282" font-size="12" opacity=".75">Holds patient information.</text>
-<text x="750" y="222" font-weight="700" font-size="15">Next app · #3, #4, #5…</text>
-<text x="750" y="244" font-size="12.5">TC coaching · chair time per patient</text><text x="750" y="262" font-size="12.5">call review · inventory bot</text>
-<text x="750" y="282" font-size="12" opacity=".75">A new room, not a new building.</text>
-<g stroke="#17212b" stroke-width="1.4" marker-end="url(#ar)"><line x1="232" y1="294" x2="232" y2="330"/><line x1="595" y1="294" x2="595" y2="330"/><line x1="863" y1="294" x2="863" y2="330"/></g>
-<text x="500" y="318" text-anchor="middle" font-size="12" opacity=".8">every app uses the same services · the role check runs every time</text>
-<rect x="12" y="334" width="976" height="246" rx="8" fill="none" stroke="#17212b" stroke-width="2.2"/>
-<text x="24" y="356" font-size="11" letter-spacing="1.5" font-weight="700">THE FOUNDATION · BUILT ONCE · SHARED BY EVERY APP</text>
-<g stroke="#17212b" stroke-width="1" fill="none">
-<rect x="24" y="368" width="182" height="92" rx="4"/><rect x="216" y="368" width="182" height="92" rx="4"/><rect x="408" y="368" width="182" height="92" rx="4"/><rect x="600" y="368" width="182" height="92" rx="4"/><rect x="792" y="368" width="182" height="92" rx="4"/>
-<rect x="24" y="472" width="182" height="92" rx="4"/><rect x="216" y="472" width="182" height="92" rx="4"/><rect x="408" y="472" width="182" height="92" rx="4"/><rect x="600" y="472" width="182" height="92" rx="4"/><rect x="792" y="472" width="182" height="92" rx="4"/>
-</g>
-<g font-weight="700" font-size="14">
-<text x="34" y="388">Database</text><text x="226" y="388">File vault</text><text x="418" y="388">Night shift</text><text x="610" y="388">Mailroom</text><text x="802" y="388">AI desk</text>
-<text x="34" y="492">Key safe</text><text x="226" y="492">Black box</text><text x="418" y="492">Test copy</text><text x="610" y="492">Watchdog</text><text x="802" y="492">Blueprints</text>
-</g>
-<g font-size="11.5">
-<text x="34" y="406">One Postgres database.</text><text x="34" y="421">"Who sees what" is</text><text x="34" y="436">enforced here, for</text><text x="34" y="451">every app.</text>
-<text x="226" y="406">Drive for documents.</text><text x="226" y="421">Private storage for</text><text x="226" y="436">app files. Encrypted,</text><text x="226" y="451">role-checked.</text>
-<text x="418" y="406">Scheduled jobs. Pull</text><text x="418" y="421">Cloud 9, OrthoAI, ADP,</text><text x="418" y="436">Dentira nightly.</text><text x="418" y="451">Escalate overdue items.</text>
-<text x="610" y="406">6:30 AM briefs by Gmail.</text><text x="610" y="421">Nudges by Slack.</text><text x="610" y="436">Instant alerts when</text><text x="610" y="451">something is critical.</text>
-<text x="802" y="406">Claude, called by the</text><text x="802" y="421">server, writes the</text><text x="802" y="436">briefs. Never from a</text><text x="802" y="451">chat window.</text>
-<text x="34" y="510">API keys and passwords</text><text x="34" y="525">live here, never in</text><text x="34" y="540">code. Rotated on a</text><text x="34" y="555">schedule.</text>
-<text x="226" y="510">Audit log: who changed</text><text x="226" y="525">what, when. Automatic</text><text x="226" y="540">backups, restore</text><text x="226" y="555">tested monthly.</text>
-<text x="418" y="510">A second copy with</text><text x="418" y="525">sample data. Changes</text><text x="418" y="540">are tried here before</text><text x="418" y="555">staff ever see them.</text>
-<text x="610" y="510">Checks the site, the</text><text x="610" y="525">jobs and the briefs.</text><text x="610" y="540">Alerts Cory and Savannah</text><text x="610" y="555">if anything fails.</text>
-<text x="802" y="510">All code in GitHub,</text><text x="802" y="525">owned by TW, with house</text><text x="802" y="540">rules Claude Code</text><text x="802" y="555">follows for app #3.</text>
-</g>
-<text x="12" y="610" font-size="11" letter-spacing="1.5" opacity=".7">OUTSIDE SYSTEMS · LINKED, NEVER REBUILT</text>
-<g stroke="#17212b" stroke-width="1.2" fill="none"><rect x="12" y="620" width="150" height="56" rx="4"/><rect x="174" y="620" width="150" height="56" rx="4"/><rect x="336" y="620" width="150" height="56" rx="4"/><rect x="498" y="620" width="150" height="56" rx="4"/><rect x="660" y="620" width="170" height="56" rx="4"/><rect x="842" y="620" width="146" height="56" rx="4"/></g>
-<g font-weight="700" font-size="14"><text x="24" y="642">Cloud 9</text><text x="186" y="642">OrthoAI</text><text x="348" y="642">ADP</text><text x="510" y="642">Dentira</text><text x="672" y="642">Google Workspace</text><text x="854" y="642">Slack</text></g>
-<g font-size="12" opacity=".75"><text x="24" y="662">daily counts</text><text x="186" y="662">KPIs</text><text x="348" y="662">roster, hire dates</text><text x="510" y="662">inventory, budgets</text><text x="672" y="662">sign-in · Gmail · Drive</text><text x="854" y="662">nudges</text></g>
-<g stroke="#17212b" stroke-width="1.2" fill="none" marker-end="url(#ar)"><path d="M87 620 V596 H499 V582"/><path d="M249 620 V596"/><path d="M411 620 V596"/><path d="M573 620 V596"/></g>
-<text x="260" y="592" font-size="11.5" opacity=".8">pulled in every night · counts, rosters, inventory</text>
-<g stroke="#17212b" stroke-width="1.2" fill="none" marker-end="url(#ar)"><path d="M691 582 V600 H757 V618"/><path d="M691 600 H915 V618"/></g>
-<text x="988" y="596" text-anchor="end" font-size="11.5" opacity=".8">6:30 AM briefs · nudges</text>
-</svg>
-<figcaption>Everything inside the thick border is built once. Ten shared services. Adding Wetumpka is one office record. Adding the next app is one new room.</figcaption>
-  </figure>
+  <h2 class="sec" id="services">The ten services <span class="hint">· plain name first, technical name underneath</span></h2>
+  <div class="svs"><div class="sv"><span class="sv-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="6" rx="7" ry="3"/><path d="M5 6v6c0 1.700 3.100 3 7 3s7-1.300 7-3V6M5 12v6c0 1.700 3.100 3 7 3s7-1.300 7-3v-6"/></svg></span><div><b>Database</b><small>Postgres with row rules</small><p>One database for every app. "Who sees what" is enforced here, so no app can skip it.</p></div></div><div class="sv"><span class="sv-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></span><div><b>File vault</b><small>Drive and private storage</small><p>Documents, certificates and signed forms. Encrypted, and opened only by the right roles.</p></div></div><div class="sv"><span class="sv-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.500A8 8 0 0 1 9.500 4a7 7 0 1 0 10.500 10.500z"/></svg></span><div><b>Night shift</b><small>Scheduled jobs</small><p>Brings in counts from Cloud 9, OrthoAI, ADP and Dentira overnight. Escalates overdue items.</p></div></div><div class="sv"><span class="sv-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span><div><b>Mailroom</b><small>Gmail and alerts</small><p>Sends the 6:30 AM briefs by Gmail, and nudges and alerts as they come due.</p></div></div><div class="sv"><span class="sv-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.800 5.200L19 10l-5.200 1.800L12 17l-1.800-5.200L5 10l5.200-1.800z"/><path d="M19 15v4M17 17h4"/></svg></span><div><b>AI desk</b><small>Claude, called by the server</small><p>Writes the plain sentences in the briefs. Never from a chat window.</p></div></div><div class="sv"><span class="sv-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="15" r="4"/><path d="M11 12l8-8M16 7l3 3"/></svg></span><div><b>Key safe</b><small>Secrets storage</small><p>Passwords and access keys live here, never in the code. Changed on a schedule.</p></div></div><div class="sv"><span class="sv-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8l8-4 8 4v8l-8 4-8-4z"/><path d="M4 8l8 4 8-4M12 12v8"/></svg></span><div><b>Black box</b><small>Audit log and backups</small><p>Records who changed what, and when. Automatic backups, with a restore tested monthly.</p></div></div><div class="sv"><span class="sv-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg></span><div><b>Test copy</b><small>A second copy with sample data</small><p>Changes are tried here before staff ever see them.</p></div></div><div class="sv"><span class="sv-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.600-7 10-7 10 7 10 7-3.600 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></span><div><b>Watchdog</b><small>Monitoring</small><p>Checks the site, the jobs and the briefs. Alerts Cory and Savannah if anything fails.</p></div></div><div class="sv"><span class="sv-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4M9 13l-2 2 2 2M13 13l2 2-2 2"/></svg></span><div><b>Blueprints</b><small>GitHub with house rules</small><p>All the code, owned by TW, with written rules that Claude Code follows for the next app.</p></div></div></div>
 
-  <h2>What happens when someone ticks a checklist box</h2>
-  <p class="prose">The simplest thing in the mockup, followed all the way through. Every other action (approving PTO, logging a spore test, swapping a station) takes the same path.</p>
-  <figure>
-<svg viewBox="0 0 1000 250" role="img" aria-label="A tick on the Selma touch screen goes through the Google front door, which confirms the account and role; the app sends the write to the database, which applies the row rule and stores the sign-off and an audit entry; the night shift job later reads it to update the Command Center, escalate if missed, and feed the 6:30 AM brief and Slack nudge." xmlns="http://www.w3.org/2000/svg" font-family="Public Sans, Segoe UI, Helvetica, Arial, sans-serif" font-size="12.5" fill="#17212b">
-<defs><marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#17212b"/></marker></defs>
-<g stroke="#17212b" stroke-width="1.3" fill="none"><rect x="12" y="60" width="160" height="80" rx="6"/><rect x="222" y="60" width="160" height="80" rx="6"/><rect x="432" y="60" width="160" height="80" rx="6"/><rect x="642" y="60" width="160" height="80" rx="6"/><rect x="852" y="30" width="136" height="60" rx="6"/><rect x="852" y="110" width="136" height="60" rx="6"/></g>
-<g font-weight="700" font-size="14"><text x="24" y="82">Selma touch screen</text><text x="234" y="82">Front door</text><text x="444" y="82">Database</text><text x="654" y="82">Night shift</text><text x="862" y="52">Command Center</text><text x="862" y="132">Brief + Slack</text></g>
-<g font-size="12"><text x="24" y="102">"Sterilizer cycle log"</text><text x="24" y="118">ticked by Amber Nix</text>
-<text x="234" y="102">Google account ok?</text><text x="234" y="118">Role: Selma station</text>
-<text x="444" y="102">Row rule: Selma only</text><text x="444" y="118">Saves sign-off + audit</text>
-<text x="654" y="102">Reads at 15-min ticks</text><text x="654" y="118">and at 6:30 AM</text>
-<text x="862" y="72">12 / 12 · On track</text><text x="862" y="152">or escalation if missed</text></g>
-<g stroke="#17212b" stroke-width="1.4" marker-end="url(#ar2)"><line x1="172" y1="100" x2="220" y2="100"/><line x1="382" y1="100" x2="430" y2="100"/><line x1="592" y1="100" x2="640" y2="100"/><path d="M802 90 H827 V60 H850"/><path d="M802 110 H827 V140 H850"/></g>
-<g font-size="11" opacity=".8"><text x="196" y="92" text-anchor="middle">tick</text><text x="406" y="92" text-anchor="middle">write</text><text x="616" y="92" text-anchor="middle">read</text></g>
-<text x="12" y="200" font-size="12">Encrypted on every hop (TLS) and at rest in the database. An Enterprise account trying the same write for a Selma item gets nothing: the database refuses it, not the screen.</text>
-<text x="12" y="222" font-size="12">Every step is the same in Plan A and Plan B. Only the vendor tiers and signed agreements differ.</text>
-</svg>
-<figcaption>Checklists, PTO, logs, swaps and incident reports all travel this path. The role check happens in the database, so no app can skip it.</figcaption>
-  </figure>
+  <h2 class="sec" id="hubs">What each hub uses <span class="hint">· tap a hub for the detail</span></h2>
+  <details class="hub"><summary><b>Command Center</b><span class="hchips"><span>Database</span><span>Night shift</span><span>Mailroom</span><span>Outside systems</span></span></summary><p>Checklists, tasks and offices in the database. Overdue checks and escalation every 15 minutes. Nudges. Counts from Cloud 9 and OrthoAI.</p></details><details class="hub"><summary><b>People</b><span class="hchips"><span>Database</span><span>File vault</span><span>Night shift</span><span>Mailroom</span><span>Outside systems</span></span></summary><p>Records, PTO and training. Employee documents in the vault. Roster from ADP and card expirations. Approvals. Pay stays in ADP.</p></details><details class="hub"><summary><b>Compliance</b><span class="hchips"><span>Database</span><span>File vault</span><span>Night shift</span><span>Mailroom</span></span></summary><p>Logs, incidents and vendor agreements. Certificates and proof in the vault. Renewal reminders. An alert when an incident is reported.</p></details><details class="hub"><summary><b>Scorecard</b><span class="hchips"><span>Database</span><span>Night shift</span><span>Outside systems</span></span></summary><p>Daily counts per office, brought in overnight from Cloud 9 and OrthoAI.</p></details><details class="hub"><summary><b>Operations</b><span class="hchips"><span>Database</span><span>File vault</span><span>Night shift</span><span>Mailroom</span><span>Outside systems</span></span></summary><p>Equipment, vendors and issues. Service records. Spend and budgets from Dentira. Issue alerts.</p></details><details class="hub"><summary><b>Owner's Desk</b><span class="hchips"><span>Database</span><span>File vault</span><span>Night shift</span><span>Mailroom</span></span></summary><p>P&amp;L, contracts and launches. Leases and contracts in the vault. Launch task dates. The owner brief.</p></details><details class="hub"><summary><b>Practice Calendar</b><span class="hchips"><span>Database</span><span>File vault</span><span>Night shift</span><span>Mailroom</span></span></summary><p>Events and checklists. Proof uploads. Reminders at 60, 30 and 7 days.</p></details><details class="hub"><summary><b>6:30 AM brief</b><span class="hchips"><span>Database</span><span>Night shift</span><span>Mailroom</span><span>AI desk</span></span></summary><p>Reads everything above, runs at 6:30, goes out by Gmail. The AI desk writes the "Needs you today" sentences.</p></details>
+  <p class="small muted" style="margin:8px 4px 0">The test copy and the watchdog sit under all of them: every change is tried on sample data first, and every job is checked.</p>
 
-  <h2>Which parts of the foundation each hub uses</h2>
-  <div class="scroll"><table>
-    <tr><th>Hub</th><th>Database</th><th>File vault</th><th>Night shift</th><th>Mailroom</th><th>AI desk</th><th>Outside systems</th></tr>
-    <tr><td><b>Command Center</b></td><td>checklists, tasks, offices</td><td>—</td><td>overdue + escalation every 15 min</td><td>nudges</td><td>—</td><td>Cloud 9 / OrthoAI counts</td></tr>
-    <tr><td><b>People</b></td><td>records, PTO, training</td><td>employee documents</td><td>ADP roster nightly, expirations</td><td>approvals</td><td>—</td><td>ADP (pay stays there)</td></tr>
-    <tr><td><b>Compliance</b></td><td>logs, incidents, BAAs</td><td>certificates, proof</td><td>renewal reminders</td><td>incident alert</td><td>—</td><td>—</td></tr>
-    <tr><td><b>Scorecard</b></td><td>daily counts per office</td><td>—</td><td>Cloud 9 / OrthoAI nightly</td><td>—</td><td>—</td><td>Cloud 9, OrthoAI</td></tr>
-    <tr><td><b>Operations</b></td><td>equipment, vendors, issues</td><td>service records</td><td>Dentira nightly</td><td>issue alerts</td><td>—</td><td>Dentira</td></tr>
-    <tr><td><b>Owner's Desk</b></td><td>P&amp;L, contracts, launches</td><td>leases, contracts</td><td>launch task dates</td><td>owner brief</td><td>—</td><td>accounting (to decide)</td></tr>
-    <tr><td><b>Practice Calendar</b></td><td>events, checklists</td><td>proof uploads</td><td>60/30/7 reminders</td><td>reminders</td><td>—</td><td>—</td></tr>
-    <tr><td><b>Test copy + Watchdog</b></td><td>a second copy with sample data</td><td>—</td><td>checks every job ran</td><td>alerts Cory and Savannah on failure</td><td>—</td><td>—</td></tr>
-    <tr><td><b>6:30 AM brief</b></td><td>reads everything above</td><td>—</td><td>runs at 6:30</td><td>Gmail</td><td>"Needs you today" sentences</td><td>—</td></tr>
-  </table></div>
-
-  <h2>What is kept out, on purpose</h2>
-  <div class="traffic">
-    <div style="background:var(--green-soft)"><b>Green · operational</b>Counts, checklists, tasks, schedules, calendar, inventory, budgets. Lives on the foundation. May go to Slack and email. May be summarized by the AI desk.</div>
-    <div style="background:var(--amber-soft)"><b>Yellow · confidential staff data</b>Employee files, I-9s, certifications, reviews, incident reports, contracts, P&amp;L. On the foundation, encrypted, role-restricted, logged. Never in Slack. Pay stays in ADP.</div>
-    <div style="background:var(--red-soft)"><b>Red · patient information</b>Anything identifying a patient. Not in TW Ops at all. Plan A: allowed on the foundation for the clinical tools, under signed agreements. Plan B: may be on the foundation if the doctors choose; encrypted and protected, not HIPAA-covered until the upgrade. Never in Slack, never in a claude.ai chat.</div>
+  <h2 class="sec" id="out">What is kept out, on purpose</h2>
+  <div class="tl3">
+    <div class="tl g"><span class="hd-i"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.500 12.200l2.400 2.400 4.600-5"/></svg></span><b>Green</b><small>Operational</small><p>Counts, checklists, tasks, schedules, the calendar, inventory and budgets. Lives on the foundation. May go to email and nudges. May be summarized by the AI desk.</p></div>
+    <div class="tl y"><span class="hd-i"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span><b>Yellow</b><small>Confidential staff data</small><p>Employee files, I-9s, certifications, reviews, incident reports, contracts and P&amp;L. On the foundation, encrypted, limited by role and logged. Never in Slack. Pay stays in ADP.</p></div>
+    <div class="tl r"><span class="hd-i"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M6 6l12 12"/></svg></span><b>Red</b><small>Patient information</small><p>Anything that identifies a patient. Not in TW Ops at all. Under your Plan B it may sit on the foundation for the clinical tools if you choose: encrypted and protected, but not HIPAA-covered until the Plan A agreements are signed. Never in Slack, never in a claude.ai chat.</p></div>
   </div>
 
-  <h2>Plan A or Plan B</h2>
-  <p class="prose">Same foundation, same code, same encryption. The difference is vendor tiers and signed agreements. <b>Cory recommends Plan B.</b> Full detail, costs, sources and the questions your own Claude is likely to raise are on the <a href="https://claude.ai/artifact/VLj8XUKVRok4G7auMnYBA9" target="_blank" rel="noopener">Foundation Plans page</a>.</p>
-  <div class="plans">
-    <div class="plan a"><div class="lbl" style="color:var(--teal)">Plan A · true HIPAA compliance path</div><div class="big">≈ $1,450–1,600 / month</div><p>Every vendor under a signed Business Associate Agreement. Patient data allowed. Clinical tools move in month 1. Point-in-time restore.</p></div>
-    <div class="plan b"><div class="lbl" style="color:var(--amber)">Plan B · same foundation, standard tiers · <b>Cory's recommendation</b></div><div class="big">≈ $45–90 / month</div><p>Same foundation, same encryption, same code. Clinical tools can move in. Not technically HIPAA compliant for patient data until the agreements are signed; that is what Plan A adds, on the same foundation. An Option C (Google Sheets, free tiers) is cheaper still but has no path to Plan A.</p></div>
+  <h2 class="sec" id="plan">Your plan</h2>
+  <div class="plan2">
+    <div class="pl mine"><span class="pill info">What you chose</span><div class="price">Plan B on Render <small>about $45 to $90 a month</small></div>
+      <ul><li>The full foundation, on standard tiers.</li><li>The same code and the same encryption as Plan A.</li><li>Render is the host you already use for the clinical tools.</li><li>Not technically HIPAA compliant for patient data until the agreements are signed.</li></ul></div>
+    <div class="pl"><span class="pill gray">The door stays open</span><div class="price">Plan A <small>about $1,450 to $1,600 a month</small></div>
+      <p style="margin:0 0 6px">The true HIPAA compliance path. Moving up is paperwork and settings, not a rebuild:</p>
+      <ul><li>one plan tier</li><li>three add-ons</li><li>three signed agreements</li><li>a settings checklist</li></ul></div>
+  </div>
+  <p class="small" style="margin:10px 4px 0">Costs, sources and the questions your own Claude is likely to raise are on the <a href="https://claude.ai/artifact/VLj8XUKVRok4G7auMnYBA9" target="_blank" rel="noopener">Foundation Plans page</a>.</p>
+
+  <h2 class="sec">Why this matters for the next app</h2>
+  <div class="why">
+    <div><b>Login, built once</b>Dr. Turner's next app uses the same Google front door on day one.</div>
+    <div><b>Roles, built once</b>"Office leads see their own office" is a database rule every app inherits.</div>
+    <div><b>Data crosses apps</b>TC conversion from the clinical tools reaches the Scorecard without an export.</div>
+    <div><b>Security, once</b>Encryption, backups and the audit log cover the foundation. A new app inherits them.</div>
+    <div><b>Claude builds the next app the right way</b>One GitHub repository with written house rules that Claude Code reads and follows.</div>
+    <div><b>You own it</b>Every account is in TW's name. Cory is a removable collaborator.</div>
   </div>
 
-  <h2>Why this matters for app #2, #3 and beyond</h2>
-  <ul class="prose">
-    <li><b>Login built once.</b> Dr. Turner's next app uses the same Google front door on day one.</li>
-    <li><b>Roles built once.</b> "Office leads see their own office" is a database rule every app inherits.</li>
-    <li><b>Data crosses apps.</b> TC conversion from the clinical tools reaches the Scorecard without an export.</li>
-    <li><b>Security once.</b> Encryption, backups, audit log and (in Plan A) agreements cover the foundation; a new app inherits them.</li>
-    <li><b>Claude builds the next app the right way.</b> One GitHub repository with written house rules. Claude Code reads them and follows the existing patterns.</li>
-    <li><b>You own it.</b> Every account is in TW's name. Cory is a removable collaborator.</li>
-  </ul>
-
-  <h2>Rollout</h2>
-  <ol class="steps">
-    <li><div><b>Foundation · weeks 1–3</b>Sign-in, database with the five roles, vault, key safe, audit log, backups, GitHub with house rules, first nightly Cloud 9 count import, Gmail and Slack senders.</div></li>
-    <li><div><b>Command Center + Tasks + Calendar · weeks 3–7</b>Office grid, checklists on the touch screens, escalation, the 6:30 AM briefs.</div></li>
-    <li><div><b>People + Compliance · weeks 7–11</b>BambooHR turned off.</div></li>
-    <li><div><b>Scorecard + Operations + Owner's Desk · weeks 11–16</b>Basecamp turned off. Owner brief live.</div></li>
-    <li><div><b>Clinical tools onto the foundation</b>Alongside step 2 in either plan.</div></li>
-  </ol>
+  <h2 class="sec" id="rollout">Rollout <span class="hint">· four months</span></h2>
+  <div class="roll">
+    <div class="mo4"><span class="mn">Month 1</span><b>Foundation and the daily loop</b><p>Sign-in, roles, database, vault, backups. Then the Command Center, tasks, the calendar and the morning briefs.</p></div>
+    <div class="mo4"><span class="mn">Month 2</span><b>People and Compliance</b><p>Employee files, PTO, expirations, logs and vendor agreements.</p><span class="gone">BambooHR off</span></div>
+    <div class="mo4"><span class="mn">Month 3</span><b>Scorecard, Operations, Owner's Desk</b><p>Benchmarks, supply budgets, P&amp;L and the owner brief.</p><span class="gone">Basecamp off</span></div>
+    <div class="mo4"><span class="mn">Month 4</span><b>Launches and the clinical tools</b><p>Launch playbooks for Wetumpka, Dothan and Troy. Clinical tools connected. Fixes and training.</p></div>
+  </div>
 </div>
 <script src="assets/app.js"></script>
+<script>
+(function () {
+  var I = {"screen": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><rect x=\"4\" y=\"3\" width=\"16\" height=\"13\" rx=\"2\"/><path d=\"M9 21h6M12 16v5M8.500 9.500l2.400 2.400 4.600-4.800\"/></svg>", "door": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M6 21V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v17M4 21h16\"/><circle cx=\"14.500\" cy=\"12\" r=\".9\"/></svg>", "db": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><ellipse cx=\"12\" cy=\"6\" rx=\"7\" ry=\"3\"/><path d=\"M5 6v6c0 1.700 3.100 3 7 3s7-1.300 7-3V6M5 12v6c0 1.700 3.100 3 7 3s7-1.300 7-3v-6\"/></svg>", "night": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M20 14.500A8 8 0 0 1 9.500 4a7 7 0 1 0 10.500 10.500z\"/></svg>", "grid": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><rect x=\"3\" y=\"3\" width=\"7\" height=\"7\" rx=\"1.500\"/><rect x=\"14\" y=\"3\" width=\"7\" height=\"7\" rx=\"1.500\"/><rect x=\"3\" y=\"14\" width=\"7\" height=\"7\" rx=\"1.500\"/><rect x=\"14\" y=\"14\" width=\"7\" height=\"7\" rx=\"1.500\"/></svg>"};
+  var S = [
+    { i: 'screen', t: 'Amber ticks a box', h: 'Amber ticks "Sterilizer cycle log"', p: 'On the Selma office screen, at the Sterilization station. That is all she does.' },
+    { i: 'door', t: 'Front door', h: 'The front door checks who she is', p: 'Is this a TW Google account? What is her role? Hers is the Selma office, on the Sterilization station.' },
+    { i: 'db', t: 'Database', h: 'The database decides, then saves', p: 'Its rule says a Selma account may sign Selma items only. It saves the sign-off and an audit entry. An Enterprise account trying the same thing gets nothing back: the database refuses it, not the screen.' },
+    { i: 'night', t: 'Night shift', h: 'The night shift reads it', p: 'Every 15 minutes, and again at 6:30 AM, a scheduled job reads what was signed and what was missed.' },
+    { i: 'grid', t: 'Savannah sees it', h: 'Savannah sees the result', p: 'The Command Center shows Selma at 12 of 12, on track. If the item had been missed, she would get an escalation and it would lead her morning brief.' }
+  ];
+  var steps = document.getElementById('wsteps'), panel = document.getElementById('wpanel'), prev = document.getElementById('wprev'), next = document.getElementById('wnext'), cur = 0;
+  function draw(focus) {
+    steps.innerHTML = S.map(function (s, k) { return '<button type="button" class="wbtn' + (k < cur ? ' past' : '') + '" data-k="' + k + '"' + (k === cur ? ' aria-current="step"' : '') + ' aria-label="Step ' + (k + 1) + ': ' + s.t + '"><span class="dot">' + I[s.i] + '</span><span class="t">' + s.t + '</span></button>'; }).join('');
+    panel.innerHTML = '<div class="n">Step ' + (cur + 1) + ' of ' + S.length + '</div><h3>' + S[cur].h + '</h3><p>' + S[cur].p + '</p>' + (cur === S.length - 1 ? '<p class="small muted" style="margin-top:8px">Encrypted on every hop and while stored.</p>' : '');
+    prev.disabled = cur === 0; prev.style.visibility = cur === 0 ? 'hidden' : 'visible';
+    next.textContent = cur === S.length - 1 ? 'Start again' : 'Next';
+    if (focus) { var b = steps.querySelector('[data-k="' + cur + '"]'); if (b) b.focus(); }
+  }
+  steps.addEventListener('click', function (e) { var b = e.target.closest('.wbtn'); if (!b) return; cur = +b.getAttribute('data-k'); draw(true); });
+  prev.addEventListener('click', function () { if (cur > 0) { cur--; draw(); } });
+  next.addEventListener('click', function () { cur = cur === S.length - 1 ? 0 : cur + 1; draw(); });
+  draw();
+})();
+</script>
 </body>
 </html>
