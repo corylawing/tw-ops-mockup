@@ -130,7 +130,7 @@
   main.appendChild(ft);
 
   // 6. Checklist demo: ticking records who signed and when
-  Array.prototype.forEach.call(document.querySelectorAll('.chk input[type=checkbox]'), function (c) {
+  Array.prototype.forEach.call(document.querySelectorAll('.chk input[type=checkbox], .ck input[type=checkbox]'), function (c) {
     c.addEventListener('change', function () {
       var by = c.closest('li').querySelector('.by');
       if (by) by.textContent = c.checked ? 'Signed · ' + me.name + ' · ' + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'Not done';

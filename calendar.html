@@ -10,6 +10,10 @@
 <script src="assets/splash.js"></script>
 <script src="assets/theme.js"></script>
 <style>
+.cu{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
+.cu-i{display:flex;align-items:center;gap:12px;background:#fff;border-radius:18px;padding:12px 14px;box-shadow:var(--shadow)}
+.cu-d{flex:none;font-family:var(--title);font-weight:700;font-size:14.5px;color:var(--brand);background:var(--brand-soft);border-radius:14px;padding:10px 12px;min-width:74px;text-align:center}
+.cu-i b{display:block}.cu-i small{color:var(--muted);font-size:14px}
 .cal-bar{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;margin:0 0 14px}
 .seg{display:inline-flex;background:#fff;border-radius:999px;padding:4px;box-shadow:var(--shadow)}
 .seg button{font:inherit;font-weight:600;font-size:15px;border:0;background:transparent;color:var(--muted);border-radius:999px;padding:0 18px;min-height:40px}
@@ -85,8 +89,16 @@ window.PAGE = { id: 'calendar', title: 'Practice Calendar', hood: [
 ]};
 </script>
 <div class="wrap">
-  <div class="pagehead"><div><div class="lbl" id="calLbl">Practice Calendar · 2027</div><h1>Every yearly event, set once <button class="uth" data-h="0"></button></h1><div class="sub">Repeats with reminders. Starter events shown: confirm dates.</div></div>
-    <div><a class="btn pri" href="#">+ Yearly event</a> <button class="uth" data-h="4"></button></div></div>
+  <div class="pagehead"><div><div class="lbl" id="calLbl">Shared · 2027 plan</div><h1>Practice Calendar <button class="uth" data-h="0"></button></h1><div class="sub" data-for="owners ops lead">Every yearly event, set once. It repeats with reminders. Starter events shown: confirm dates.</div><div class="sub" data-for="inv team">The events that involve you.</div></div>
+    <div data-for="owners ops lead"><a class="btn pri" href="#">+ Yearly event</a> <button class="uth" data-h="4"></button></div></div>
+
+  <h2 class="sec">Coming up <span class="hint">· reminders going out now</span></h2>
+  <div class="cu">
+    <div class="cu-i"><span class="cu-d">7 days</span><span><b>CPR recert · cohort B</b><small>Andalusia, Selma · 4 people</small></span></div>
+    <div class="cu-i"><span class="cu-d">30 days</span><span><b>Christmas party</b><small>Send the save-the-date</small></span></div>
+    <div class="cu-i" data-for="owners ops"><span class="cu-d">60 days</span><span><b>X-ray registration renewal</b><small>Montgomery</small></span></div>
+  </div>
+  <h2 class="sec">The year</h2>
 
   <div class="cal-bar">
     <div class="seg" role="group" aria-label="Calendar view"><button type="button" data-view="year" aria-pressed="true">Year</button><button type="button" data-view="month" aria-pressed="false">Month</button><button type="button" data-view="list" aria-pressed="false">List</button></div>
@@ -118,11 +130,17 @@ window.PAGE = { id: 'calendar', title: 'Practice Calendar', hood: [
     [11,'f','Next-year budget'],[11,'mk','Referral-doctor holiday gifts'],[11,'k','Thanksgiving appreciation'],
     [12,'k','Christmas party'],[12,'f','Year-end bonuses'],[12,'o','Publish next year calendar']
   ].map(function (e, i) { return { id: 'y' + i, m: e[0], cat: e[1], t: e[2] }; });
+  // "Own events" for team members and the inventory coordinator: the all-staff events, plus the supply and equipment ones for inventory
+  var role = window.TW.role, selfRole = role === 'team' || role === 'inv';
+  var ALLSTAFF = ['Team kickoff & annual goals', 'CPR recert · cohort A', 'CPR recert · cohort B', 'Performance reviews', 'OSHA annual training', 'Open enrollment', 'Thanksgiving appreciation', 'Christmas party'];
+  var INV = ['Q4 supply order', 'Mid-year equipment service'];
+  if (selfRole) EV = EV.filter(function (e) { return ALLSTAFF.indexOf(e.t) !== -1 || (role === 'inv' && INV.indexOf(e.t) !== -1); });
   // This month's dated items, the same five the Command Center lists under "Next 14 days"
-  var OCT = [ { id: 'd15', d: 15, cat: 'o', t: 'Q4 supply order', where: 'Operations · All offices' }, { id: 'd19', d: 19, cat: 'mk', t: 'Year-end benefits marketing push', where: 'Scorecard · All offices' },
+  var OCT_ALL = [ { id: 'd15', d: 15, cat: 'o', t: 'Q4 supply order', where: 'Operations · All offices' }, { id: 'd19', d: 19, cat: 'mk', t: 'Year-end benefits marketing push', where: 'Scorecard · All offices' },
     { id: 'd22', d: 22, cat: 'p', t: 'CPR recertification · cohort B', where: 'People · Andalusia, Selma' }, { id: 'd24', d: 24, cat: 'k', t: 'Christmas party · venue deposit due', where: 'Culture · All offices' },
     { id: 'd27', d: 27, cat: 'p', t: 'Open enrollment closes', where: 'People · All offices' } ];
-  var view = 'year', sel = 'y3', on = { p: true, c: true, mk: true, o: true, f: true, k: true };
+  var OCT = !selfRole ? OCT_ALL : OCT_ALL.filter(function (e) { return e.cat === 'p' || e.cat === 'k' || (role === 'inv' && e.cat === 'o'); });
+  var view = 'year', sel = 'y3', firstDraw = true, on = { p: true, c: true, mk: true, o: true, f: true, k: true };
   var $view = document.getElementById('view'), $det = document.getElementById('det'), $flt = document.getElementById('flt'), $lbl = document.getElementById('calLbl');
   function esc(s) { return s.replace(/&/g, '&amp;'); }
   function btn(e, extra) { return '<button type="button" class="evt c-' + e.cat + '" data-id="' + e.id + '" aria-pressed="' + (e.id === sel) + '"><i></i><span>' + esc(e.t) + '</span>' + (extra || '') + '</button>'; }
@@ -130,14 +148,14 @@ window.PAGE = { id: 'calendar', title: 'Practice Calendar', hood: [
     $flt.innerHTML = Object.keys(CATS).map(function (k) { return '<button type="button" class="fchip" data-cat="' + k + '" aria-pressed="' + on[k] + '"><i class="d-' + k + '"></i>' + CATS[k] + '</button>'; }).join(' ');
   }
   function drawYear() {
-    $lbl.textContent = 'Practice Calendar · 2027';
+    $lbl.textContent = 'Shared · 2027 plan';
     $view.innerHTML = '<div class="months">' + MONTHS.map(function (name, i) {
       var list = EV.filter(function (e) { return e.m === i + 1 && on[e.cat]; });
       return '<section class="mo' + (list.length ? '' : ' empty') + '"><header><h3>' + name + '</h3><span title="' + list.length + (list.length === 1 ? ' event' : ' events') + ' shown">' + list.length + '</span></header>' + list.map(function (e) { return btn(e); }).join('') + '</section>';
     }).join('') + '</div>';
   }
   function drawMonth() {
-    $lbl.textContent = 'Practice Calendar · this month';
+    $lbl.textContent = 'Shared · this month';
     var first = 4, days = 31, cells = '', d;          // October 1, 2026 is a Thursday
     ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].forEach(function (x) { cells += '<div class="dow">' + x + '</div>'; });
     for (d = 0; d < first; d++) cells += '<div class="day out"></div>';
@@ -148,7 +166,7 @@ window.PAGE = { id: 'calendar', title: 'Practice Calendar', hood: [
     $view.innerHTML = '<div class="mgrid"><h2>October 2026</h2><div class="mtable">' + cells + '</div></div>';
   }
   function drawList() {
-    $lbl.textContent = 'Practice Calendar · 2027';
+    $lbl.textContent = 'Shared · 2027 plan';
     var out = '';
     MONTHS.forEach(function (name, i) {
       var list = EV.filter(function (e) { return e.m === i + 1 && on[e.cat]; });
@@ -189,8 +207,8 @@ window.PAGE = { id: 'calendar', title: 'Practice Calendar', hood: [
     var b = ev.target.closest('button'); if (!b) return;
     view = b.getAttribute('data-view');
     Array.prototype.forEach.call(this.querySelectorAll('button'), function (x) { x.setAttribute('aria-pressed', String(x === b)); });
-    if (view === 'month' && !find(sel).d) sel = 'd15';
-    if (view !== 'month' && find(sel).d) sel = 'y3';
+    if (view === 'month' && !(find(sel) || {}).d) sel = (OCT[0] || {}).id;
+    if (view !== 'month' && (!find(sel) || find(sel).d)) sel = find('y3') ? 'y3' : (EV[0] || {}).id;
     draw();
   });
   $flt.addEventListener('click', function (ev) {
@@ -202,6 +220,7 @@ window.PAGE = { id: 'calendar', title: 'Practice Calendar', hood: [
     var b = ev.target.closest('.evt'); if (!b) return;
     sel = b.getAttribute('data-id'); draw();
     var again = $view.querySelector('[data-id="' + sel + '"]'); if (again) again.focus();
+    if (window.matchMedia('(max-width:1080px)').matches) $det.scrollIntoView({ block: 'start', behavior: window.matchMedia('(prefers-reduced-motion:reduce)').matches ? 'auto' : 'smooth' });
   });
   drawFilters(); draw();
 })();

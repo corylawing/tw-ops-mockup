@@ -10,6 +10,42 @@
 <script src="assets/splash.js"></script>
 <script src="assets/theme.js"></script>
 <style>
+.hero .ringbox{display:flex;align-items:center;gap:14px}
+.hero .ring{width:92px;height:92px;margin:0;flex:none}
+.hero .ring svg{width:92px;height:92px}
+.hero .ring .trk{stroke:rgba(255,255,255,.22)} .hero .ring .val{stroke:#fff;transition:stroke-dasharray .35s ease}
+.hero .ring b{color:#fff;font-size:20px}
+.hero .ringbox span{font-size:14.5px;line-height:1.35}
+.hero .acts{display:flex;flex-direction:column;gap:8px}
+.od{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:12px;align-items:start}
+@media (max-width:980px){.od{grid-template-columns:1fr}}
+.ck{list-style:none;margin:0;padding:0}
+.ck li{border-top:1px solid var(--line2)}
+.ck li:first-child{border-top:0}
+.ck label{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:14px;padding:10px 6px;min-height:60px;cursor:pointer;border-radius:14px}
+.ck label:hover{background:var(--bg)}
+.ck input{position:absolute;opacity:0;width:1px;height:1px}
+.ck .box{width:30px;height:30px;border-radius:50%;border:2.5px solid #b9c7cf;display:grid;place-items:center;flex:none;background:#fff}
+.ck .box svg{width:16px;height:16px;fill:none;stroke:#fff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;opacity:0}
+.ck input:checked+.box{background:var(--green);border-color:var(--green)}
+.ck input:checked+.box svg{opacity:1}
+.ck input:focus-visible+.box{outline:3px solid var(--orange);outline-offset:2px}
+.ck input:disabled+.box{opacity:.55}
+.ck .tx b{display:block;font-weight:600}
+.ck .tx small{color:var(--muted);font-size:14px}
+.ck input:checked~.tx b{font-weight:500;color:var(--muted)}
+.ck .ckw{font-size:13.5px;font-weight:600;color:var(--brand);background:var(--brand-soft);border-radius:999px;padding:3px 10px;white-space:nowrap}
+.stn{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:12px;padding:10px 4px;border-top:1px solid var(--line2);min-height:62px}
+.stn:first-of-type{border-top:0}
+.stn .av{width:42px;height:42px;border-radius:50%;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;font-family:var(--title);font-weight:700;font-size:14px}
+.stn b{display:block}.stn small{color:var(--muted);font-size:14px}
+.stn.open{background:var(--amber-soft);border-radius:16px;border-top:0;padding:10px 12px;margin-top:6px}
+.stn.open .av{background:#fff;color:var(--amber)}
+.ppl{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:12px;padding:8px 4px;border-top:1px solid var(--line2);min-height:56px}
+.ppl:first-of-type{border-top:0}
+.ppl .av{width:38px;height:38px;border-radius:50%;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;font-family:var(--title);font-weight:700;font-size:13px}
+.ppl b{display:block;font-weight:600}.ppl small{color:var(--muted);font-size:14px}
+.ppl.out{opacity:.6}
 .hd{padding:20px}
 .hd-top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 14px;margin-bottom:14px}
 .hd-top h2{font-size:20px;margin:0}
@@ -17,12 +53,18 @@
 .hd-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
 @media (max-width:1100px){.hd-grid{grid-template-columns:1fr 1fr}}
 @media (max-width:560px){.hd-grid{grid-template-columns:1fr}}
-.hd-tile{background:#fff;border-radius:16px;padding:14px 16px 14px;display:grid;grid-template-columns:auto 1fr;column-gap:10px;align-items:center;align-content:start}
+.hd-tile{background:#fff;border-radius:16px;padding:14px 16px;display:grid;grid-template-columns:auto 1fr;column-gap:10px;align-items:center;align-content:start}
 .hd-ic{width:36px;height:36px;border-radius:50%;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center}
 .hd-ic svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .hd-l{font-size:14.5px;font-weight:600;color:var(--brand)}
 .hd-m{grid-column:1/-1;font-family:var(--title);font-weight:700;font-size:18px;line-height:1.25;margin:12px 0 0;text-wrap:balance}
 .hd-s{grid-column:1/-1;font-size:13.5px;color:var(--muted);margin-top:8px}
+.bm .vrow{grid-template-columns:150px minmax(0,1fr) auto}
+.bm .vbar{position:relative;overflow:visible}
+.bm .vbar em{position:absolute;left:83.33%;top:-4px;bottom:-4px;width:3px;margin-left:-1.5px;border-radius:2px;background:var(--ink)}
+.bm .vbar i{position:absolute;left:0;top:0;bottom:0}
+.bm .vbar.b i{background:var(--red)}
+.bm .num span.b{color:var(--red);font-weight:600}
 </style>
 </head>
 <body>
@@ -38,73 +80,73 @@ window.PAGE = { id: 'huddle', title: 'Office day · Selma', hood: [
 </script>
 <div class="wrap">
   <div class="pagehead hero">
-    <div><div class="lbl">Selma office · Thursday, October 15</div><h1>Good morning, Kara Whitfield</h1></div>
-    <div><span class="pill info">Opening checklist · 3 of 12</span> <a class="btn" href="calendar.html">Calendar</a> <a class="btn" href="#">Present full screen</a> <button class="uth" data-h="5"></button></div>
+    <div><div class="lbl">Selma office · Thursday, October 15</div>
+      <h1 data-for="lead">Good morning, Kara</h1><h1 data-for="team">Good morning, Jordan</h1><h1 data-for="owners ops inv">Selma office day</h1>
+      <p class="lede" id="odLede" aria-live="polite"><b>9 checklist items left before opening.</b> One station has nobody on it.</p></div>
+    <div class="ringbox"><div class="ring"><svg viewBox="0 0 84 84" aria-hidden="true"><circle class="trk" cx="42" cy="42" r="36"/><circle class="val" id="odRing" cx="42" cy="42" r="36" stroke-dasharray="57 227"/></svg><b id="odNum">3/12</b></div>
+      <div class="acts"><a class="btn sm" href="#">Present full screen</a> <a class="btn sm" href="calendar.html">Calendar</a></div> <button class="uth" data-h="5"></button></div>
   </div>
 
-  <div class="attn "><span class="tag">Before you open</span><span class="msg"><b>9 checklist items are left and one station has nobody on it.</b> <span>Kelsey Ray is on PTO today.</span></span><a class="btn sm" href="#">Assign station</a></div>
-  <section class="card accent hd" aria-labelledby="hdh">
+  <div class="od">
+    <div class="card">
+      <h2>Opening checklist <span class="hint">· what is left comes first</span> <button class="uth" data-h="3"></button></h2>
+      <ul class="ck" id="ck"><li><label for="c4"><input type="checkbox" id="c4"><span class="box"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg></span><span class="tx"><b>Confirm Q4 supply order quantities</b><small class="by">Not done</small></span><span class="ckw">Lead</span></label></li><li><label for="c5"><input type="checkbox" id="c5"><span class="box"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg></span><span class="tx"><b>Fire extinguisher monthly check</b><small class="by">Not done</small></span><span class="ckw">Lead</span></label></li><li><label for="c6"><input type="checkbox" id="c6"><span class="box"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg></span><span class="tx"><b>Eyewash station weekly flush</b><small class="by">Not done</small></span><span class="ckw">Sterilization</span></label></li><li><label for="c1"><input type="checkbox" id="c1" checked><span class="box"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg></span><span class="tx"><b>Unlock, lights, alarm off</b><small class="by">Signed · Amber Nix · 7:31</small></span><span class="ckw">Lead</span></label></li><li><label for="c2"><input type="checkbox" id="c2" checked><span class="box"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg></span><span class="tx"><b>Sterilizer cycle log</b><small class="by">Signed · Chloe Dunn · 7:40</small></span><span class="ckw">Sterilization</span></label></li><li><label for="c3"><input type="checkbox" id="c3" checked><span class="box"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg></span><span class="tx"><b>Operatory setup, all chairs</b><small class="by">Signed · Grace Holt · 7:44</small></span><span class="ckw">Lead</span></label></li></ul>
+      <p class="small muted" style="margin:10px 4px 0" data-for="owners ops lead">6 more items. Tap one to sign it off. Anything unsigned at closing time escalates to Savannah the next morning.</p>
+      <p class="small muted" style="margin:10px 4px 0" data-for="team inv">6 more items. Your lead and the station holders sign these off.</p>
+    </div>
+    <div class="card">
+      <h2>Today's stations <span class="hint">· rotates weekly</span> <button class="uth" data-h="2"></button></h2>
+      <div class="stn open"><span class="av" aria-hidden="true">?</span><span><b>Open station · unassigned</b><small>PTO coverage needed</small></span><a class="btn sm pri" href="#" data-for="ops lead">Assign</a></div>
+      <div class="stn"><span class="av" aria-hidden="true">AN</span><span><b>Sterilization · Amber Nix</b><small>Week of Oct 12 · spore test due Fri</small></span><a class="btn sm" href="#" data-for="ops lead">Swap</a></div><div class="stn"><span class="av" aria-hidden="true">CD</span><span><b>Records · Chloe Dunn</b><small>Week of Oct 12</small></span><a class="btn sm" href="#" data-for="ops lead">Swap</a></div><div class="stn"><span class="av" aria-hidden="true">EV</span><span><b>Phones · Erin Vance</b><small>Week of Oct 12</small></span><a class="btn sm" href="#" data-for="ops lead">Swap</a></div><div class="stn"><span class="av" aria-hidden="true">IM</span><span><b>Lab · Isaac Marsh</b><small>AM only · covering from Andalusia PM</small></span><a class="btn sm" href="#" data-for="ops lead">Swap</a></div><div class="stn"><span class="av" aria-hidden="true">GH</span><span><b>Front desk · Grace Holt</b><small>Fixed role · no rotation</small></span><span></span></div>
+      <p class="small muted" style="margin:10px 4px 0">Only cross-trained people are offered. Each station opens its own checklist, and Sterilization's logs feed Compliance automatically.</p>
+    </div>
+  </div>
+
+  <section class="card accent hd" aria-labelledby="hdh" style="margin-top:12px">
     <div class="hd-top">
       <div><h2 id="hdh">Start the day together <button class="uth" data-h="0"></button></h2><div class="hd-when">Morning huddle · 7:45 AM</div></div>
       <span class="pill info">Same huddle, all offices today</span>
     </div>
     <div class="hd-grid">
-      <div class="hd-tile"><span class="hd-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.600A4 4 0 0 1 19 10c0 5.600-7 10-7 10z"/></svg></span><div class="hd-l">Core value</div><p class="hd-m">Own it</p><div class="hd-s">From the huddle library</div></div>
+      <div class="hd-tile"><span class="hd-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.400-7-10a4 4 0 0 1 7-2.600A4 4 0 0 1 19 10c0 5.600-7 10-7 10z"/></svg></span><div class="hd-l">Core value</div><p class="hd-m">Own it</p><div class="hd-s">From the huddle library</div></div>
       <div class="hd-tile"><span class="hd-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 10v4h3l6 4V6l-6 4H4z"/><path d="M17 9a4 4 0 0 1 0 6"/></svg></span><div class="hd-l">PSA</div><p class="hd-m">Q4 supply counts due tomorrow</p><div class="hd-s">Plus any calendar reminder due this week</div></div>
       <div class="hd-tile"><span class="hd-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 5h14a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-7l-4 3.500V16H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/></svg></span><div class="hd-l">Icebreaker</div><p class="hd-m">Best concert you have been to?</p><div class="hd-s">Rotates through the library</div></div>
       <div class="hd-tile"><span class="hd-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 20h14v-7H5zM5 16c2.300 0 2.300-1.500 4.700-1.500S12 16 14.300 16s2.300-1.500 4.700-1.500M12 13V9M12 6.200v.100"/></svg></span><div class="hd-l">Celebrate</div><p class="hd-m">Birthdays &amp; work anniversaries this week</p><div class="hd-s">Pulled from People</div></div>
     </div>
   </section>
 
-  <div class="grid g2" style="margin-top:14px">
+  <div class="od" style="margin-top:12px">
     <div class="card">
-      <h2>Who's here today <span class="muted small" style="font-weight:400">· from the staff schedule</span> <button class="uth" data-h="1"></button></h2>
-      <div class="row"><span><b>Amber Nix</b> <span class="muted small">Clinical assistant</span></span><span class="pill ok">Here</span></div>
-      <div class="row"><span><b>Chloe Dunn</b> <span class="muted small">Clinical assistant</span></span><span class="pill ok">Here</span></div>
-      <div class="row"><span><b>Erin Vance</b> <span class="muted small">Treatment coordinator</span></span><span class="pill info">Visiting from Montgomery</span></div>
-      <div class="row"><span><b>Grace Holt</b> <span class="muted small">Front desk</span></span><span class="pill ok">Here</span></div>
-      <div class="row"><span><b>Isaac Marsh</b> <span class="muted small">Lab tech · floats</span></span><span class="pill info">Here AM · Andalusia PM</span></div>
-      <div class="row"><span><b>Kelsey Ray</b> <span class="muted small">Clinical assistant</span></span><span class="pill gray">PTO</span></div>
-      <div class="row"><span><b>Savannah</b> <span class="muted small">Director of Operations</span></span><span class="pill ok">Here 10–2</span></div>
-      <p class="small muted">Doctors: Dr. Wood (AM) · Dr. Turner at Montgomery today</p>
+      <h2>Who's here today <span class="hint">· from the staff schedule</span> <button class="uth" data-h="1"></button></h2>
+      <div class="ppl"><span class="av" aria-hidden="true">AN</span><span><b>Amber Nix</b><small>Clinical assistant</small></span><span class="pill ok">Here</span></div><div class="ppl"><span class="av" aria-hidden="true">CD</span><span><b>Chloe Dunn</b><small>Clinical assistant</small></span><span class="pill ok">Here</span></div><div class="ppl"><span class="av" aria-hidden="true">GH</span><span><b>Grace Holt</b><small>Front desk</small></span><span class="pill ok">Here</span></div><div class="ppl"><span class="av" aria-hidden="true">EV</span><span><b>Erin Vance</b><small>Treatment coordinator</small></span><span class="pill info">Visiting from Montgomery</span></div><div class="ppl"><span class="av" aria-hidden="true">IM</span><span><b>Isaac Marsh</b><small>Lab tech · floats</small></span><span class="pill info">Here AM · Andalusia PM</span></div><div class="ppl"><span class="av" aria-hidden="true">SV</span><span><b>Savannah</b><small>Director of Operations</small></span><span class="pill info">Here 10–2</span></div><div class="ppl out"><span class="av" aria-hidden="true">KR</span><span><b>Kelsey Ray</b><small>Clinical assistant</small></span><span class="pill gray">PTO</span></div>
+      <p class="small muted" style="margin:10px 4px 0">Doctors: Dr. Wood (AM) · Dr. Turner at Montgomery today</p>
     </div>
-    <div class="card">
-      <h2>Today's stations <span class="muted small" style="font-weight:400">· rotates weekly</span> <button class="uth" data-h="2"></button></h2>
-      <div class="grid g2" style="gap:10px">
-        <div class="card" style="padding:10px"><div class="lbl">Sterilization</div><b>Amber Nix</b><div class="small muted">Week of Oct 12 · spore test due Fri</div><a class="btn sm" href="#">Swap</a></div>
-        <div class="card" style="padding:10px"><div class="lbl">Records</div><b>Chloe Dunn</b><div class="small muted">Week of Oct 12</div><a class="btn sm" href="#">Swap</a></div>
-        <div class="card" style="padding:10px"><div class="lbl">Phones</div><b>Erin Vance</b><div class="small muted">Week of Oct 12</div><a class="btn sm" href="#">Swap</a></div>
-        <div class="card" style="padding:10px"><div class="lbl">Lab</div><b>Isaac Marsh</b><div class="small muted">AM only · covering from Andalusia PM</div><a class="btn sm" href="#">Swap</a></div>
-        <div class="card" style="padding:10px"><div class="lbl">Front desk</div><b>Grace Holt</b><div class="small muted">Fixed role · no rotation</div></div>
-        <div class="card" style="padding:10px;border-style:dashed"><div class="lbl">Open</div><b>Unassigned</b><div class="small muted">PTO coverage needed</div><a class="btn sm" href="#">Assign</a></div>
-      </div>
-      <p class="small muted">Each station opens its own checklist. Sterilization's spore test and logs feed Compliance automatically, signed by whoever held the station.</p>
-    </div>
-  </div>
-
-  <div class="grid g2" style="margin-top:14px">
-    <div class="card">
-      <h2>Opening checklist · try it <button class="uth" data-h="3"></button></h2>
-      <ul class="chk">
-        <li><input type="checkbox" id="c1" checked><label for="c1">Unlock, lights, alarm off</label><span class="by">Signed · Amber Nix · 7:31</span></li>
-        <li><input type="checkbox" id="c2" checked><label for="c2">Sterilizer cycle log</label><span class="by">Signed · Chloe Dunn · 7:40</span></li>
-        <li><input type="checkbox" id="c3" checked><label for="c3">Operatory setup, all chairs</label><span class="by">Signed · Grace Holt · 7:44</span></li>
-        <li><input type="checkbox" id="c4"><label for="c4">Confirm Q4 supply order quantities</label><span class="by">Not done</span></li>
-        <li><input type="checkbox" id="c5"><label for="c5">Fire extinguisher monthly check</label><span class="by">Not done</span></li>
-        <li><input type="checkbox" id="c6"><label for="c6">Eyewash station weekly flush</label><span class="by">Not done</span></li>
-      </ul>
-      <p class="small muted">6 more items. Anything unsigned at closing time escalates to Savannah the next morning.</p>
-    </div>
-    <div class="card">
-      <h2>Selma vs. benchmark · this month <button class="uth" data-h="4"></button></h2>
-      <div class="row"><span>New-patient exams</span><b style="color:var(--green)">92% of benchmark</b></div>
-      <div class="row"><span>Show rate</span><b style="color:var(--green)">88% of benchmark</b></div>
-      <div class="row"><span>Case starts</span><b style="color:var(--amber)">71% of benchmark</b></div>
-      <div class="row"><span>Observation recalls</span><b style="color:var(--red)">64% of benchmark</b></div>
-      <p><a href="scorecard.html">See all offices' progress to benchmark →</a></p>
+    <div class="card bm" data-for="owners ops lead">
+      <h2>Selma vs. benchmark <span class="hint">· this month</span> <button class="uth" data-h="4"></button></h2>
+      <div class="vrow"><span>New-patient exams</span><div class="vbar" role="img" aria-label="92 percent of benchmark"><i style="width:76.7%"></i><em></em></div><div class="num"><b>92%</b></div></div>
+      <div class="vrow"><span>Show rate</span><div class="vbar" role="img" aria-label="88 percent of benchmark"><i style="width:73.3%"></i><em></em></div><div class="num"><b>88%</b></div></div>
+      <div class="vrow"><span>Case starts</span><div class="vbar w" role="img" aria-label="71 percent of benchmark, watch"><i style="width:59.2%"></i><em></em></div><div class="num"><b>71%</b><span class="w">Watch</span></div></div>
+      <div class="vrow"><span>Observation recalls</span><div class="vbar b" role="img" aria-label="64 percent of benchmark, below"><i style="width:53.3%"></i><em></em></div><div class="num"><b>64%</b><span class="b">Below</span></div></div>
+      <p class="small" style="margin:10px 0 0"><a href="scorecard.html">See all offices' progress to benchmark</a></p>
     </div>
   </div>
 </div>
 <script src="assets/app.js"></script>
+<script>
+(function () {
+  var list = document.getElementById('ck'); if (!list) return;
+  var role = window.TW.role, canSign = role === 'owners' || role === 'ops' || role === 'lead';
+  var boxes = Array.prototype.slice.call(list.querySelectorAll('input'));
+  var ring = document.getElementById('odRing'), num = document.getElementById('odNum'), lede = document.getElementById('odLede');
+  if (!canSign) boxes.forEach(function (b) { b.disabled = true; });
+  function draw() {
+    var done = 0; boxes.forEach(function (b) { if (b.checked) done++; });
+    var left = 12 - done;
+    ring.setAttribute('stroke-dasharray', Math.round(226.2 * done / 12) + ' 227'); num.textContent = done + '/12';
+    lede.innerHTML = '<b>' + left + ' checklist ' + (left === 1 ? 'item' : 'items') + ' left before opening.</b> One station has nobody on it.';
+  }
+  list.addEventListener('change', draw);
+})();
+</script>
 </body>
 </html>

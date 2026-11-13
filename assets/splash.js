@@ -1,6 +1,8 @@
 /* TW Ops mockup — animated TW Orthodontics loading screen.
    The loading bar is a smile: eight crooked teeth with braces straighten as the app loads, the braces come off
    with a sparkle, and the logo forms above. Everything stays on one centre line.
+   MOCKUP ONLY: here it is a timed playback. In the real build it must show only while the app is actually
+   loading, with the teeth driven by real progress (call render() with load progress instead of the clock).
    Plays when the app is opened or refreshed, not when you move between pages inside the app.
    Tap, click or press a key to skip. ?splash replays it; ?splash=hold freezes it for screenshots. */
 (function () {
