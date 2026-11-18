@@ -175,6 +175,7 @@ td:last-child{white-space:nowrap}
 .row .cs{white-space:normal;text-align:right}
 .off{background:#fff;border-radius:20px;padding:18px 14px 16px;text-align:center;box-shadow:var(--shadow);display:block;text-decoration:none;color:inherit;transition:box-shadow .15s}
 .off:hover{box-shadow:0 10px 24px -14px rgba(45,95,119,.55)}
+.off.static{cursor:default}.off.static:hover{box-shadow:var(--shadow)}
 .ring{width:84px;height:84px;margin:0 auto 10px;position:relative}
 .ring svg{width:84px;height:84px;transform:rotate(-90deg)}
 .ring circle{fill:none;stroke-width:9;stroke-linecap:round}

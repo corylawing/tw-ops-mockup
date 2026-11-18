@@ -243,7 +243,30 @@
     setTimeout(function () { tourShow(i); }, 60);
   });
 
-  window.TW = { role: role, me: me, open: open, say: say, celebrate: celebrate, tour: tourStart, setPhoto: function (data) {
+  // Offices: one list every screen reads. Opening Wetumpka = flip open to true; it then shows up everywhere.
+  // In the real build this is the offices table; done counts come from today's checklist sign-offs.
+  var OFFICES = [
+    { name: 'Enterprise', lead: 'Marcus Pell',    title: 'Office manager', open: true, done: 6,  overdue: 4, status: 'bad',  label: 'Behind',          streak: 0 },
+    { name: 'Montgomery', lead: 'Devon Ashby',    title: 'Lead',           open: true, done: 9,  overdue: 2, status: 'warn', label: 'Needs attention', streak: 3 },
+    { name: 'Andalusia',  lead: 'Renee Calloway', title: 'Lead',           open: true, done: 11, overdue: 0, status: 'ok',   label: 'On track',        streak: 6 },
+    { name: 'Selma',      lead: 'Kara Whitfield', title: 'Lead',           open: true, done: 9,  overdue: 0, status: 'ok',   label: 'On track',        streak: 14 },
+    { name: 'Wetumpka',   open: false, opens: 'Jan 12' },
+    { name: 'Dothan',     open: false, opens: 'Mar 2' },
+    { name: 'Troy',       open: false, opens: 'May 4' }
+  ];
+  // Who can open which office's day (the map: owners and Savannah all, a lead runs their own, team their own).
+  function officesFor(r) {
+    var open = OFFICES.filter(function (o) { return o.open; });
+    if (r === 'owners' || r === 'ops' || r === 'inv') return open;
+    return open.filter(function (o) { return o.name === ROLES[r].office; });
+  }
+  function officeDone(name) {
+    var o = OFFICES.filter(function (x) { return x.name === name; })[0], v = parseInt(ss('tw_ck_' + name), 10);
+    return isNaN(v) ? (o ? o.done : 0) : v;
+  }
+
+  window.TW = { role: role, me: me, open: open, say: say, celebrate: celebrate, tour: tourStart, offices: OFFICES, officesFor: officesFor, officeDone: officeDone,
+    officeHref: function (name) { return 'huddle.html?office=' + encodeURIComponent(name); }, setPhoto: function (data) {
     photo = data || null;
     Array.prototype.forEach.call(document.querySelectorAll('.who .avatar, .mme .avatar'), function (a) { a.classList.toggle('has-photo', !!photo); a.innerHTML = photo ? '<img src="' + photo + '" alt="">' : me.ini; });
   } };

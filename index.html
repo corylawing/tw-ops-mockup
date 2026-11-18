@@ -6,9 +6,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="icon" type="image/svg+xml" href="assets/tw-mark.svg">
-<link rel="stylesheet" href="assets/styles.css?v=17">
-<script src="assets/splash.js?v=17"></script>
-<script src="assets/theme.js?v=17"></script>
+<link rel="stylesheet" href="assets/styles.css?v=18">
+<script src="assets/splash.js?v=18"></script>
+<script src="assets/theme.js?v=18"></script>
 </head>
 <body>
 <script>
@@ -41,7 +41,7 @@ window.PAGE = { id: 'command', title: 'Command Center', hood: [
   <ul class="todo" id="todo" data-for="owners ops lead">
     <li class="s-bad" data-for="owners ops"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.4v.1"/></svg></span>
       <div class="t"><b>Enterprise missed last night's closing checklist</b><span>Behind: 4 overdue tasks, the oldest is 4 days old</span></div>
-      <div class="act"><a class="more" href="huddle.html">Open office</a><button class="btn pri" type="button" data-nudge="Marcus Pell">Nudge Marcus</button><button class="uth" data-h="1"></button></div></li>
+      <div class="act"><a class="more" href="huddle.html?office=Enterprise">Open office</a><button class="btn pri" type="button" data-nudge="Marcus Pell">Nudge Marcus</button><button class="uth" data-h="1"></button></div></li>
     <li class="s-warn" data-for="owners ops"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
       <div class="t"><b>Montgomery's sterilizer spore test is 2 days late</b><span>Late: weekly compliance item, held by Devon Ashby</span></div>
       <div class="act"><a class="more" href="compliance.html">See compliance</a><button class="btn pri" type="button" data-nudge="Devon Ashby">Nudge Devon</button></div></li>
@@ -62,10 +62,10 @@ window.PAGE = { id: 'command', title: 'Command Center', hood: [
 
   <h2 class="sec"><span data-for="owners ops">Your offices</span><span data-for="lead inv team">All offices today</span> <span class="hint" data-for="owners ops">· the one that needs you comes first · tap to open its day</span> <button class="uth" data-h="2"></button></h2>
   <div class="offs">
-    <a class="off" href="huddle.html"><div class="ring r-bad"><svg viewBox="0 0 84 84" aria-hidden="true"><circle class="trk" cx="42" cy="42" r="36"/><circle class="val" cx="42" cy="42" r="36" stroke-dasharray="113 227"/></svg><b>6/12</b></div><h3>Enterprise</h3><small>Marcus Pell · Office manager</small><span class="pill bad">Behind · 4 overdue</span><div class="sk"><span class="streak none">Streak ended yesterday</span></div></a>
-    <a class="off" href="huddle.html"><div class="ring r-warn"><svg viewBox="0 0 84 84" aria-hidden="true"><circle class="trk" cx="42" cy="42" r="36"/><circle class="val" cx="42" cy="42" r="36" stroke-dasharray="170 227"/></svg><b>9/12</b></div><h3>Montgomery</h3><small>Devon Ashby · Lead</small><span class="pill warn">Needs attention · 2 overdue</span><div class="sk"><span class="streak"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c1 3.500 5 5.500 5 10a5 5 0 0 1-10 0c0-1.800.800-3 1.800-4 .200 1.600 1 2.500 2 2.800C10 9 10.500 5.500 12 3z"/></svg><span>3-day streak</span></span></div></a>
-    <a class="off" href="huddle.html"><div class="ring"><svg viewBox="0 0 84 84" aria-hidden="true"><circle class="trk" cx="42" cy="42" r="36"/><circle class="val" cx="42" cy="42" r="36" stroke-dasharray="207 227"/></svg><b>11/12</b></div><h3>Andalusia</h3><small>Renee Calloway · Lead</small><span class="pill ok">On track</span><div class="sk"><span class="streak"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c1 3.500 5 5.500 5 10a5 5 0 0 1-10 0c0-1.800.800-3 1.800-4 .200 1.600 1 2.500 2 2.800C10 9 10.500 5.500 12 3z"/></svg><span>6-day streak</span></span></div></a>
-    <a class="off" href="huddle.html"><div class="ring"><svg viewBox="0 0 84 84" aria-hidden="true"><circle class="trk" cx="42" cy="42" r="36"/><circle class="val" id="selRing" cx="42" cy="42" r="36" stroke-dasharray="170 227"/></svg><b id="selNum">9/12</b></div><h3>Selma</h3><small>Kara Whitfield · Lead</small><span class="pill ok">On track</span><div class="sk"><span class="streak"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c1 3.500 5 5.500 5 10a5 5 0 0 1-10 0c0-1.800.800-3 1.800-4 .200 1.600 1 2.500 2 2.800C10 9 10.500 5.500 12 3z"/></svg><span id="selStreak">14-day streak</span></span></div></a>
+    <a class="off" href="huddle.html?office=Enterprise" data-oc="Enterprise"><div class="ring r-bad"><svg viewBox="0 0 84 84" aria-hidden="true"><circle class="trk" cx="42" cy="42" r="36"/><circle class="val" cx="42" cy="42" r="36" stroke-dasharray="113 227"/></svg><b>6/12</b></div><h3>Enterprise</h3><small>Marcus Pell · Office manager</small><span class="pill bad">Behind · 4 overdue</span><div class="sk"><span class="streak none">Streak ended yesterday</span></div></a>
+    <a class="off" href="huddle.html?office=Montgomery" data-oc="Montgomery"><div class="ring r-warn"><svg viewBox="0 0 84 84" aria-hidden="true"><circle class="trk" cx="42" cy="42" r="36"/><circle class="val" cx="42" cy="42" r="36" stroke-dasharray="170 227"/></svg><b>9/12</b></div><h3>Montgomery</h3><small>Devon Ashby · Lead</small><span class="pill warn">Needs attention · 2 overdue</span><div class="sk"><span class="streak"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c1 3.500 5 5.500 5 10a5 5 0 0 1-10 0c0-1.800.800-3 1.800-4 .200 1.600 1 2.500 2 2.800C10 9 10.500 5.500 12 3z"/></svg><span>3-day streak</span></span></div></a>
+    <a class="off" href="huddle.html?office=Andalusia" data-oc="Andalusia"><div class="ring"><svg viewBox="0 0 84 84" aria-hidden="true"><circle class="trk" cx="42" cy="42" r="36"/><circle class="val" cx="42" cy="42" r="36" stroke-dasharray="207 227"/></svg><b>11/12</b></div><h3>Andalusia</h3><small>Renee Calloway · Lead</small><span class="pill ok">On track</span><div class="sk"><span class="streak"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c1 3.500 5 5.500 5 10a5 5 0 0 1-10 0c0-1.800.800-3 1.800-4 .200 1.600 1 2.500 2 2.800C10 9 10.500 5.500 12 3z"/></svg><span>6-day streak</span></span></div></a>
+    <a class="off" href="huddle.html?office=Selma" data-oc="Selma"><div class="ring"><svg viewBox="0 0 84 84" aria-hidden="true"><circle class="trk" cx="42" cy="42" r="36"/><circle class="val" id="selRing" cx="42" cy="42" r="36" stroke-dasharray="170 227"/></svg><b id="selNum">9/12</b></div><h3>Selma</h3><small>Kara Whitfield · Lead</small><span class="pill ok">On track</span><div class="sk"><span class="streak"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c1 3.500 5 5.500 5 10a5 5 0 0 1-10 0c0-1.800.800-3 1.800-4 .200 1.600 1 2.500 2 2.800C10 9 10.500 5.500 12 3z"/></svg><span id="selStreak">14-day streak</span></span></div></a>
   </div>
   <p class="small muted" style="margin:8px 4px 0">The ring is today's opening checklist. A streak counts the days in a row an office signed off every checklist.</p>
 
@@ -91,15 +91,22 @@ window.PAGE = { id: 'command', title: 'Command Center', hood: [
       <p class="small muted">Exams, shows and starts come from Cloud 9 and OrthoAI overnight. Counts only.</p></div>
   </div>
 </div>
-<script src="assets/app.js?v=17"></script>
+<script src="assets/app.js?v=18"></script>
 <script>
 (function () {
   var list = document.getElementById('todo'), lede = document.getElementById('lede'), clear = document.getElementById('clear'), role = window.TW.role;
   // One database: what the Selma lead signs on Office day shows up here.
-  var ck = 9; try { ck = parseInt(sessionStorage.getItem('tw_selma_ck'), 10) || 9; } catch (e) {}
-  document.getElementById('selRing').setAttribute('stroke-dasharray', Math.round(226.2 * ck / 12) + ' 227'); document.getElementById('selNum').textContent = ck + '/12';
-  var chip = document.querySelector('.chips .chip b'); if (chip) chip.textContent = (41 + ck - 9) + '/56';
-  var sk = document.getElementById('selStreak'); if (sk && ck === 12) sk.textContent = '15-day streak';
+  // One database: what an office signs on Office day shows up here. Cards open that office's day,
+  // or stay plain for a role that cannot open it (an office lead runs their own office only).
+  var can = window.TW.officesFor(role).map(function (o) { return o.name; }), extra = 0;
+  Array.prototype.forEach.call(document.querySelectorAll('[data-oc]'), function (card) {
+    var name = card.getAttribute('data-oc'), o = window.TW.offices.filter(function (x) { return x.name === name; })[0], ck = window.TW.officeDone(name);
+    extra += ck - o.done;
+    card.querySelector('.val').setAttribute('stroke-dasharray', Math.round(226.2 * ck / 12) + ' 227'); card.querySelector('.ring b').textContent = ck + '/12';
+    var sk = card.querySelector('.streak span'); if (sk && ck === 12 && o.streak) sk.textContent = (o.streak + 1) + '-day streak';
+    if (can.indexOf(name) < 0) { card.removeAttribute('href'); card.classList.add('static'); }
+  });
+  var chip = document.querySelector('.chips .chip b'); if (chip) chip.textContent = (41 + extra) + '/56';
   var hi = document.querySelector('.pagehead.hero h1'), nm = window.TW.me.name;
   if (hi) hi.textContent = 'Good morning, ' + (nm.indexOf('Dr.') === 0 ? nm : nm.split(' ')[0]);
   function count() {

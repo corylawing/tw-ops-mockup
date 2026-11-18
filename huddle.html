@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>TW Ops · Selma office day (mockup)</title>
+<title>TW Ops · Office day (mockup)</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="icon" type="image/svg+xml" href="assets/tw-mark.svg">
-<link rel="stylesheet" href="assets/styles.css?v=17">
-<script src="assets/splash.js?v=17"></script>
-<script src="assets/theme.js?v=17"></script>
+<link rel="stylesheet" href="assets/styles.css?v=18">
+<script src="assets/splash.js?v=18"></script>
+<script src="assets/theme.js?v=18"></script>
 <style>
 .hero .ringbox{display:flex;align-items:center;gap:14px}
 .hero .ring{width:92px;height:92px;margin:0;flex:none}
@@ -59,9 +59,6 @@
 .hd-l{font-size:14.5px;font-weight:600;color:var(--brand)}
 .hd-m{grid-column:1/-1;font-family:var(--title);font-weight:700;font-size:18px;line-height:1.25;margin:12px 0 0;text-wrap:balance}
 .hd-s{grid-column:1/-1;font-size:13.5px;color:var(--muted);margin-top:8px}
-.hero .ring.done .val{stroke:#fff}
-.hero .ring.done b{font-size:0}
-.hero .ring.done b::after{content:"";width:34px;height:34px;background:no-repeat center/contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.500l4.500 4.500L19 7.500'/%3E%3C/svg%3E")}
 .pres{position:fixed;inset:0;z-index:100;background:linear-gradient(135deg,var(--brand-deep,#244e63) 0%,var(--brand) 50%,var(--brand-mid) 100%);color:#fff;display:none;flex-direction:column;padding:clamp(16px,3vw,36px)}
 .pres.open{display:flex}
 .pres-top{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:clamp(14px,1.6vw,20px);font-weight:600}
@@ -95,41 +92,61 @@
 .bm .vbar i{position:absolute;left:0;top:0;bottom:0}
 .bm .vbar.b i{background:var(--red)}
 .bm .num span.b{color:var(--red);font-weight:600}
+.hero .ring svg.okmark{position:absolute;inset:0;margin:auto;width:38px;height:38px;transform:none;fill:none;stroke:#fff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;opacity:0;transition:opacity .2s}
+.hero .ring.done svg.okmark{opacity:1}
+.hero .ring.done b{opacity:0}
+.odnav{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 12px;margin:0 0 12px}
+.odnav[hidden]{display:none}
+.odback{display:inline-flex;align-items:center;gap:2px;color:var(--brand);font-weight:600;font-size:15px;text-decoration:none;min-height:44px;padding:0 12px 0 4px;border-radius:999px}
+.odback:hover{background:var(--brand-soft)}
+.odnav svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.odsel{display:inline-flex;align-items:center;gap:8px;max-width:100%;margin-left:auto}
+.odl{font-size:14.5px;font-weight:600;color:var(--muted)}
+.odw{position:relative;display:inline-flex;align-items:center;min-width:0}
+.odsel select{appearance:none;-webkit-appearance:none;font:inherit;font-weight:600;font-size:15px;color:var(--ink);background:#fff;border:2px solid var(--btn-line,#cfdde4);border-radius:999px;min-height:46px;padding:0 42px 0 16px;cursor:pointer;max-width:100%}
+.odsel select:hover{border-color:var(--brand-bright)}
+.odsel select:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
+.odw svg{position:absolute;right:14px;pointer-events:none;color:var(--brand)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 </style>
-</head>
 <body>
 <script>
-window.PAGE = { id: 'huddle', title: 'Office day · Selma', hood: [
+window.PAGE = { id: 'huddle', title: 'Office day', hood: [
   { what: 'Morning huddle content', how: 'Core value, PSA, icebreaker and celebrations come from a huddle content library table (moved in from Netlify) plus two live lookups: calendar reminders due this week and birthdays or anniversaries pulled from People. Same huddle on every office screen at 7:45.', svc: ['db','vault'] },
   { what: 'Who\'s here today', how: 'The staff schedule is one table: person, office, date, AM/PM. "Visiting from Montgomery" and "PTO" are rows in that table, which is why the Command Center, this screen and the brief agree.', svc: ['db'] },
   { what: 'Station rotation', how: 'Stations rotate weekly from a rule: only people cross-trained for a station are offered. A "Swap" writes a new assignment row and the audit log keeps the old one. Each station opens its own checklist; the sterilization log feeds Compliance automatically, signed by whoever held the station.', svc: ['db','auth'] },
   { what: 'Opening checklist', how: 'Try ticking one. In the real build each tick is a database row with the signed-in person\'s name and the time, written through the role check (a Selma account cannot sign an Enterprise item). If the closing checklist is not complete by the cut-off, the night shift job escalates it.', svc: ['db','auth','job'] },
-  { what: 'Selma vs. benchmark', how: 'Exams, show rate, starts and recalls are counts from Cloud 9 and OrthoAI, pulled nightly, scaled to office size and compared to each office\'s own yearly average. An office lead sees their own office in detail and every office\'s progress to benchmark; owners and Savannah see all.', svc: ['job','ext','db','auth'] },
+  { what: 'Office vs. benchmark', how: 'Exams, show rate, starts and recalls are counts from Cloud 9 and OrthoAI, pulled nightly, scaled to office size and compared to each office\'s own yearly average. An office lead sees their own office in detail and every office\'s progress to benchmark; owners and Savannah see all.', svc: ['job','ext','db','auth'] },
   { what: 'Present full screen', how: 'The same page in a kiosk layout for the office touch screen. Signed in once with an office account that can only sign checklists and view the huddle.', svc: ['auth'] },
-  { what: 'Streaks', how: 'A streak counts the days in a row on which an office signed off every opening and closing checklist. The night shift job works it out from the sign-off rows, so nobody keeps score by hand.', svc: ['job','db'] }
+  { what: 'Streaks', how: 'A streak counts the days in a row on which an office signed off every opening and closing checklist. The night shift job works it out from the sign-off rows, so nobody keeps score by hand.', svc: ['job','db'] },
+  { what: 'Switching offices', how: 'The office list comes from the offices table, worst first, and the role check decides who sees it: owners, Savannah and the inventory coordinator can open any office; an office lead and the team see their own. Opening Wetumpka adds one row, and it appears here and on the Command Center with no other change. The address keeps the office (?office=Enterprise), so a link from the brief or a nudge opens the right day.', svc: ['db','auth'] }
 ]};
 </script>
 <div class="wrap">
+  <div class="odnav" id="odNav" hidden>
+    <a class="odback" href="index.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>Command Center</a>
+    <label class="odsel"><span class="odl">Office</span><span class="odw"><select id="odSel"></select><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></span></label>
+    <button class="uth" data-h="7"></button>
+  </div>
   <div class="pagehead hero">
-    <div><div class="lbl">Selma office · Wednesday, October 14</div>
-      <h1 data-for="lead">Good morning, Kara</h1><h1 data-for="team">Good morning, Jordan</h1><h1 data-for="owners ops inv">Selma office day</h1>
-      <p class="lede" id="odLede" aria-live="polite"><b>3 checklist items left before opening.</b> One station has nobody on it.</p>
-      <p style="margin:10px 0 0"><span class="streak" id="odStreak"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c1 3.500 5 5.500 5 10a5 5 0 0 1-10 0c0-1.800.800-3 1.800-4 .200 1.600 1 2.500 2 2.800C10 9 10.500 5.500 12 3z"/></svg><span>14 days in a row</span></span> <button class="uth" data-h="6"></button></p></div>
-    <div class="ringbox"><div class="ring"><svg viewBox="0 0 84 84" aria-hidden="true"><circle class="trk" cx="42" cy="42" r="36"/><circle class="val" id="odRing" cx="42" cy="42" r="36" stroke-dasharray="170 227"/></svg><b id="odNum">9/12</b></div>
+    <div>
+      <div class="lbl" id="odLbl">Selma office · Wednesday, October 14</div>
+      <h1 id="odH1">Selma office day</h1>
+      <p class="lede" id="odLede" aria-live="polite"></p>
+      <p style="margin:10px 0 0"><span class="streak" id="odStreak"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c1 3.500 5 5.500 5 10a5 5 0 0 1-10 0c0-1.800.800-3 1.800-4 .200 1.600 1 2.500 2 2.800C10 9 10.500 5.500 12 3z"/></svg><span></span></span> <button class="uth" data-h="6"></button></p></div>
+    <div class="ringbox"><div class="ring" id="odRingBox"><svg viewBox="0 0 84 84" aria-hidden="true"><circle class="trk" cx="42" cy="42" r="36"/><circle class="val" id="odRing" cx="42" cy="42" r="36" stroke-dasharray="0 227"/></svg><b id="odNum">0/12</b><svg class="okmark" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12.300l4 4L18 8.300"/></svg></div>
       <div class="acts"><button class="btn sm" type="button" id="presentBtn">Present full screen</button> <a class="btn sm" href="calendar.html">Calendar</a></div> <button class="uth" data-h="5"></button></div>
   </div>
 
   <div class="od">
     <div class="card">
       <h2>Opening checklist <span class="hint">· what is left comes first</span> <button class="uth" data-h="3"></button></h2>
-      <ul class="ck" id="ck"><li><label for="c4"><input type="checkbox" id="c4"><span class="box"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg></span><span class="tx"><b>Confirm Q4 supply order quantities</b><small class="by">Not done</small></span><span class="ckw">Lead</span></label></li><li><label for="c5"><input type="checkbox" id="c5"><span class="box"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg></span><span class="tx"><b>Fire extinguisher monthly check</b><small class="by">Not done</small></span><span class="ckw">Lead</span></label></li><li><label for="c6"><input type="checkbox" id="c6"><span class="box"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg></span><span class="tx"><b>Eyewash station weekly flush</b><small class="by">Not done</small></span><span class="ckw">Sterilization</span></label></li><li><label for="c1"><input type="checkbox" id="c1" checked><span class="box"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg></span><span class="tx"><b>Unlock, lights, alarm off</b><small class="by">Signed · Amber Nix · 7:31</small></span><span class="ckw">Lead</span></label></li><li><label for="c2"><input type="checkbox" id="c2" checked><span class="box"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg></span><span class="tx"><b>Sterilizer cycle log</b><small class="by">Signed · Chloe Dunn · 7:40</small></span><span class="ckw">Sterilization</span></label></li><li><label for="c3"><input type="checkbox" id="c3" checked><span class="box"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg></span><span class="tx"><b>Operatory setup, all chairs</b><small class="by">Signed · Grace Holt · 7:44</small></span><span class="ckw">Lead</span></label></li></ul>
-      <p class="small muted" style="margin:10px 4px 0" data-for="owners ops lead">6 more were signed earlier. Tap an item to sign it off. Anything unsigned at closing time escalates to Savannah the next morning.</p>
-      <p class="small muted" style="margin:10px 4px 0" data-for="team inv">6 more were signed earlier. Your lead and the station holders sign these off.</p>
+      <ul class="ck" id="ck"></ul>
+      <p class="small muted" style="margin:10px 4px 0" id="ckNote"></p>
     </div>
     <div class="card">
       <h2>Today's stations <span class="hint">· rotates weekly</span> <button class="uth" data-h="2"></button></h2>
-      <div class="stn open"><span class="av" aria-hidden="true">?</span><span><b>Open station · unassigned</b><small>PTO coverage needed</small></span><a class="btn sm pri" href="#" data-for="ops lead">Assign</a></div>
-      <div class="stn"><span class="av" aria-hidden="true">AN</span><span><b>Sterilization · Amber Nix</b><small>Week of Oct 12 · spore test due Fri</small></span><a class="btn sm" href="#" data-for="ops lead">Swap</a></div><div class="stn"><span class="av" aria-hidden="true">CD</span><span><b>Records · Chloe Dunn</b><small>Week of Oct 12</small></span><a class="btn sm" href="#" data-for="ops lead">Swap</a></div><div class="stn"><span class="av" aria-hidden="true">EV</span><span><b>Phones · Erin Vance</b><small>Week of Oct 12</small></span><a class="btn sm" href="#" data-for="ops lead">Swap</a></div><div class="stn"><span class="av" aria-hidden="true">IM</span><span><b>Lab · Isaac Marsh</b><small>AM only · covering from Andalusia PM</small></span><a class="btn sm" href="#" data-for="ops lead">Swap</a></div><div class="stn"><span class="av" aria-hidden="true">GH</span><span><b>Front desk · Grace Holt</b><small>Fixed role · no rotation</small></span><span></span></div>
+      <div id="stns"></div>
       <p class="small muted" style="margin:10px 4px 0">Only cross-trained people are offered. Each station opens its own checklist, and Sterilization's logs feed Compliance automatically.</p>
     </div>
   </div>
@@ -150,62 +167,148 @@ window.PAGE = { id: 'huddle', title: 'Office day · Selma', hood: [
   <div class="od" style="margin-top:12px">
     <div class="card">
       <h2>Who's here today <span class="hint">· from the staff schedule</span> <button class="uth" data-h="1"></button></h2>
-      <div class="ppl"><span class="av" aria-hidden="true">AN</span><span><b>Amber Nix</b><small>Clinical assistant</small></span><span class="pill ok">Here</span></div><div class="ppl"><span class="av" aria-hidden="true">CD</span><span><b>Chloe Dunn</b><small>Clinical assistant</small></span><span class="pill ok">Here</span></div><div class="ppl"><span class="av" aria-hidden="true">GH</span><span><b>Grace Holt</b><small>Front desk</small></span><span class="pill ok">Here</span></div><div class="ppl"><span class="av" aria-hidden="true">EV</span><span><b>Erin Vance</b><small>Treatment coordinator</small></span><span class="pill info">Visiting from Montgomery</span></div><div class="ppl"><span class="av" aria-hidden="true">IM</span><span><b>Isaac Marsh</b><small>Lab tech · floats</small></span><span class="pill info">Here AM · Andalusia PM</span></div><div class="ppl"><span class="av" aria-hidden="true">SV</span><span><b>Savannah</b><small>Director of Operations</small></span><span class="pill info">Here 10–2</span></div><div class="ppl out"><span class="av" aria-hidden="true">KR</span><span><b>Kelsey Ray</b><small>Clinical assistant</small></span><span class="pill gray">PTO</span></div>
-      <p class="small muted" style="margin:10px 4px 0">Doctors: Dr. Wood (AM) · Dr. Turner at Montgomery today</p>
+      <div id="ppl"></div>
+      <p class="small muted" style="margin:10px 4px 0" id="docs"></p>
     </div>
     <div class="card bm" data-for="owners ops lead">
-      <h2>Selma vs. benchmark <span class="hint">· this month</span> <button class="uth" data-h="4"></button></h2>
-      <div class="vrow"><span>New-patient exams</span><div class="vbar" role="img" aria-label="92 percent of benchmark"><i style="width:76.7%"></i><em></em></div><div class="num"><b>92%</b></div></div>
-      <div class="vrow"><span>Show rate</span><div class="vbar" role="img" aria-label="88 percent of benchmark"><i style="width:73.3%"></i><em></em></div><div class="num"><b>88%</b></div></div>
-      <div class="vrow"><span>Case starts</span><div class="vbar w" role="img" aria-label="71 percent of benchmark, watch"><i style="width:59.2%"></i><em></em></div><div class="num"><b>71%</b><span class="w">Watch</span></div></div>
-      <div class="vrow"><span>Observation recalls</span><div class="vbar b" role="img" aria-label="64 percent of benchmark, below"><i style="width:53.3%"></i><em></em></div><div class="num"><b>64%</b><span class="b">Below</span></div></div>
+      <h2><span id="bmH">Selma</span> vs. benchmark <span class="hint">· this month</span> <button class="uth" data-h="4"></button></h2>
+      <div id="bm"></div>
       <p class="small" style="margin:10px 0 0"><a href="scorecard.html">See all offices' progress to benchmark</a></p>
     </div>
   </div>
 </div>
-<script src="assets/app.js?v=17"></script>
+<script src="assets/app.js?v=18"></script>
 <script>
 (function () {
-  var list = document.getElementById('ck'); if (!list) return;
-  var role = window.TW.role, canSign = role === 'owners' || role === 'ops' || role === 'lead';
-  var boxes = Array.prototype.slice.call(list.querySelectorAll('input'));
-  var ring = document.getElementById('odRing'), num = document.getElementById('odNum'), lede = document.getElementById('odLede');
-  if (!canSign) boxes.forEach(function (b) { b.disabled = true; });
-  var streak = document.getElementById('odStreak').querySelector('span'), ringBox = ring.closest('.ring'), wasDone = false;
-  function count() { var done = 6; boxes.forEach(function (b) { if (b.checked) done++; }); return done; }   // 6 earlier items are already signed
+  var TW = window.TW, role = TW.role;
+  // ---- sample data per office (invented names; counts only, no patients) ----
+  var ITEMS = [['Unlock, lights, alarm off', 'Lead'], ['Sterilizer cycle log', 'Sterilization'], ['Operatory setup, all chairs', 'Lead'],
+               ['Confirm Q4 supply order quantities', 'Lead'], ['Fire extinguisher monthly check', 'Lead'], ['Eyewash station weekly flush', 'Sterilization']];
+  var D = {
+    Selma: { signed: [['Amber Nix', '7:31'], ['Chloe Dunn', '7:40'], ['Grace Holt', '7:44']], note: 'One station has nobody on it.',
+      stns: [['Open station', '', 'PTO coverage needed', 1], ['Sterilization', 'Amber Nix', 'Week of Oct 12 · spore test due Fri'], ['Records', 'Chloe Dunn', 'Week of Oct 12'], ['Phones', 'Erin Vance', 'Week of Oct 12'], ['Lab', 'Isaac Marsh', 'AM only · covering from Andalusia PM'], ['Front desk', 'Grace Holt', 'Fixed role · no rotation', 2]],
+      ppl: [['Amber Nix', 'Clinical assistant', 'ok', 'Here'], ['Chloe Dunn', 'Clinical assistant', 'ok', 'Here'], ['Grace Holt', 'Front desk', 'ok', 'Here'], ['Erin Vance', 'Treatment coordinator', 'info', 'Visiting from Montgomery'], ['Isaac Marsh', 'Lab tech · floats', 'info', 'Here AM · Andalusia PM'], ['Savannah', 'Director of Operations', 'info', 'Here 10–2'], ['Kelsey Ray', 'Clinical assistant', 'gray', 'PTO']],
+      docs: 'Dr. Wood (AM) · Dr. Turner at Montgomery today', bm: [92, 88, 71, 64] },
+    Montgomery: { signed: [['Paige Lorne', '7:28'], ['Hannah Pruitt', '7:35'], ['Leah Cobb', '7:41']], note: 'The sterilizer spore test is 2 days late.',
+      stns: [['Sterilization', 'Hannah Pruitt', 'Week of Oct 12 · spore test 2 days late'], ['Records', 'Leah Cobb', 'Week of Oct 12'], ['Phones', 'Sam Ortiz', 'Week of Oct 12'], ['Lab', 'Paige Lorne', 'Week of Oct 12'], ['Front desk', 'Nora Pike', 'Fixed role · no rotation', 2]],
+      ppl: [['Devon Ashby', 'Office lead', 'ok', 'Here'], ['Hannah Pruitt', 'Clinical assistant', 'ok', 'Here'], ['Leah Cobb', 'Clinical assistant', 'ok', 'Here'], ['Paige Lorne', 'Clinical assistant', 'ok', 'Here'], ['Sam Ortiz', 'Patient coordinator', 'ok', 'Here'], ['Nora Pike', 'Front desk', 'ok', 'Here'], ['Erin Vance', 'Treatment coordinator', 'info', 'At Selma today']],
+      docs: 'Dr. Turner here today', bm: [104, 91, 97, 88] },
+    Andalusia: { signed: [['Renee Calloway', '7:25'], ['Tyler Boone', '7:33'], ['Mia Faulk', '7:38'], ['Renee Calloway', '7:46'], ['Cole Harmon', '7:50']], note: '',
+      stns: [['Sterilization', 'Tyler Boone', 'Week of Oct 12 · spore test due Fri'], ['Records', 'Mia Faulk', 'Week of Oct 12'], ['Phones', 'Cole Harmon', 'Week of Oct 12'], ['Lab', 'Isaac Marsh', 'PM only · at Selma AM'], ['Front desk', 'June Avery', 'Fixed role · no rotation', 2]],
+      ppl: [['Renee Calloway', 'Office lead', 'ok', 'Here'], ['Tyler Boone', 'Clinical assistant', 'ok', 'Here'], ['Mia Faulk', 'Clinical assistant', 'ok', 'Here'], ['Cole Harmon', 'Patient coordinator', 'ok', 'Here'], ['June Avery', 'Front desk', 'ok', 'Here'], ['Isaac Marsh', 'Lab tech · floats', 'info', 'Here PM · Selma AM']],
+      docs: 'Dr. Wood (PM)', bm: [98, 95, 102, 90] },
+    Enterprise: { signed: [], note: 'Yesterday\'s closing checklist was missed, and 4 tasks are overdue.',
+      stns: [['Sterilization', 'Brooke Tate', 'Week of Oct 12 · spore test due Fri'], ['Records', 'Dana Shirley', 'Week of Oct 12'], ['Phones', 'Ryan Kemp', 'Week of Oct 12'], ['Lab', 'Jess Moody', 'Week of Oct 12'], ['Front desk', 'Lane Porter', 'Fixed role · no rotation', 2]],
+      ppl: [['Marcus Pell', 'Office manager', 'ok', 'Here'], ['Brooke Tate', 'Clinical assistant', 'ok', 'Here'], ['Dana Shirley', 'Clinical assistant', 'ok', 'Here'], ['Ryan Kemp', 'Patient coordinator', 'ok', 'Here'], ['Jess Moody', 'Lab tech', 'ok', 'Here'], ['Lane Porter', 'Front desk', 'ok', 'Here'], ['Tasha Greer', 'Inventory coordinator', 'ok', 'Here']],
+      docs: 'No doctor in today', bm: [81, 86, 66, 79] }
+  };
+  var BMN = ['New-patient exams', 'Show rate', 'Case starts', 'Observation recalls'];
+  var TICK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg>';
+  function ini(n) { return n.split(' ').map(function (w) { return w[0]; }).join('').slice(0, 2).toUpperCase(); }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+
+  // ---- which office: the address, then the last one opened, then the one that needs you most ----
+  var allowed = TW.officesFor(role), names = allowed.map(function (o) { return o.name; });
+  var q = new URLSearchParams(location.search).get('office'), last = null;
+  try { last = sessionStorage.getItem('tw_office'); } catch (e) {}
+  var cur = names.indexOf(q) > -1 ? q : names.indexOf(last) > -1 ? last : names[0];
+  var asked = q && q !== cur ? q : null;   // asked for an office this role cannot open
+
+  var nav = document.getElementById('odNav'), sel = document.getElementById('odSel');
+  var many = allowed.length > 1;
+  if (many) {
+    nav.hidden = false;
+    sel.innerHTML = allowed.map(function (o) { return '<option value="' + esc(o.name) + '">' + esc(o.name) + ' · ' + esc(o.label) + '</option>'; }).join('');
+    sel.addEventListener('change', function () { show(sel.value, true); });
+  } else if (role === 'inv' || role === 'team' || role === 'lead') { nav.hidden = true; }
+  if (asked) TW.say('You can open your own office\'s day. Showing ' + cur + '.');
+
+  var list = document.getElementById('ck'), ring = document.getElementById('odRing'), ringBox = document.getElementById('odRingBox'), num = document.getElementById('odNum');
+  var lede = document.getElementById('odLede'), streakEl = document.getElementById('odStreak'), streak = streakEl.querySelector('span');
+  var O = null, d = null, wasDone = false, canSign = false;
+
+  function officeOf(n) { return allowed.filter(function (o) { return o.name === n; })[0]; }
+  function count() { var n = 6; Array.prototype.forEach.call(list.querySelectorAll('input'), function (b) { if (b.checked) n++; }); return n; }   // 6 earlier items are already signed
+  function streakText(all) {
+    var n = O.streak + (all ? 1 : 0);
+    if (n === 0) return 'Streak ended yesterday';
+    return n + (n === 1 ? ' day' : ' days') + ' in a row';
+  }
   function draw() {
     var done = count(), left = 12 - done, all = left === 0;
     ring.setAttribute('stroke-dasharray', Math.round(226.2 * done / 12) + ' 227'); num.textContent = done + '/12';
     ringBox.classList.toggle('done', all);
-    lede.innerHTML = all ? '<b>All 12 signed. Selma is ready to open.</b> That makes 15 days in a row.' : '<b>' + left + ' checklist ' + (left === 1 ? 'item' : 'items') + ' left before opening.</b> One station has nobody on it.';
-    streak.textContent = all ? '15 days in a row' : '14 days in a row';
-    try { sessionStorage.setItem('tw_selma_ck', String(done)); } catch (e) {}
-    if (all && !wasDone) window.TW.celebrate(ringBox);
+    lede.innerHTML = all ? '<b>All 12 signed. ' + esc(O.name) + ' is ready to open.</b> ' + (O.streak ? 'That makes ' + (O.streak + 1) + ' days in a row.' : 'A fresh streak starts today.')
+      : '<b>' + left + ' checklist ' + (left === 1 ? 'item' : 'items') + ' left before opening.</b> ' + esc(d.note);
+    streak.textContent = streakText(all); streakEl.classList.toggle('none', O.streak === 0 && !all);
+    try { sessionStorage.setItem('tw_ck_' + O.name, String(done)); } catch (e) {}
+    if (all && !wasDone) TW.celebrate(ringBox);
     wasDone = all;
   }
-  // pick up where this visit left off, so the Command Center and this screen agree
-  try { var prev = parseInt(sessionStorage.getItem('tw_selma_ck'), 10); if (prev > 9) boxes.filter(function (b) { return !b.checked; }).slice(0, prev - 9).forEach(function (b) { b.checked = true; var by = b.closest('li').querySelector('.by'); if (by) by.textContent = 'Signed earlier today'; }); } catch (e) {}
-  wasDone = count() === 12; draw();
-  list.addEventListener('change', draw);
+  function show(name, user) {
+    O = officeOf(name); d = D[name]; cur = name;
+    canSign = role === 'owners' || role === 'ops' || (role === 'lead' && TW.me.office === name);
+    try { sessionStorage.setItem('tw_office', name); } catch (e) {}
+    if (many) sel.value = name;
+    history.replaceState(null, '', TW.officeHref(name));   // the address always names the office on screen
+    document.title = 'TW Ops · ' + name + ' office day (mockup)';
+    var own = (role === 'lead' || role === 'team') && TW.me.office === name;
+    document.getElementById('odLbl').textContent = (own ? name + ' office · ' : '') + 'Wednesday, October 14';
+    document.getElementById('odH1').textContent = own ? 'Good morning, ' + TW.me.name.split(' ')[0] : name + ' office day';
+    var bmH = document.getElementById('bmH'); if (bmH) bmH.textContent = name;   // the benchmark card is hidden for team and inventory
+
+    // checklist: what is left first, then what is signed
+    var saved = NaN; try { saved = parseInt(sessionStorage.getItem('tw_ck_' + name), 10); } catch (e) {}
+    var visDone = (isNaN(saved) ? O.done : saved) - 6, rows = ITEMS.map(function (it, i) { return { t: it[0], w: it[1], s: i < visDone ? (d.signed[i] || ['Signed earlier today']) : null }; });
+    rows.sort(function (a, b) { return (a.s ? 1 : 0) - (b.s ? 1 : 0); });
+    list.innerHTML = rows.map(function (r, i) {
+      var id = 'c' + i, by = r.s ? (r.s.length > 1 ? 'Signed · ' + esc(r.s[0]) + ' · ' + r.s[1] : r.s[0]) : 'Not done';
+      return '<li><label for="' + id + '"><input type="checkbox" id="' + id + '"' + (r.s ? ' checked' : '') + (canSign ? '' : ' disabled') + '><span class="box">' + TICK + '</span><span class="tx"><b>' + esc(r.t) + '</b><small class="by">' + by + '</small></span><span class="ckw">' + esc(r.w) + '</span></label></li>';
+    }).join('');
+    document.getElementById('ckNote').textContent = '6 more were signed earlier. ' + (canSign ? 'Tap an item to sign it off. Anything unsigned at closing time escalates to Savannah the next morning.' : 'The office lead and the station holders sign these off.');
+
+    var canSwap = role === 'ops' || (role === 'lead' && TW.me.office === name);
+    document.getElementById('stns').innerHTML = d.stns.map(function (s) {
+      var open = s[3] === 1, fixed = s[3] === 2;
+      var act = open ? (canSwap ? '<a class="btn sm pri" href="#">Assign</a>' : '<span></span>') : fixed || !canSwap ? '<span></span>' : '<a class="btn sm" href="#">Swap</a>';
+      return '<div class="stn' + (open ? ' open' : '') + '"><span class="av" aria-hidden="true">' + (open ? '?' : ini(s[1])) + '</span><span><b>' + esc(s[0]) + (open ? ' · unassigned' : ' · ' + esc(s[1])) + '</b><small>' + esc(s[2]) + '</small></span>' + act + '</div>';
+    }).join('');
+    document.getElementById('ppl').innerHTML = d.ppl.map(function (p) {
+      return '<div class="ppl' + (p[2] === 'gray' ? ' out' : '') + '"><span class="av" aria-hidden="true">' + ini(p[0]) + '</span><span><b>' + esc(p[0]) + '</b><small>' + esc(p[1]) + '</small></span><span class="pill ' + p[2] + '">' + esc(p[3]) + '</span></div>';
+    }).join('');
+    document.getElementById('docs').textContent = 'Doctors: ' + d.docs;
+    var bmEl = document.getElementById('bm'); if (bmEl) bmEl.innerHTML = d.bm.map(function (v, i) {
+      var k = v < 70 ? 'b' : v < 85 ? 'w' : '', word = k === 'b' ? 'Below' : k === 'w' ? 'Watch' : '';
+      return '<div class="vrow"><span>' + BMN[i] + '</span><div class="vbar ' + k + '" role="img" aria-label="' + v + ' percent of benchmark' + (word ? ', ' + word.toLowerCase() : '') + '"><i style="width:' + Math.min(100, v / 1.2).toFixed(1) + '%"></i><em></em></div><div class="num"><b>' + v + '%</b>' + (word ? '<span class="' + k + '">' + word + '</span>' : '') + '</div></div>';
+    }).join('');
+
+    wasDone = count() === 12; draw();
+  }
+  list.addEventListener('change', function (e) {
+    if (!e.target.matches('input')) return;
+    var by = e.target.closest('li').querySelector('.by'); if (by) by.textContent = e.target.checked ? 'Signed · ' + TW.me.name + ' · just now' : 'Not done';
+    draw();
+  });
+  show(cur, false);
 
   // ---- Present full screen: the 7:45 huddle on the office screen ----
   var IC = { sun: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.900 4.900l1.400 1.400M17.700 17.700l1.400 1.400M4.900 19.100l1.400-1.400M17.700 6.300l1.400-1.400"/></svg>',
     heart: '<svg viewBox="0 0 24 24"><path d="M12 20s-7-4.400-7-10a4 4 0 0 1 7-2.600A4 4 0 0 1 19 10c0 5.600-7 10-7 10z"/></svg>',
     horn: '<svg viewBox="0 0 24 24"><path d="M4 10v4h3l6 4V6l-6 4H4z"/><path d="M17 9a4 4 0 0 1 0 6"/></svg>',
     chat: '<svg viewBox="0 0 24 24"><path d="M5 5h14a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-7l-4 3.500V16H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"/></svg>',
-    cake: '<svg viewBox="0 0 24 24"><path d="M5 20h14v-7H5zM5 16c2.300 0 2.300-1.500 4.700-1.500S12 16 14.300 16s2.300-1.500 4.700-1.500M12 13V9M12 6.200v.100"/></svg>',
-    team: '<svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.500"/><path d="M2.500 20a6.500 6.500 0 0 1 13 0M16 4.500a3.500 3.500 0 0 1 0 7M18 14.500a6 6 0 0 1 3.500 5.500"/></svg>' };
+    cake: '<svg viewBox="0 0 24 24"><path d="M5 20h14v-7H5zM5 16c2.300 0 2.300-1.500 4.700-1.500S12 16 14.300 16s2.300-1.500 4.700-1.500M12 13V9M12 6.200v.100"/></svg>' };
   function slide(ic, label, main, sub) { return '<div class="pres-slide"><div class="pres-ic" aria-hidden="true">' + IC[ic] + '</div><div class="pres-l">' + label + '</div><p class="pres-m">' + main + '</p>' + (sub ? '<div class="pres-s">' + sub + '</div>' : '') + '</div>'; }
   var FL = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c1 3.500 5 5.500 5 10a5 5 0 0 1-10 0c0-1.800.800-3 1.800-4 .200 1.600 1 2.500 2 2.800C10 9 10.500 5.500 12 3z"/></svg>';
   function slides() {
+    var st = d.stns.map(function (s) { return '<li>' + esc(s[0]) + ' <span>' + (s[3] === 1 ? 'needs cover' : esc(s[1])) + '</span></li>'; }).join('');
+    var pp = d.ppl.filter(function (p) { return p[2] !== 'ok'; }).map(function (p) { return '<li>' + esc(p[0]) + ' <span>' + esc(p[3]) + '</span></li>'; }).join('') || '<li>Everyone <span>here today</span></li>';
     return [
-      slide('sun', 'Selma · Wednesday, October 14 · 7:45 AM', 'Good morning, Selma', '<span class="streak">' + FL + '<span>' + streak.textContent + ' of complete checklists</span></span>'),
+      slide('sun', esc(cur) + ' · Wednesday, October 14 · 7:45 AM', 'Good morning, ' + esc(cur), '<span class="streak">' + FL + '<span>' + streak.textContent + '</span></span>'),
       slide('heart', 'Core value', 'Own it'),
       slide('horn', 'PSA', 'Q4 supply counts due tomorrow'),
       slide('chat', 'Icebreaker', 'Best concert you have been to?'),
       slide('cake', 'Celebrate', 'Birthdays & work anniversaries this week'),
-      '<div class="pres-slide"><div class="pres-l">Today at Selma · opening checklist ' + count() + ' of 12</div><div class="pres-cols"><div><h3>Stations</h3><ul><li>Sterilization <span>Amber Nix</span></li><li>Records <span>Chloe Dunn</span></li><li>Phones <span>Erin Vance</span></li><li>Lab <span>Isaac Marsh · AM</span></li><li>Front desk <span>Grace Holt</span></li><li>Open station <span>needs cover</span></li></ul></div>' +
-        '<div><h3>Who is here</h3><ul><li>Erin Vance <span>visiting from Montgomery</span></li><li>Isaac Marsh <span>Andalusia PM</span></li><li>Savannah <span>here 10–2</span></li><li>Kelsey Ray <span>PTO</span></li><li>Dr. Wood <span>AM</span></li></ul></div></div></div>'
+      '<div class="pres-slide"><div class="pres-l">Today at ' + esc(cur) + ' · opening checklist ' + count() + ' of 12</div><div class="pres-cols"><div><h3>Stations</h3><ul>' + st + '</ul></div><div><h3>Who is here</h3><ul>' + pp + '<li>Doctors <span>' + esc(d.docs) + '</span></li></ul></div></div></div>'
     ];
   }
   var pres = document.createElement('div'); pres.className = 'pres'; pres.setAttribute('role', 'dialog'); pres.setAttribute('aria-modal', 'true'); pres.setAttribute('aria-label', 'Morning huddle, full screen');
@@ -230,7 +333,7 @@ window.PAGE = { id: 'huddle', title: 'Office day · Selma', hood: [
     if (document.fullscreenElement && document.exitFullscreen) { try { document.exitFullscreen(); } catch (e) {} }
     btn.focus();
   }
-  function step(d) { if (d > 0 && pi === S.length - 1) return pclose(); pi = Math.max(0, Math.min(S.length - 1, pi + d)); pdraw(); }
+  function step(dlt) { if (dlt > 0 && pi === S.length - 1) return pclose(); pi = Math.max(0, Math.min(S.length - 1, pi + dlt)); pdraw(); }
   btn.addEventListener('click', popen);
   document.getElementById('presClose').addEventListener('click', pclose);
   document.getElementById('presNext').addEventListener('click', function () { step(1); });
